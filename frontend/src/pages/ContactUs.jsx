@@ -8,16 +8,16 @@ const ContactUs = () => {
     <div>
         <div className="flex flex-col md:flex-row mb-10 md:mb-20 w-full max-h-[450px]">
             <MainCard header="GET IN TOUCH..." text="We are available via email or telephone. Please see below for our opening hours."/>
-            <img src={telephone} alt="" className='md:w-1/2 object-cover'/>
+            <img src={telephone} alt="" className='hidden md:block md:w-1/2 object-cover'/>
         </div>
-        <div className='px-5 max-w-[1024px] mx-auto mb-10'>
+        <div className='px-5 md:px-[8%] max-w-[1024px] mx-auto mb-10'>
             <div>
                 <div className='mb-3'>
-                    <h1 className="text-4xl font-permanent-marker">CUSTOMER SERVICE</h1>
+                    <h1 className="text-3xl md:text-4xl font-permanent-marker">CUSTOMER SERVICE</h1>
                     <img src={underline} alt="line" />
                 </div>
 
-                <div className='flex gap-10'>
+                <div className='flex flex-col md:flex-row gap-10'>
                     <div className='flex flex-col gap-8'>
                         <div>
                             <p className='font-permanent-marker text-lg'>EMAIL</p>
