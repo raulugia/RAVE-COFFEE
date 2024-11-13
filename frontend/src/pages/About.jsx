@@ -1,11 +1,15 @@
 import React from 'react'
 import MainCard from '../components/MainCard.jsx'
 import aboutText from "../utils/aboutText.js"
+import AboutBanner from "../assets/About-Banner.jpg"
 
 const About = () => {
   return (
     <div>
-        <MainCard header="ABOUT RAVE COFFEE"/>
+        <div className="flex flex-col md:flex-row mb-10 md:mb-20">
+            <MainCard header="ABOUT RAVE COFFEE"/>
+            <img src={AboutBanner} alt="" className='md:w-1/2'/>
+        </div>
         <div className="px-5 max-w-[1024px] mx-auto">
             <div className='flex flex-col items-center mb-10'>
                 <iframe

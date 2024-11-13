@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import raveLogo from '../assets/logo.svg'
+import userIcon from '../assets/user.svg'
+import cartIcon from '../assets/cart.svg'
 
 const Navbar = () => {
   return (
@@ -18,9 +20,9 @@ const Navbar = () => {
                 <Link to='/gifts'>COFFEE GIFTS</Link>
             </div>
 
-            <div>
-                <Link to='/account'>ACCOUNT</Link>
-                <Link to='/contact'>CART</Link>
+            <div className='flex gap-5'>
+                <Link to='/account'><img src={userIcon} alt="user icon" /></Link>
+                <Link to='/account'><img src={cartIcon} alt="cart icon" /></Link>
             </div>
         </nav>
         <div className='pt-[99px]'>
