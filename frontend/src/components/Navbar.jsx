@@ -5,7 +5,7 @@ import raveLogo from '../assets/logo.svg'
 const Navbar = () => {
   return (
     <>
-        <nav className='flex justify-between items-center w-full bg-mustard text-xl px-8 py-7 font-permanent-marker'>
+        <nav className='flex justify-between items-center w-full bg-mustard text-xl px-8 py-7 font-permanent-marker fixed'>
             <div>
                 <img src={raveLogo} alt="rave logo" />
             </div>
@@ -23,7 +23,9 @@ const Navbar = () => {
                 <Link to='/contact'>CART</Link>
             </div>
         </nav>
-        <Outlet />
+        <div className='pt-[99px]'>
+            <Outlet />
+        </div>
     </>
   )
 }
