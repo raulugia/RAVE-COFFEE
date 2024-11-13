@@ -1,22 +1,12 @@
 import React from 'react'
-import AboutBanner from "../assets/About-Banner.jpg"
-import coffeebeans from "../assets/coffee-beans.svg"
-import toplines from "../assets/top-lines.svg"
+import MainCard from '../components/MainCard.jsx'
 import aboutText from "../utils/aboutText.js"
 
 const About = () => {
   return (
     <div>
-        <div className="flex flex-col md:flex-row mb-20">
-            <div className="bg-black md:w-1/2 py-10 md:py-0 flex flex-col gap-5 items-center justify-center">
-                <img src={toplines} alt="lines" />
-                <p className='font-permanent-marker text-4xl lg:text-5xl text-white'>ABOUT RAVE COFFEE</p>
-                <img src={coffeebeans} alt="coffee beans" className='mt-3'/>
-            </div>
-            <img src={AboutBanner} alt="" className='md:w-1/2'/>
-        </div>
-        <section className="px-5">
-
+        <MainCard header="ABOUT RAVE COFFEE"/>
+        <div className="px-5 max-w-[1024px] mx-auto">
             <div className='flex flex-col items-center mb-10'>
                 <iframe
                     src="https://www.youtube.com/embed/cmcNsKrPIa8?si=tnWdSXddwUSQqA9t" 
@@ -35,7 +25,7 @@ const About = () => {
                     }
                 </div>
             </div>
-        </section>
+        </div>
     </div>
   )
 }
