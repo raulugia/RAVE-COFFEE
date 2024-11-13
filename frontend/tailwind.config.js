@@ -8,9 +8,11 @@ export default {
     extend: {
       fontFamily: {
         "permanent-marker": ["Permanent Marker", "sans-serif"],
+        "fira": ["Fira Code", "sans-serif"],
       },
       colors: {
-        mustard: "#FDC700"
+        mustard: "#FDC700",
+        black: "#111111"
       }
     },
   },
