@@ -33,6 +33,8 @@ model Coffee {
   taste       String
   orders      Order[]
   reviews     Review[]
+  pictureUrl  String
+  smallpictureUrl  String
 }
 
 model Equipment {
@@ -43,6 +45,8 @@ model Equipment {
   type        String
   orders      Order[]
   reviews     Review[]
+  pictureUrl  String
+  smallpictureUrl  String
 }
 
 model Order {
