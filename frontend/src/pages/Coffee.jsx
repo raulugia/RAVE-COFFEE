@@ -29,7 +29,7 @@ const Coffee = () => {
             <img src={coffeeBanner} alt="coffee basket" className='w-1/2'/>
         </div>
 
-        <div className='px-5 md:px-[8%] mx-auto mb-10'>
+        <div className='px-5 md:px-[8%] mx-auto mb-10 max-w-[1550px]'>
             <div className='flex flex-wrap justify-between'>
                 {
                     coffeeTypes.map((coffee, index) => (
