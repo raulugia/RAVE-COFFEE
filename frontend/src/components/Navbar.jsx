@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import BasketBtn from './BasketBtn'
 import raveLogo from '../assets/logo.svg'
 import userIcon from '../assets/user.svg'
 import cartIcon from '../assets/cart.svg'
@@ -22,7 +23,7 @@ const Navbar = () => {
 
             <div className='flex gap-5'>
                 <Link to='/account'><img src={userIcon} alt="user icon" /></Link>
-                <Link to='/account'><img src={cartIcon} alt="cart icon" /></Link>
+                <BasketBtn />
             </div>
         </nav>
         <div className='pt-[99px]'>

@@ -24,6 +24,7 @@ const basketReducer = (basket, action) => {
             break;
         case "UPDATE QUANTITY":
             return basket.map(item => item.id === action.payload.id ? {...item, quantity: action.payload.quantity} : item);
+            break
     }
 }
 
@@ -50,7 +51,7 @@ export const ContextProvider = ({ children }) => {
     }, [basket])
 
     return (
-        <BasketContext.Provider value={{basket, dispatch, totalPrice}}>
+        <BasketContext.Provider value={{basket, dispatch, totalPrice, itemsQuantity}}>
             {children}
         </BasketContext.Provider>
     )
