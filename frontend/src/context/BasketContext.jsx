@@ -32,6 +32,7 @@ export const ContextProvider = ({ children }) => {
     const [basket, dispatch] = useReducer(basketReducer, []);
     const [totalPrice, setTotalPrice] = useState(0);
     const [itemsQuantity, setItemsQuantity] = useState(0);
+    const [displayModal, setDisplayModal] = useState({isVisible: false, contentType: null  });
 
     const getTotalPrice = () => {
         return basket.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -51,7 +52,7 @@ export const ContextProvider = ({ children }) => {
     }, [basket])
 
     return (
-        <BasketContext.Provider value={{basket, dispatch, totalPrice, itemsQuantity}}>
+        <BasketContext.Provider value={{basket, dispatch, totalPrice, itemsQuantity, displayModal, setDisplayModal}}>
             {children}
         </BasketContext.Provider>
     )

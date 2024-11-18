@@ -3,10 +3,10 @@ import { useBasket } from '../context/BasketContext'
 import cartIcon from '../assets/cart.svg'
 
 const BasketBtn = () => {
-    const { itemsQuantity } = useBasket()
+    const { itemsQuantity, setDisplayModal } = useBasket()
 
   return (
-    <div className='relative'>
+    <div className='relative hover:cursor-pointer' onClick={() => setDisplayModal({isVisible: true, contentType: "basket"})}>
         <img src={cartIcon} alt="cart icon" />
         <div className='bg-black rounded-full w-[20px] h-[20px] flex justify-center absolute left-5 bottom-4'>
             <p className='text-white text-sm'>{itemsQuantity}</p>

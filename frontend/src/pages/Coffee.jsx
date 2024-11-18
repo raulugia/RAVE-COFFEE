@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import MainCard from '../components/MainCard'
 import ItemCard from '../components/ItemCard'
+import SideModal from '../components/SideModal'
 import coffeeBanner from '../assets/coffee_banner.jpg'
 import axiosInstance from '../utils/axiosInstance'
+import { useBasket } from '../context/BasketContext'
 
 const Coffee = () => {
     const [coffeeTypes, setCoffeeTypes] = useState([])
-
+    const { displayModal } = useBasket()
+    
     //fetch all coffees and update state
     useEffect(() => {
         (
@@ -38,6 +41,11 @@ const Coffee = () => {
                 }
             </div>
         </div>
+        {
+            displayModal.isVisible && (
+                <SideModal />
+            )
+        }
     </div>
   )
 }

@@ -13,7 +13,16 @@ export default {
       colors: {
         mustard: "#FDC700",
         black: "#111111"
-      }
+      },
+      keyframes: {
+        "slide-left": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        }
+      },
+      animation: {
+        "slide-left": "slide-left 0.3s ease-out", // Define the animation
+      },
     },
   },
   plugins: [],
