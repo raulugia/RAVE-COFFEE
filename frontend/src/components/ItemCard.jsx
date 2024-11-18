@@ -1,11 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import MainBtn from './MainBtn'
+import { useBasket } from '../context/BasketContext'
 
 const ItemCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
+    const { dispatch } = useBasket()
+
+    const addToBasket = () => {
+        dispatch({ type: "ADD", payload: { id, name, price, smallpictureUrl, quantity: 1 }  });
+    }
+
   return (
-    <Link to={`/coffee/${id}`} className='mb-14 max-w-[400px] flex flex-col justify-between'>
-        <div>
+    <div className='mb-14 max-w-[400px] flex flex-col justify-between'>
+        <Link to={`/coffee/${id}`}>
             <div className='max-w-[400px] mb-5'>
                 <img src={smallpictureUrl} alt={`name`} className='w-full'/>
             </div>
@@ -19,13 +26,13 @@ const ItemCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
 
         <div className='flex justify-between items-center font-fira'>
             <p>From £{price}</p>
-            <MainBtn text="QUICK ADD +" />
+            <MainBtn text="QUICK ADD +" method={addToBasket}/>
         </div> 
-    </Link>
+    </div>
   )
 }
 

@@ -25,6 +25,7 @@ const Coffee = () => {
         )()
     }, [])
 
+
   return (
     <div>
         <div className='flex mb-10 md:mb-20'>

@@ -29,7 +29,10 @@ const basketReducer = (basket, action) => {
 }
 
 export const ContextProvider = ({ children }) => {
-    const [basket, dispatch] = useReducer(basketReducer, []);
+    const [basket, dispatch] = useReducer(basketReducer, [], () => {
+        const storedBasket = localStorage.getItem("basket");
+        return storedBasket ? JSON.parse(storedBasket) : [];
+    });
     const [totalPrice, setTotalPrice] = useState(0);
     const [itemsQuantity, setItemsQuantity] = useState(0);
     const [displayModal, setDisplayModal] = useState({isVisible: false, contentType: null  });
@@ -49,6 +52,9 @@ export const ContextProvider = ({ children }) => {
 
         setTotalPrice(newTotal);
         setItemsQuantity(newItemsQuantity);
+
+        // Save the updated basket to localStorage
+        localStorage.setItem("basket", JSON.stringify(basket));
     }, [basket])
 
     return (
