@@ -1,5 +1,6 @@
 import { useEffect} from 'react'
 import { useBasket } from '../context/BasketContext'
+import BasketModal from './BasketModal'
 
 const SideModal = () => {
     const { setDisplayModal, displayModal } = useBasket()
@@ -20,7 +21,7 @@ const SideModal = () => {
         <div className='w-1/3 bg-white animate-slide-left'>
         {
             displayModal.contentType === "basket" ? (
-                <p>Basket</p>
+                <BasketModal />
             ) : (
                 <p>Description</p>
             )
