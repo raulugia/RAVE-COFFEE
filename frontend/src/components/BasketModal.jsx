@@ -5,8 +5,13 @@ import MainBtn from './MainBtn';
 import { useNavigate } from 'react-router-dom';
 
 const BasketModal = () => {
-    const {basket, totalPrice} = useBasket()
+    const {basket, totalPrice, setDisplayModal} = useBasket()
     const navigate = useNavigate()
+
+    const closeModal = () => {
+        document.body.style.overflow = 'auto'
+        setDisplayModal({isVisible: false, contentType: null })
+    }
 
   return (
     <div>
@@ -14,7 +19,7 @@ const BasketModal = () => {
             <div className='w-full flex justify-center font-fira font-semibold'>
                 <h3>BASKET</h3>
             </div>
-            <IoCloseOutline size={25}  className='ml-auto mr-5'/>
+            <IoCloseOutline size={25}  className='ml-auto mr-5 hover:cursor-pointer' onClick={closeModal}/>
         </div>
 
         <div className='w-full h-[1px] bg-gray-300'></div>
@@ -35,8 +40,12 @@ const BasketModal = () => {
                     <MainBtn text="SHOP NOW!" method={() => navigate("/")}/>
                 </div>
             ) : (
-                <div>
-
+                <div className='flex flex-col'>
+                    {
+                        basket.map((item, index) => (
+                            <p>p</p>
+                        ))
+                    }
                 </div>
             )
         }
