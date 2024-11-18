@@ -13,7 +13,7 @@ const basketReducer = (basket, action) => {
                 return basket.map(item => item.id === action.payload.id ? {...item, quantity: item.quantity + action.payload.quantity} : item)
             //case item is new - add to basket
             }else {
-                return [...basket, {...action.payload}];
+                return [...basket, {...action.payload, price: action.payload.price.toFixed(2)}];
             }
             break;
         case "REMOVE ALL":

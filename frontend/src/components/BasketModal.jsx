@@ -2,6 +2,7 @@ import React from 'react'
 import { IoCloseOutline } from "react-icons/io5";
 import { useBasket } from '../context/BasketContext'
 import MainBtn from './MainBtn';
+import BasketItemCard from './BasketItemCard';
 import { useNavigate } from 'react-router-dom';
 
 const BasketModal = () => {
@@ -28,7 +29,7 @@ const BasketModal = () => {
             <p>You are £{25 - totalPrice} away from FREE SHIPPING</p>
         </div>
 
-        <div className='w-full h-[1px] bg-gray-300'></div>
+        <div className='w-full h-[1px] bg-gray-300 mb-5'></div>
 
         {
             totalPrice === 0 ? (
@@ -40,10 +41,10 @@ const BasketModal = () => {
                     <MainBtn text="SHOP NOW!" method={() => navigate("/")}/>
                 </div>
             ) : (
-                <div className='flex flex-col'>
+                <div className='flex flex-col gap-5'>
                     {
                         basket.map((item, index) => (
-                            <p>p</p>
+                            <BasketItemCard {...item } key={item.name+index}/>
                         ))
                     }
                 </div>

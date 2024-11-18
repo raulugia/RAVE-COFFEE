@@ -29,7 +29,7 @@ const ItemCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
         </Link>
 
         <div className='flex justify-between items-center font-fira'>
-            <p>From £{price}</p>
+            <p>From £{price.toFixed(2)}</p>
             <MainBtn text="QUICK ADD +" method={addToBasket}/>
         </div> 
     </div>
