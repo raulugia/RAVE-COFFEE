@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import MainBtn from './MainBtn'
 import { useBasket } from '../context/BasketContext'
+import CoffeeBean from './CoffeeBean'
 
 const ItemCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
     const { dispatch } = useBasket()
@@ -19,7 +20,16 @@ const ItemCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
             <div>   
                 <h4 className='font-permanent-marker text-lg mb-6'>{name}</h4>
                 <div className='font-fira flex flex-col gap-3 mb-14'>
-                    <p>Roast: {roast}</p>
+                    <div className="flex items-center gap-1">
+                        <p>Roast: </p>
+                        <div className='flex gap-1'>
+                            {
+                                Array.from({ length: 5 }).map((_, index) => (
+                                    <CoffeeBean key={index} color={index + 1 <= roast ? "brown" : "white"}/>
+                                ))
+                            }
+                        </div>
+                    </div>
                     <div className='flex gap-2'>
                         <p className='text-nowrap'>Tastes like: </p>
                         <p className='font-semibold'>{taste}</p>

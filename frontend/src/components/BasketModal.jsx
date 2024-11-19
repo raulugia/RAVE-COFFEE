@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const BasketModal = () => {
     const {basket, totalPrice, setDisplayModal, itemsQuantity} = useBasket()
     const navigate = useNavigate()
+    const shippingMessage = 25 - totalPrice < 0 ? "🔥 You've unlocked FREE SHIPPING! 🔥" 
+                            : `Your are £${(25 - totalPrice).toFixed(2)} away from FREE SHIPPING 📦`
 
     const closeModal = () => {
         document.body.style.overflow = 'auto'
@@ -28,7 +30,7 @@ const BasketModal = () => {
             <div className='w-full h-[1px] bg-gray-300'></div>
             
             <div className='py-3 font-fira flex justify-center'>
-                <p>You are £{25 - totalPrice} away from FREE SHIPPING</p>
+                <p>{shippingMessage}</p>
             </div>
 
             <div className='w-full h-[1px] bg-gray-300 mb-5'></div>
