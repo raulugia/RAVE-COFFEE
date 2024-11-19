@@ -7,7 +7,7 @@ import axiosInstance from '../utils/axiosInstance'
 import { useBasket } from '../context/BasketContext'
 
 export const Equipment = () => {
-    const [equipmentTypes, setEquipmentTypes] = useState([])
+    const [allEquipments, setAllEquipments] = useState([])
     const { displayModal } = useBasket()
     
     //fetch all coffees and update state
@@ -15,8 +15,22 @@ export const Equipment = () => {
         (
             async() => {
                 try{
+                    let allEquipmentCategories = []
+                    let arrangedData = []
                     const { data } = await axiosInstance.get('/equipment')
-                    setEquipmentTypes(data)
+
+                    //sort data - array ob objects by type
+                    data.forEach(equipment => {
+                        if(!allEquipmentCategories.includes(equipment.type)) {
+                            allEquipmentCategories.push(equipment.type)
+                            arrangedData = [...arrangedData, { type: equipment.type, items: [{...equipment}] }]
+                        }else{
+                            const index = allEquipmentCategories.indexOf(equipment.type)
+                            arrangedData[index].items.push({...equipment})
+                        }
+                    })
+                    
+                    setAllEquipments(arrangedData)
                 }catch(error){
                     console.log(error)
                 }
@@ -34,8 +48,21 @@ export const Equipment = () => {
         <div className='px-5 md:px-[8%] mx-auto mb-10 max-w-[1550px]'>
             <div className='flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10'>
                 {
-                    equipmentTypes.map((equipment, index) => (
-                        <EquipmentCard key={index + equipment.name} {...equipment} />
+                    allEquipments.map((equipment, index) => (
+                        <div>
+                            <div className='mb-10'>
+                                <h3 className='font-permanent-marker text-3xl mb-2'>{equipment.type}</h3>
+                                <div className='w-full h-[4px] bg-mustard'></div>
+                            </div>
+                            <div className='flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10'>
+                                {
+                                    equipment.items.map(item => (
+                                        <EquipmentCard key={index + item.name} {...item} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        // <EquipmentCard key={index + equipment.name} {...equipment} />
                     ))
                 }
             </div>
@@ -48,3 +75,5 @@ export const Equipment = () => {
     </div>
   )
 }
+
+export default Equipment

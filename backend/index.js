@@ -20,6 +20,17 @@ app.get("/coffee", async(req, res) => {
     }
 })
 
+//returns all equipments
+app.get("/equipment", async(req, res) => {
+    try{
+        const equipment = await prisma.equipment.findMany();
+
+        res.json(equipment);
+    }catch(error){
+        res.status(500).json({error: "Internal Server Error"})
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
