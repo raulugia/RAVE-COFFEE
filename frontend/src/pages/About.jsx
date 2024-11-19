@@ -1,6 +1,6 @@
 import React from 'react'
 import MainCard from '../components/MainCard.jsx'
-import aboutText from "../utils/aboutText.js"
+import {aboutText} from "../utils/texts.js"
 import AboutBanner from "../assets/About-Banner.jpg"
 
 const About = () => {
