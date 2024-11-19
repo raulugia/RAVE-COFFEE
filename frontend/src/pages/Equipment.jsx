@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import MainCard from '../components/MainCard'
+import MainBanner from '../components/MainBanner'
 import EquipmentCard from '../components/EquipmentCard'
 import SideModal from '../components/SideModal'
 import equipmentBanner from '../assets/Equipment-Banner.jpg'
@@ -40,17 +41,14 @@ export const Equipment = () => {
 
   return (
     <div>
-        <div className='flex mb-10 md:mb-20'>
-            <MainCard header="COFFEE EQUIPMENT" text="Top-picks from our coffee gear range" />
-            <img src={equipmentBanner} alt="equipment banner" className='w-1/2 hidden md:block'/>
-        </div>
+        <MainBanner cardHeader="COFFEE EQUIPMENT" cardText="Top-picks from our coffee gear range" imgSrc={equipmentBanner} imgAlt="equipment banner"/>
 
         <div className='px-5 md:px-[8%] mx-auto mb-10 max-w-[1550px]'>
             <div className='flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10'>
                 {
                     allEquipments.map((equipment, index) => (
                         <div>
-                            <div className='mb-10'>
+                            <div className='mb-5 md:mb-10'>
                                 <h3 className='font-permanent-marker text-3xl mb-2'>{equipment.type}</h3>
                                 <div className='w-full h-[4px] bg-mustard'></div>
                             </div>

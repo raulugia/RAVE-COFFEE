@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import MainCard from '../components/MainCard'
+import MainBanner from '../components/MainBanner'
 import CoffeeCard from '../components/CoffeeCard'
 import SideModal from '../components/SideModal'
 import coffeeBanner from '../assets/coffee_banner.jpg'
@@ -28,10 +28,7 @@ const Coffee = () => {
 
   return (
     <div>
-        <div className='flex mb-10 md:mb-20'>
-            <MainCard header="COFFEE BLENDS" text="On our blends, you can depend..." />
-            <img src={coffeeBanner} alt="coffee basket" className='w-1/2 hidden md:block'/>
-        </div>
+        <MainBanner cardHeader="COFFEE BLENDS" cardText="TOn our blends, you can depend..." imgSrc={coffeeBanner} imgAlt="coffee basket"/>
 
         <div className='px-5 md:px-[8%] mx-auto mb-10 max-w-[1550px]'>
             <div className='flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10'>
