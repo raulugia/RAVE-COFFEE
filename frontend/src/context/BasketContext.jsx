@@ -50,7 +50,7 @@ export const ContextProvider = ({ children }) => {
         const newTotal = getTotalPrice();
         const newItemsQuantity = getTotalItemsQuantity();
 
-        setTotalPrice(newTotal);
+        setTotalPrice(newTotal.toFixed(2));
         setItemsQuantity(newItemsQuantity);
 
         // Save the updated basket to localStorage

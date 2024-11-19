@@ -17,7 +17,7 @@ const SideModal = () => {
   // Render the modal based on the content type
 
   return (
-    <div className='absolute w-full h-full bg-black/50 top-0 flex justify-end'>
+    <div className='fixed w-full h-full bg-black/50 top-0 flex justify-end'>
         <div className='w-1/3 bg-white animate-slide-left'>
         {
             displayModal.contentType === "basket" ? (
