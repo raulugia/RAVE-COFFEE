@@ -4,7 +4,7 @@ import MainBtn from './MainBtn'
 import { useBasket } from '../context/BasketContext'
 import CoffeeBean from './CoffeeBean'
 
-const ItemCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
+const CoffeeCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
     const { dispatch } = useBasket()
 
     const addToBasket = () => {
@@ -46,4 +46,4 @@ const ItemCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
   )
 }
 
-export default ItemCard
+export default CoffeeCard

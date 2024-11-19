@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import MainCard from '../components/MainCard'
-import ItemCard from '../components/ItemCard'
+import CoffeeCard from '../components/CoffeeCard'
 import SideModal from '../components/SideModal'
 import coffeeBanner from '../assets/coffee_banner.jpg'
 import axiosInstance from '../utils/axiosInstance'
@@ -37,7 +37,7 @@ const Coffee = () => {
             <div className='flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10'>
                 {
                     coffeeTypes.map((coffee, index) => (
-                        <ItemCard key={index + coffee.name} {...coffee} />
+                        <CoffeeCard key={index + coffee.name} {...coffee} />
                     ))
                 }
             </div>
