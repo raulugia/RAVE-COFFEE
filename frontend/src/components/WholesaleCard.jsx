@@ -6,7 +6,7 @@ import wholesaleFallingBeans from '../assets/wholesale_fallingbeans.png'
 const WholesaleCard = ({imgSrc, imgAlt, header, text}) => {
     const source = imgSrc === "wholesaleIphone" ? wholesaleIphone : imgSrc === "wholesaleBox" ? wholesaleBox : wholesaleFallingBeans;
   return (
-    <div className='w-1/3'>
+    <div className='md:w-1/3'>
         <div>
             <img src={source} alt={imgAlt} />
         </div>

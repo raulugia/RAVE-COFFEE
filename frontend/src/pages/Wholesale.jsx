@@ -13,9 +13,9 @@ const Wholesale = () => {
         <div>
             <div className='px-[8%] md:px-0 max-w-[1024px] mx-auto mb-10 md:mb-20'>
                 <div className='flex justify-center'>
-                    <h3 className='font-permanent-marker text-3xl'>Wholesale coffee suppliers uk</h3>
+                    <h3 className='font-permanent-marker text-xl md:text-3xl'>Wholesale coffee suppliers uk</h3>
                 </div>
-                <div className="font-fira flex flex-col gap-6 mt-10 leading-loose">
+                <div className="font-fira flex flex-col gap-6 mt-10 leading-loose text-sm md:text-md">
                     {
                         wholesaleText.map((text, index) => (
                             <p key={index}>{text}</p>
@@ -24,37 +24,37 @@ const Wholesale = () => {
                 </div>
             </div>
 
-            <div className='flex mb-10 md:mb-20'>
-                <div className='px-20 w-1/2 text-white bg-black flex flex-col justify-center items-center'>
+            <div className='flex flex-col md:flex-row mb-10 md:mb-20'>
+                <div className='px-5 py-5 md:py-0 md:px-20 md:w-1/2 text-white bg-black flex flex-col justify-center items-center'>
                 <div className='max-w-[600px]'>
-                    <div className='font-permanent-marker text-5xl mb-8'>
-                        <h3>Commercial Coffee Machines UK</h3>
+                    <div className='font-permanent-marker text-3xl md:text-5xl mb-8'>
+                        <h3 className='text-center md:text-start'>Commercial Coffee Machines UK</h3>
                     </div>
-                    <div className='flex flex-col gap-5 font-fira'>
+                    <div className='flex flex-col gap-5 font-fira text-sm md:text-md'>
                         {
                             wholesale_commercial_text.map((text, index) => (
-                                <p key={index}>{text}</p>
+                                <p key={index} className='text-center md:text-start'>{text}</p>
                             ))
                         }
                     </div>
                 </div>
                 </div>
-                <div className='w-1/2'>
+                <div className='md:w-1/2'>
                     <img src={wholesaleMachine} alt="" className='h-full'/>
                 </div>
             </div>
 
             <div className='mb-10 md:mb-20'>
-                <div className='relative h-[570px]'>
+                <div className='relative h-[430px] md:h-[570px]'>
                     <img src={wholesaleOffice} alt="" className='h-full w-full object-cover'/>
-                    <div className='absolute top-[22%] left-20 max-w-[500px] font-fira bg-white px-16 py-16'>
-                        <h3 className='font-permanent-marker text-4xl mb-5'>BE THE OFFICE LEGEND</h3>
+                    <div className='absolute flex flex-col justify-center mx-5 md:mx-0 bottom-20 top-20 md:top-[22%] md:left-20 max-w-[500px] font-fira bg-white px-10 md:px-16 py-16'>
+                        <h3 className='font-permanent-marker text-2xl md:text-4xl mb-5'>BE THE OFFICE LEGEND</h3>
                         <p>Coffee for the office - Studies show workers who have access to good office coffee are happier and more productive. (We made this up but we're pretty sure it's true).</p>
                     </div>
                 </div>
             </div>
 
-            <div className='flex gap-10 px-20 mb-10 md:mb-20 items-end'>
+            <div className='flex flex-col md:flex-row gap-10 px-5 md:px-20 mb-10 md:mb-20 items-end'>
                 {
                     wholesale_cards_text.map((text, index) => (
                         <WholesaleCard imgSrc={text.imgSource} imgAlt="wholesale coffee bean" header={text.header} text={text.text} key={index+text.header}/>
