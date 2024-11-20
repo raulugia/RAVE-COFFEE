@@ -26,4 +26,22 @@ const wholesale_training_text = [
     "With years of experience in hospitality and speciality coffee, our coffee-keen crew make Rave the ideal wholesale coffee partner to set you up for success and tackle any challenges along the way. If you have any questions about how we can help contact us at wholesale@ravecoffee.co.uk or click below.",
 ]
 
-export {aboutText, wholesaleText, wholesale_commercial_text};
+const wholesale_cards_text = [
+    {
+        header: "ORDER WHOLESALE COFFEE",
+        text: "Click below to access wholesale coffee supplies and pricing online. Create an account, log in and you can shop online instantly, no need for pre-approval.",
+        imgSource: "wholesaleIphone"
+    },
+    {
+        header: "ROASTED FRESH",
+        text: "We freshly roast and despatch your wholesale coffee the next working day after your online order. Coffee for Filter or Espresso machines, roasted and ground to order.",
+        imgSource: "wholesaleBox"
+    },
+    {
+        header: "FREE UK DELIVERY",
+        text: "We despatch bulk coffee beans via UK courier on a Tracked 24 service to make sure your parcel arrives in good time. Rave are the best wholesale coffee suppliers UK wide.",
+        imgSource: "wholesaleShipping"
+    },
+]
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text};

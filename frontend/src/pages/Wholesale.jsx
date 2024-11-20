@@ -3,7 +3,8 @@ import MainBanner from '../components/MainBanner'
 import wholesaleBanner from '../assets/wholesale_banner.png'
 import wholesaleMachine from '../assets/wholesale_machine.jpg'
 import wholesaleOffice from '../assets/wholesale_office.jpg'
-import { wholesaleText, wholesale_commercial_text } from '../utils/texts'
+import { wholesaleText, wholesale_commercial_text, wholesale_cards_text } from '../utils/texts'
+import WholesaleCard from '../components/WholesaleCard'
 
 const Wholesale = () => {
   return (
@@ -51,6 +52,14 @@ const Wholesale = () => {
                         <p>Coffee for the office - Studies show workers who have access to good office coffee are happier and more productive. (We made this up but we're pretty sure it's true).</p>
                     </div>
                 </div>
+            </div>
+
+            <div className='flex gap-10 px-20 mb-10 md:mb-20 items-end'>
+                {
+                    wholesale_cards_text.map((text, index) => (
+                        <WholesaleCard imgSrc={text.imgSource} imgAlt="wholesale coffee bean" header={text.header} text={text.text} key={index+text.header}/>
+                    ))
+                }
             </div>
             
         </div>
