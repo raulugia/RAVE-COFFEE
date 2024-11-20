@@ -27,5 +27,11 @@ export const validatePassword = (password) => {
     };
   };
 
+export const validateEmail = (email) => {
+// Simple regex for email validation
+const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+return regex.test(email); // Returns true if valid, false otherwise
+};
+
 
   
