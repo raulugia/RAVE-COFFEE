@@ -8,6 +8,7 @@ import Wholesale from './pages/Wholesale'
 import About from './pages/About'
 import ContactUs from './pages/ContactUs'
 import Navbar from './components/Navbar'
+import Register from './pages/Register'
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           <Route path="/Wholesale" element={<Wholesale />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/contact-us" element={<ContactUs />}/>
+          <Route path="/account/">
+            <Route path="register" element={<Register />}/>
+          </Route>
         </Route>
       </Routes>
     </>

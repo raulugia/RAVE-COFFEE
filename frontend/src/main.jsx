@@ -4,13 +4,24 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ContextProvider } from './context/BasketContext.jsx'
+import { ClerkProvider } from '@clerk/clerk-react'
+
+
+// Import your publishable key
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ContextProvider>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <ContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ContextProvider>
+    </ClerkProvider>
   </StrictMode>,
 )

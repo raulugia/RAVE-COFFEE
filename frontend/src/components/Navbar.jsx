@@ -3,7 +3,6 @@ import { Link, Outlet } from 'react-router-dom'
 import BasketBtn from './BasketBtn'
 import raveLogo from '../assets/logo.svg'
 import userIcon from '../assets/user.svg'
-import cartIcon from '../assets/cart.svg'
 
 const Navbar = () => {
   return (

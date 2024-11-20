@@ -23,6 +23,9 @@ export default {
       animation: {
         "slide-left": "slide-left 0.3s ease-out", // Define the animation
       },
+      backgroundImage: {
+        'coffee-beans-pattern': "url('/src/assets/coffee-bean-background.svg')",
+      }
     },
   },
   plugins: [],
