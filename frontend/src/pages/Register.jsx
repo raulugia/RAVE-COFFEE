@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import MainBtn from '../components/MainBtn'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { validatePassword, validateEmail, validateName } from '../utils/helpers'
 import PasswordFeedback from '../components/PasswordFeedback'
 import Input from '../components/Input'
@@ -19,7 +19,7 @@ const Register = () => {
         email: [],
         password: []
     })
-    
+    const navigate = useNavigate()
 
     const isDataValid = () => {
         // Ensure all fields are filled
@@ -31,20 +31,31 @@ const Register = () => {
         return allFieldsFilled && noErrors;
     };
 
-    const [isDisabled, setIsDisabled] = useState(!isDataValid())
+    const [isDisabled, setIsDisabled] = useState(false)
 
     const handleSubmit = async (e) => {
+        e.preventDefault()
+        
+        if(!isDataValid()){
+            alert("Please ensure there are no errors and all the fields are filled before submitting")
+            return
+        }
+
         try{
-            e.preventDefault()
-            
-            if(!isDataValid()){
-                console.log("inalid")
-                return
+
+            setIsDisabled(true)
+
+            const response = await axiosInstance.post('/register', userData)
+
+            if(response.status === 200){
+                alert('Registration successful. Please check your email to verify your account before signing in.')
+                navigate('/account/login')
             }
-            
-
         }catch(error){
-
+            const errorMessage = error.response?.data?.message || 'An error occurred while registering. Please try again.'
+            alert(errorMessage)
+        }finally{
+            setIsDisabled(false)
         }
     }
 
