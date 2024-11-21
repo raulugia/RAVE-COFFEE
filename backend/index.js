@@ -6,6 +6,13 @@ const PORT = process.env.PORT || 3000;
 
 const prisma = new PrismaClient();
 
+const { CLERK_SECRET_KEY } = process.env;
+
+if (!CLERK_SECRET_KEY) {
+    console.error("CLERK_SECRET_KEY is missing. Please add it to your environment variables.");
+    process.exit(1);
+}
+
 app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json())
 
