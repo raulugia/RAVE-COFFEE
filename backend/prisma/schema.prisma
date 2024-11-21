@@ -19,7 +19,7 @@ model User {
   email   String   @unique
   name    String
   surname String
-  address String
+  address String?
   orders  Order[]
   reviews Review[]
 }

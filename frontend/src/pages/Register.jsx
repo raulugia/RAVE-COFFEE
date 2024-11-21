@@ -22,10 +22,10 @@ const Register = () => {
     const navigate = useNavigate()
 
     const isDataValid = () => {
-        // Ensure all fields are filled
+        //Ensure all fields are filled
         const allFieldsFilled = Object.values(userData).every(value => value.trim().length > 0);
     
-        // Ensure no errors
+        //Ensure no errors
         const noErrors = Object.values(errors).every(errorArray => errorArray.length === 0);
     
         return allFieldsFilled && noErrors;
@@ -44,15 +44,14 @@ const Register = () => {
         try{
 
             setIsDisabled(true)
-
             const response = await axiosInstance.post('/register', userData)
 
-            if(response.status === 200){
+            if(response.status === 201){
                 alert('Registration successful. Please check your email to verify your account before signing in.')
                 navigate('/account/login')
             }
         }catch(error){
-            const errorMessage = error.response?.data?.message || 'An error occurred while registering. Please try again.'
+            const errorMessage = error.response?.data?.error || 'An error occurred while registering. Please try again.'
             alert(errorMessage)
         }finally{
             setIsDisabled(false)

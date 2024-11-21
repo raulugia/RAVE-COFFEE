@@ -9,6 +9,7 @@ import About from './pages/About'
 import ContactUs from './pages/ContactUs'
 import Navbar from './components/Navbar'
 import Register from './pages/Register'
+import SignIn from './pages/SignIn'
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />}/>
           <Route path="/account/">
             <Route path="register" element={<Register />}/>
-            <Route path="login" element={<Register />}/>
+            <Route path="login" element={<SignIn />}/>
           </Route>
         </Route>
       </Routes>
