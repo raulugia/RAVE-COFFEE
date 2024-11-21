@@ -28,10 +28,35 @@ export const validatePassword = (password) => {
   };
 
 export const validateEmail = (email) => {
-// Simple regex for email validation
-const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-return regex.test(email); // Returns true if valid, false otherwise
-};
+    const regex = /^[a-zA-Zà-žÀ-Ž\s'-]+$/;
+
+    return regex.test(email);
+}
+
+export const validateName = (value, type) => {
+    const regex = /^[a-zA-Zà-žÀ-Ž\s'-]+$/;
+    const errors = []
+
+    const cleanedType = type.charAt(0).toUpperCase() + type.replace("_", " ").slice(1);
+
+    if (!value.trim()) {
+        errors.push(`${cleanedType} cannot be empty`);
+        return { isValid: false, errors };
+    }
+
+    if(value.length > 50 || value.length < 2){
+        errors.push(`${cleanedType} must be between 2 and 50 characters long`)
+    }
+
+    if(!regex.test(value)){
+        errors.push(`${cleanedType} contains invalid characters`)
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors,
+    }
+}
 
 
   
