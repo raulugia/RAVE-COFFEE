@@ -1,8 +1,11 @@
 import React from 'react'
+import AccountNav from '../components/AccountNav'
 
 const Account = () => {
   return (
-    <div>Account</div>
+    <div>
+        <AccountNav />
+    </div>
   )
 }
 
