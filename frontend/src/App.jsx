@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { Routes, Route, Outlet } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Coffee from './pages/Coffee'
 import Equipment from './pages/Equipment'
@@ -25,12 +25,12 @@ function App() {
           <Route path="/Wholesale" element={<Wholesale />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/contact-us" element={<ContactUs />}/>
+          
           <Route path="/register" element={<Register />}/>
           <Route path="/login" element={<SignIn />}/>
-          <Route path="/account/">
-            <Route element={ <ProtectedRoute><Outlet /></ProtectedRoute> }>
-              <Route path='' element={<Account />}/>
-            </Route>
+
+          <Route path="/account" element={<ProtectedRoute />}>
+              <Route index element={<Account />}/>
           </Route>
         </Route>
       </Routes>
