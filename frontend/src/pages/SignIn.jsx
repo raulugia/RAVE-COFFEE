@@ -34,7 +34,10 @@ const SignIn = () => {
         password: userData.password,
       })
 
+      //If sign-in process is complete, set the created session as active
+      //and redirect the user
       if (completeSignIn.status === 'complete') {
+        await setActive({ session: completeSignIn.createdSessionId })
         navigate('/account')
       }
       
@@ -68,10 +71,10 @@ const SignIn = () => {
             <form className='w-full mt-10 font-fira'>
                 <div className='flex flex-col gap-3 mb-5'>
                     <Input type="email" name="email" placeholder='Email address' 
-                        onChange={handleInputChange}
+                        onChange={handleInputChange} required
                     />
                     <Input type="password" name="password" placeholder='Password'
-                        onChange={handleInputChange}
+                        onChange={handleInputChange} required
                     />
                 </div>
                 <div className='h-[25px]'>

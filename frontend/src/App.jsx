@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Outlet } from 'react-router-dom'
 import Home from './pages/Home'
 import Coffee from './pages/Coffee'
 import Equipment from './pages/Equipment'
@@ -10,6 +10,9 @@ import ContactUs from './pages/ContactUs'
 import Navbar from './components/Navbar'
 import Register from './pages/Register'
 import SignIn from './pages/SignIn'
+import Account from './pages/Account'
+import ProtectedRoute from './components/ProtectedRoute'
+
 
 function App() {
   return (
@@ -22,9 +25,12 @@ function App() {
           <Route path="/Wholesale" element={<Wholesale />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/contact-us" element={<ContactUs />}/>
+          <Route path="/register" element={<Register />}/>
+          <Route path="/login" element={<SignIn />}/>
           <Route path="/account/">
-            <Route path="register" element={<Register />}/>
-            <Route path="login" element={<SignIn />}/>
+            <Route element={ <ProtectedRoute><Outlet /></ProtectedRoute> }>
+              <Route path='' element={<Account />}/>
+            </Route>
           </Route>
         </Route>
       </Routes>
