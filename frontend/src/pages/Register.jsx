@@ -5,6 +5,7 @@ import { validatePassword, validateEmail, validateName } from '../utils/helpers'
 import PasswordFeedback from '../components/PasswordFeedback'
 import Input from '../components/Input'
 import axiosInstance from '../utils/axiosInstance'
+import Loading from '../components/Loading'
 
 const Register = () => {
     const [userData, setUserData] = useState({
@@ -19,6 +20,7 @@ const Register = () => {
         email: [],
         password: []
     })
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const isDataValid = () => {
@@ -42,7 +44,7 @@ const Register = () => {
         }
 
         try{
-
+            setLoading(true)
             setIsDisabled(true)
             const response = await axiosInstance.post('/register', userData)
 
@@ -55,6 +57,7 @@ const Register = () => {
             alert(errorMessage)
         }finally{
             setIsDisabled(false)
+            setLoading(false)
         }
     }
 
@@ -144,6 +147,9 @@ const Register = () => {
                 </div>
             </form>
         </div>
+        {
+            loading && <Loading />
+        }
     </div>
   )
 }
