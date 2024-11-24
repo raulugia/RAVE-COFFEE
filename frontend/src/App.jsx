@@ -11,6 +11,7 @@ import Navbar from './components/Navbar'
 import Register from './pages/Register'
 import SignIn from './pages/SignIn'
 import Account from './pages/Account'
+import AccountDetails from './pages/AccountDetails'
 import ProtectedRoute from './components/ProtectedRoute'
 
 

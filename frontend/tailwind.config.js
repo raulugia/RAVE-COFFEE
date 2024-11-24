@@ -25,6 +25,7 @@ export default {
       },
       backgroundImage: {
         'coffee-beans-pattern': "url('/src/assets/coffee-bean-background.svg')",
+        'frame': "url('/src/assets/card-frame.png')",
       }
     },
   },

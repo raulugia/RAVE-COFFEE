@@ -1,3 +1,7 @@
+import userIcon from '../assets/accountCard/user-icon.svg'
+import orderIcon from '../assets/accountCard/orders-icon.svg'
+
+
 const aboutText = [
     "At this point we could rave on about company pedigree and vision for the future (blah blah yawn) but that's simply not our way. Much better that you get to know us - we'd love for you to come in and let us show you how committed we are to a better coffee experience.",
     "Yes - we are coffee roasters but we're more than that and if you want to know more, read on or get in touch (otherwise the route to good coffee is simply the Shop tab at the top).",
@@ -44,4 +48,21 @@ const wholesale_cards_text = [
     },
 ]
 
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text};
+const accountNavCardData = [
+    {
+        route: "/account/details",
+        text: "ACCOUNT",
+        iconPath: userIcon,
+    },
+    {
+        route: "/account/orders",
+        text: "ORDERS",
+        iconPath: orderIcon,
+    },
+    {
+        route: "/account/details",
+        text: "ACCOUNT",
+        iconPath: userIcon,
+    },
+]
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData};
