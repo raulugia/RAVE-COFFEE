@@ -63,11 +63,12 @@ export const validateLine = (value, name) => {
     const errors = [];
 
     if (!value.trim() && name !== "line2") {
-        errors.push("This field cannot be empty.");
+       errors.push("This field cannot be empty");
+       return {isDataValid: false, errors}
     }
 
     if (value.length > 100) {
-        errors.push("This field cannot exceed 100 characters.");
+        errors.push("This field cannot exceed 100 characters");
     }
 
     return {
@@ -81,15 +82,16 @@ export const validateCity = (value) => {
     const regex = /^[a-zA-Z\s'-]+$/;
 
     if (!value.trim()) {
-        errors.push("City cannot be empty.");
+       errors.push("City cannot be empty");
+       return {isDataValid: false, errors}
     }
 
     if (!regex.test(value)) {
-        errors.push("City contains invalid characters.");
+        errors.push("City contains invalid characters");
     }
 
     if (value.length > 50) {
-        errors.push("City cannot exceed 50 characters.");
+        errors.push("City cannot exceed 50 characters");
     }
 
     return {
@@ -104,11 +106,12 @@ export const validatePostcode = (value) => {
     const regex = /^[A-Z0-9]{2,4}\s?[A-Z0-9]{2,4}$/i;
 
     if (!value.trim()) {
-        errors.push("Postcode cannot be empty.");
+       errors.push("Postcode cannot be empty");
+       return {isDataValid: false, errors}
     }
 
     if (!regex.test(value)) {
-        errors.push("Invalid postcode format.");
+        errors.push("Invalid postcode format");
     }
 
     return {
@@ -122,15 +125,16 @@ export const validateCounty = (value) => {
     const regex = /^[a-zA-Z\s'-]+$/;
 
     if (!value.trim()) {
-        errors.push("County cannot be empty.");
+        errors.push("County cannot be empty");
+        return {isDataValid: false, errors}
     }
 
     if (!regex.test(value)) {
-        errors.push("County contains invalid characters.");
+        errors.push("County contains invalid characters");
     }
 
     if (value.length > 50) {
-        errors.push("County cannot exceed 50 characters.");
+        errors.push("County cannot exceed 50 characters");
     }
 
     return {
@@ -140,9 +144,14 @@ export const validateCounty = (value) => {
 };
 
 //ensure fields are filled and there are no errors before submission
-export const isDataValid = (data, errors) => {
-    //Ensure all fields are filled
-    const allFieldsFilled = Object.values(data).every(value => value.trim().length > 0);
+export const isDataValid = (data, errors, optionalFields = []) => {
+    //ensure all required fields are filled
+    const allFieldsFilled = Object.entries(data).every(([key, value]) => {
+        //return true if input is optional
+        if (optionalFields.includes(key)) return true;
+        //return false if input is not optional and is empty
+        return value.trim().length > 0;
+    });
 
     //Ensure no errors
     const noErrors = Object.values(errors).every(errorArray => errorArray.length === 0);

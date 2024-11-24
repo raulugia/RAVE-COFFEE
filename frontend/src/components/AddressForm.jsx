@@ -3,6 +3,7 @@ import Input from './Input'
 import MainBtn from './MainBtn'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
+import Loading from './Loading'
 import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
 
@@ -39,7 +40,7 @@ const AddressForm = ({setShowForm}) => {
         setLoading(true)
 
         try{
-            if(!isDataValid(address, errors)){
+            if(!isDataValid(address, errors, ["line2"])){
                 alert('Please ensure there are no errors and all fields are filled before submitting')
                 return
             }
@@ -98,10 +99,10 @@ const AddressForm = ({setShowForm}) => {
         }
     }
 
-    if(loading) return <p>Loading...</p>
+    if(loading) return <Loading />
 
   return (
-    <div>
+    <div className='mb-10'>
         <form className='flex flex-col gap-3 min-w-[400px] mb-10'>
             <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.line1} type="text" name="line1" placeholder="123 Main St" required/>
             <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.line2} type="text" name="line2" placeholder="2nd floor (optional)" />
