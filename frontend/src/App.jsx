@@ -13,6 +13,7 @@ import SignIn from './pages/SignIn'
 import Account from './pages/Account'
 import AccountDetails from './pages/AccountDetails'
 import ProtectedRoute from './components/ProtectedRoute'
+import AccountNav from './components/AccountNav'
 
 
 function App() {
@@ -31,8 +32,10 @@ function App() {
           <Route path="/login" element={<SignIn />}/>
 
           <Route path="/account" element={<ProtectedRoute />}>
+            <Route element={<AccountNav />}>
               <Route index element={<Account />}/>
               <Route path="details" element={<AccountDetails />}/>
+            </Route>
           </Route>
         </Route>
       </Routes>

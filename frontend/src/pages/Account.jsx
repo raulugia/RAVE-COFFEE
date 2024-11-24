@@ -4,7 +4,6 @@ import AccountNav from '../components/AccountNav'
 const Account = () => {
   return (
     <div>
-        <AccountNav />
         <div className='mt-20 px-[8%]'>
             <h1 className='text-3xl font-permanent-marker'>RECENT ORDERS</h1>
         </div>
