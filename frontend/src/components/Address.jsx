@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import MainBtn from './MainBtn'
 import AddressForm from './AddressForm'
+import Loading from './Loading'
 
-const Address = ({address}) => {
+const Address = ({address, setLoading}) => {
     const [showForm, setShowForm] = useState(false)
 
   return (
@@ -14,7 +15,7 @@ const Address = ({address}) => {
                 </div>
             ) : (
                 showForm ? (
-                    <AddressForm setShowForm={setShowForm}/>
+                    <AddressForm setShowForm={setShowForm} setLoading={setLoading}/>
                 ) : (
                     <div>
                         <p className='text-slate-400 mb-10'>You have not added an address yet</p>

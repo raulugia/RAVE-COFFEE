@@ -7,7 +7,7 @@ import Loading from './Loading'
 import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
 
-const AddressForm = ({setShowForm}) => {
+const AddressForm = ({setShowForm, setLoading}) => {
     const [address, setAddress] = useState({
         line1: '',
         line2: '',
@@ -24,7 +24,6 @@ const AddressForm = ({setShowForm}) => {
         county: [],
     })
     const { getToken } = useAuth()
-    const [loading, setLoading] = useState(false)
     const [isDisabled, setDisabled] = useState(false)
 
     const handleInputChange = e => {
@@ -98,8 +97,6 @@ const AddressForm = ({setShowForm}) => {
             return
         }
     }
-
-    if(loading) return <Loading />
 
   return (
     <div className='mb-10'>

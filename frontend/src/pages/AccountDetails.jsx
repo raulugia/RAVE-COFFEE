@@ -18,7 +18,7 @@ const AccountDetails = () => {
                     const {data} = await axiosInstance.get("/account/details", {
                         headers: { Authorization: `Bearer ${token}` }
                     })
-                    
+                    console.log(data)
                     setUserDetails(data)
                 }catch(error){
                     alert('Failed to fetch user details')
@@ -52,7 +52,7 @@ const AccountDetails = () => {
 
                    <div>
                         <h1 className='font-permanent-marker text-3xl mb-5'>YOUR ADDRESS</h1>
-                        <Address address={userDetails.address} />
+                        <Address address={userDetails.address} setLoading={setLoading}/>
                     </div>
                 </div>
             )

@@ -84,7 +84,16 @@ app.get("/account/details", requireAuth(), async(req, res) => {
                 name: true,
                 surname: true,
                 email: true,
-                address: true,
+                address: {
+                    select: {
+                        line1: true,
+                        line2: true,
+                        city: true,
+                        postcode: true,
+                        county: true,
+                        country: true,
+                    }
+                } 
             }
         })
 
@@ -129,6 +138,15 @@ app.post("/account/add-address", requireAuth(), async(req, res) => {
             userId: user.id,
         },
     })
+
+    await prisma.user.update({
+        where: {
+            id: user.id,
+        },
+        data: {
+            addressId: address.id,
+        },
+    });
 
     return res.status(201).json({message: "Address added successfully", address});
 })
