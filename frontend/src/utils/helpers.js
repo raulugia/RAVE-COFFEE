@@ -57,5 +57,86 @@ export const validateName = (value, type) => {
     }
 }
 
+//Address validation
+
+export const validateLine = (value, name) => {
+    const errors = [];
+
+    if (!value.trim() && name !== "line2") {
+        errors.push("This field cannot be empty.");
+    }
+
+    if (value.length > 100) {
+        errors.push("This field cannot exceed 100 characters.");
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors,
+    };
+};
+
+export const validateCity = (value) => {
+    const errors = [];
+    const regex = /^[a-zA-Z\s'-]+$/;
+
+    if (!value.trim()) {
+        errors.push("City cannot be empty.");
+    }
+
+    if (!regex.test(value)) {
+        errors.push("City contains invalid characters.");
+    }
+
+    if (value.length > 50) {
+        errors.push("City cannot exceed 50 characters.");
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors,
+    };
+};
+
+export const validatePostcode = (value) => {
+    const errors = [];
+    //UK format
+    const regex = /^[A-Z0-9]{2,4}\s?[A-Z0-9]{2,4}$/i;
+
+    if (!value.trim()) {
+        errors.push("Postcode cannot be empty.");
+    }
+
+    if (!regex.test(value)) {
+        errors.push("Invalid postcode format.");
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors,
+    };
+};
+
+export const validateCounty = (value) => {
+    const errors = [];
+    const regex = /^[a-zA-Z\s'-]+$/;
+
+    if (!value.trim()) {
+        errors.push("County cannot be empty.");
+    }
+
+    if (!regex.test(value)) {
+        errors.push("County contains invalid characters.");
+    }
+
+    if (value.length > 50) {
+        errors.push("County cannot exceed 50 characters.");
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors,
+    };
+};
 
   
