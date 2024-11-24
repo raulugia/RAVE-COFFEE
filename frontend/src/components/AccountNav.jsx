@@ -14,7 +14,7 @@ const AccountNav = ({children}) => {
 
   return (
     <div>
-        <div className='flex flex-col items-center py-10 bg-[#F5F5F5] bg-coffee-beans-pattern bg-no-repeat bg-cover'>
+        <div className='flex flex-col items-center py-10 mb-10 bg-[#F5F5F5] bg-coffee-beans-pattern bg-no-repeat bg-cover'>
             <div className='font-permanent-marker text-5xl mb-14'>
                 <h1>HELLO, {user?.firstName}</h1>
             </div>
