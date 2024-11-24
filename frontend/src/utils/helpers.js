@@ -139,4 +139,13 @@ export const validateCounty = (value) => {
     };
 };
 
-  
+//ensure fields are filled and there are no errors before submission
+export const isDataValid = (data, errors) => {
+    //Ensure all fields are filled
+    const allFieldsFilled = Object.values(data).every(value => value.trim().length > 0);
+
+    //Ensure no errors
+    const noErrors = Object.values(errors).every(errorArray => errorArray.length === 0);
+
+    return allFieldsFilled && noErrors;
+};

@@ -14,7 +14,7 @@ const Address = ({address}) => {
                 </div>
             ) : (
                 showForm ? (
-                    <AddressForm />
+                    <AddressForm setShowForm={setShowForm}/>
                 ) : (
                     <div>
                         <p className='text-slate-400 mb-10'>You have not added an address yet</p>

@@ -3,11 +3,10 @@ import Input from './Input'
 import MainBtn from './MainBtn'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
-import {validateLine, validateCity, validatePostcode, validateCounty} from '../utils/helpers'
+import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
-//type, name, onChange, onBlur, placeholder, errors=[], ...props
 
-const AddressForm = () => {
+const AddressForm = ({setShowForm}) => {
     const [address, setAddress] = useState({
         line1: '',
         line2: '',
@@ -25,6 +24,7 @@ const AddressForm = () => {
     })
     const { getToken } = useAuth()
     const [loading, setLoading] = useState(false)
+    const [isDisabled, setDisabled] = useState(false)
 
     const handleInputChange = e => {
         const value = e.target.value
@@ -35,17 +35,29 @@ const AddressForm = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
+        setDisabled(true)
         setLoading(true)
 
         try{
+            if(!isDataValid(address, errors)){
+                alert('Please ensure there are no errors and all fields are filled before submitting')
+                return
+            }
+
             const token = await getToken()
             const response = await axiosInstance.post("/account/add-address", address, {
                 headers: { Authorization: `Bearer ${token}` }
             })
+
+            if(response.status === 201){
+                alert('Address added successfully')
+                setShowForm(false)
+            }
         }catch(error){
             alert('An error occurred while saving the address. Please try again.')
         }finally{
             setLoading(false)
+            setDisabled(false)
         }
     }
 
@@ -76,10 +88,17 @@ const AddressForm = () => {
             updateErrors(name, errors, isValid)
         }
 
+        if(name === 'city'){
+            const {isValid, errors} = validateCity(value)
+            updateErrors(name, errors, isValid)
+        }
+
         if(name === 'country'){
             return
         }
     }
+
+    if(loading) return <p>Loading...</p>
 
   return (
     <div>
@@ -91,7 +110,7 @@ const AddressForm = () => {
             <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.county} type="text" name="county" placeholder="Greater London" required/>
             <Input type="text" name="country" placeholder="United Kingdom" value="United Kingdom" disabled={true}/>
         </form>
-        <MainBtn text="SAVE ADDRESS" method={handleSubmit}/>
+        <MainBtn text="SAVE ADDRESS" method={handleSubmit} disabled={isDisabled}/>
     </div>
   )
 }

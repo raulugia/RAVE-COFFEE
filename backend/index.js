@@ -23,7 +23,7 @@ app.get("/coffee", async(req, res) => {
     try{
         const coffees = await prisma.coffee.findMany();
 
-        res.json(coffees);
+        return res.json(coffees);
     }catch(error){
         res.status(500).json({error: "Internal Server Error"})
     }
@@ -34,7 +34,7 @@ app.get("/equipment", async(req, res) => {
     try{
         const equipment = await prisma.equipment.findMany();
 
-        res.json(equipment);
+        return res.json(equipment);
     }catch(error){
         res.status(500).json({error: "Internal Server Error"})
     }
@@ -60,7 +60,7 @@ app.post("/register", async(req, res) => {
             }
         })
 
-        res.status(201).json({message: "User registered successfully"});
+        return res.status(201).json({message: "User registered successfully"});
         
     }catch(error){
         if (error.code === "P2002") {
@@ -88,11 +88,49 @@ app.get("/account/details", requireAuth(), async(req, res) => {
             }
         })
 
-        res.status(200).json(user);
+        return res.status(200).json(user);
     }catch(error){
         console.log(error)
         res.status(500).json({ error: "Internal server error." })
     }
+})
+
+//add address
+app.post("/account/add-address", requireAuth(), async(req, res) => {
+    const { line1, line2, city, postcode, county, country } = req.body;
+
+    if(!line1 || !city || !postcode || !county || !country){
+        return res.status(400).json({ error: "All fields are required." });
+    }
+
+    const user = await prisma.user.findUnique({
+        where: {
+            clerkId: req.auth.userId,
+        },
+    });
+
+    const address = await prisma.address.upsert({
+        where: { userId: user.id },
+        update: {
+            line1,
+            line2,
+            city,
+            postcode,
+            county,
+            country,
+        },
+        create: {
+            line1,
+            line2,
+            city,
+            postcode,
+            county,
+            country,
+            userId: user.id,
+        },
+    })
+
+    return res.status(201).json({message: "Address added successfully", address});
 })
 
 app.listen(PORT, () => {
