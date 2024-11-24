@@ -7,8 +7,8 @@ import Loading from './Loading'
 import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
 
-const AddressForm = ({setShowForm, setLoading}) => {
-    const [address, setAddress] = useState({
+const AddressForm = ({setShowForm, setLoading, setAddress}) => {
+    const [addressData, setAddressData] = useState({
         line1: '',
         line2: '',
         city: '',
@@ -30,7 +30,7 @@ const AddressForm = ({setShowForm, setLoading}) => {
         const value = e.target.value
         const name = e.target.name
 
-        setAddress(prevState => ({...prevState, [name]: value }))
+        setAddressData(prevState => ({...prevState, [name]: value }))
     }
 
     const handleSubmit = async(e) => {
@@ -39,19 +39,20 @@ const AddressForm = ({setShowForm, setLoading}) => {
         setLoading(true)
 
         try{
-            if(!isDataValid(address, errors, ["line2"])){
+            if(!isDataValid(addressData, errors, ["line2"])){
                 alert('Please ensure there are no errors and all fields are filled before submitting')
                 return
             }
 
             const token = await getToken()
-            const response = await axiosInstance.post("/account/add-address", address, {
+            const {data} = await axiosInstance.post("/account/add-address", addressData, {
                 headers: { Authorization: `Bearer ${token}` }
             })
 
-            if(response.status === 201){
+            if(data && data.address){
                 alert('Address added successfully')
-                setShowForm(false)
+                setAddress(data.address)
+                //setShowForm(false)
             }
         }catch(error){
             alert('An error occurred while saving the address. Please try again.')

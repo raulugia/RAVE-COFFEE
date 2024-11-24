@@ -6,6 +6,7 @@ import Address from '../components/Address'
 
 const AccountDetails = () => {
     const [userDetails, setUserDetails] = useState(null)
+    const [address, setAddress] = useState(null)
     const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
 
@@ -19,6 +20,7 @@ const AccountDetails = () => {
                         headers: { Authorization: `Bearer ${token}` }
                     })
                     console.log(data)
+                    setAddress(data.address)
                     setUserDetails(data)
                 }catch(error){
                     alert('Failed to fetch user details')
@@ -52,7 +54,7 @@ const AccountDetails = () => {
 
                    <div>
                         <h1 className='font-permanent-marker text-3xl mb-5'>YOUR ADDRESS</h1>
-                        <Address address={userDetails.address} setLoading={setLoading}/>
+                        <Address address={address} setAddress={setAddress} setUserDetails={setUserDetails} setLoading={setLoading}/>
                     </div>
                 </div>
             )
