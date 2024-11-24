@@ -32,6 +32,7 @@ function App() {
 
           <Route path="/account" element={<ProtectedRoute />}>
               <Route index element={<Account />}/>
+              <Route path="details" element={<AccountDetails />}/>
           </Route>
         </Route>
       </Routes>

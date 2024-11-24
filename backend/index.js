@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
-const { clerkClient } = require('@clerk/clerk-sdk-node');
+const { clerkClient} = require('@clerk/clerk-sdk-node');
+const { requireAuth } = require('@clerk/express')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -39,10 +40,6 @@ app.get("/equipment", async(req, res) => {
     }
 })
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-})
-
 app.post("/register", async(req, res) => {
     const { first_name, last_name, email, password } = req.body;
   
@@ -73,4 +70,31 @@ app.post("/register", async(req, res) => {
         console.log(error)
         res.status(500).json({ error: "Internal server error." })
     }
+})
+
+//returns user's account details
+app.get("/account/details", requireAuth(), async(req, res) => {
+    try{
+        console.log("here")
+        const user = await prisma.user.findUnique({
+            where: {
+                clerkId: req.auth.userId,
+            },
+            select: {
+                name: true,
+                surname: true,
+                email: true,
+                address: true,
+            }
+        })
+
+        res.status(200).json(user);
+    }catch(error){
+        console.log(error)
+        res.status(500).json({ error: "Internal server error." })
+    }
+})
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 })
