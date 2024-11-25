@@ -17,12 +17,12 @@ const QuantityEdit = ({id, quantity}) => {
   return (
     <div className='flex gap-3'>
         <button 
-            onClick={removeOne} class
+            onClick={removeOne}
             className={`px-3 border ${quantity === 1 ? "hover:cursor-default" : "hover:cursor-pointer hover:bg-slate-100"} `}
         >
             -
         </button>
-        <p>{quantity}</p>
+        <p data-testid="quantity">{quantity}</p>
         <button 
             onClick={addOne}
             className='px-3 border hover:cursor-pointer hover:bg-slate-100'

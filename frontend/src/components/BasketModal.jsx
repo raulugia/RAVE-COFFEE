@@ -9,7 +9,7 @@ const BasketModal = () => {
     const {basket, totalPrice, setDisplayModal, itemsQuantity} = useBasket()
     const navigate = useNavigate()
     const shippingMessage = 25 - totalPrice < 0 ? "🔥 You've unlocked FREE SHIPPING! 🔥" 
-                            : `Your are £${(25 - totalPrice).toFixed(2)} away from FREE SHIPPING 📦`
+                            : `You are £${(25 - totalPrice).toFixed(2)} away from FREE SHIPPING 📦`
 
     const closeModal = () => {
         document.body.style.overflow = 'auto'
@@ -24,7 +24,7 @@ const BasketModal = () => {
                 <div className='w-full flex justify-center font-fira font-semibold'>
                     <h3>BASKET</h3>
                 </div>
-                <IoCloseOutline size={25}  className='ml-auto mr-5 hover:cursor-pointer' onClick={closeModal}/>
+                <IoCloseOutline size={25} data-testid="close-button" className='ml-auto mr-5 hover:cursor-pointer' onClick={closeModal}/>
             </div>
 
             <div className='w-full h-[1px] bg-gray-300'></div>
