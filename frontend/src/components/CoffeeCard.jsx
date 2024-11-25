@@ -15,7 +15,7 @@ const CoffeeCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
     <div className='mb-14 max-w-[400px] flex flex-col justify-between'>
         <Link to={`/coffee/${id}`}>
             <div className='max-w-[400px] mb-5'>
-                <img src={smallpictureUrl} alt={`name`} className='w-full'/>
+                <img src={smallpictureUrl} alt={name} className='w-full'/>
             </div>
             <div>   
                 <h4 className='font-permanent-marker text-lg mb-6'>{name}</h4>
