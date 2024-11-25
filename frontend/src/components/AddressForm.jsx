@@ -3,7 +3,6 @@ import Input from './Input'
 import MainBtn from './MainBtn'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
-import Loading from './Loading'
 import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
 
@@ -36,13 +35,14 @@ const AddressForm = ({setLoading, setAddress}) => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         setDisabled(true)
-        setLoading(true)
+        
+        if(!isDataValid(addressData, errors, ["line2"])){
+            alert('Please ensure there are no errors and all fields are filled before submitting')
+            return
+        }
 
         try{
-            if(!isDataValid(addressData, errors, ["line2"])){
-                alert('Please ensure there are no errors and all fields are filled before submitting')
-                return
-            }
+            setLoading(true)
 
             const token = await getToken()
             const {data} = await axiosInstance.post("/account/add-address", addressData, {
