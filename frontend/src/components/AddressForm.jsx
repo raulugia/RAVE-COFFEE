@@ -7,7 +7,7 @@ import Loading from './Loading'
 import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
 
-const AddressForm = ({setShowForm, setLoading, setAddress}) => {
+const AddressForm = ({setLoading, setAddress}) => {
     const [addressData, setAddressData] = useState({
         line1: '',
         line2: '',
@@ -52,7 +52,6 @@ const AddressForm = ({setShowForm, setLoading, setAddress}) => {
             if(data && data.address){
                 alert('Address added successfully')
                 setAddress(data.address)
-                //setShowForm(false)
             }
         }catch(error){
             alert('An error occurred while saving the address. Please try again.')

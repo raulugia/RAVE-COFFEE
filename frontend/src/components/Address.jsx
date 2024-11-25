@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import MainBtn from './MainBtn'
 import AddressForm from './AddressForm'
-import Loading from './Loading'
 
-const Address = ({address, setAddress,setLoading}) => {
+const Address = ({address, setAddress, setLoading}) => {
     const [showForm, setShowForm] = useState(false)
-    //TODO: loading component
+    
   return (
     <div>
         {

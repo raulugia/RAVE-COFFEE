@@ -3,7 +3,7 @@ import Loading from '../components/Loading'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
 import Address from '../components/Address'
-
+//TODO: loading component rendering must change - when we set loading to true after submitting, loading should be rendred on top of the existing component 
 const AccountDetails = () => {
     const [userDetails, setUserDetails] = useState(null)
     const [address, setAddress] = useState(null)
