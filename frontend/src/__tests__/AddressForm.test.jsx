@@ -44,6 +44,32 @@ describe("Input component", () => {
         expect(axiosInstance.post).not.toHaveBeenCalled();
     })
 
+    test("correct data is submitted", async () => {
+        render(<AddressForm setLoading={setLoading} setAddress={setAddress} />);
+
+        fireEvent.change(screen.getByPlaceholderText("123 Main St"), { target: { value: "123 Main St" } });
+        fireEvent.change(screen.getByPlaceholderText("London"), { target: { value: "London" } });
+        fireEvent.change(screen.getByPlaceholderText("E10 5AN"), { target: { value: "E10 5AN" } });
+        fireEvent.change(screen.getByPlaceholderText("Greater London"), { target: { value: "Greater London" } });
+
+        await act(async () => {
+            fireEvent.click(screen.getByRole("button", { name: /save address/i }));
+        })
+
+        expect(axiosInstance.post).toHaveBeenCalledWith(
+            "/account/add-address",
+            {
+                line1: "123 Main St",
+                line2: "",
+                city: "London",
+                postcode: "E10 5AN",
+                county: "Greater London",
+                country: "United Kingdom"
+            },
+            expect.anything()
+        );
+      })
+
     test("shows alert on submission failure", async () => {
         jest.spyOn(window, "alert").mockImplementation(() => {});
         axiosInstance.post.mockRejectedValue(new Error("Submission failed"));
@@ -73,5 +99,31 @@ describe("Input component", () => {
         fireEvent.blur(screen.getByPlaceholderText("123 Main St"));
         expect(screen.getByText("This field cannot be empty"))
 
+        fireEvent.change(screen.getByPlaceholderText("E10 5AN"), { target: { value: "/" } });
+        fireEvent.blur(screen.getByPlaceholderText("E10 5AN"));
+        expect(screen.getByText("Invalid postcode format"))
+      })
+
+      test("displays alert on successful submission", async () => {
+        jest.spyOn(window, "alert").mockImplementation(() => {});
+        axiosInstance.post.mockResolvedValue({ data: {
+            message: "Address added successfully",
+            address: "Mocked address"
+        } });
+
+        render(<AddressForm setLoading={setLoading} setAddress={setAddress} />);
+
+        fireEvent.change(screen.getByPlaceholderText("123 Main St"), { target: { value: "123 Main St" } });
+        fireEvent.change(screen.getByPlaceholderText("London"), { target: { value: "London" } });
+        fireEvent.change(screen.getByPlaceholderText("E10 5AN"), { target: { value: "E10 5AN" } });
+        fireEvent.change(screen.getByPlaceholderText("Greater London"), { target: { value: "Greater London" } });
+
+        await act(async () => {
+            fireEvent.click(screen.getByRole("button", { name: /save address/i }));
+        })
+
+        expect(setLoading).toHaveBeenCalledWith(true);
+        expect(window.alert).toHaveBeenCalledWith("Address added successfully")
+        expect(setLoading).toHaveBeenCalledWith(false);
       })
 })
