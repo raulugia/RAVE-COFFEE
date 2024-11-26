@@ -10,11 +10,19 @@ const Address = ({address, setAddress, setLoading}) => {
         {
             address ? (
                 <div>
-                    there is one
+                    <div className='mb-10'>
+                        <p>{address.line1}</p>
+                        <p>{address.line2}</p>
+                        <p>{address.city}</p>
+                        <p>{address.postcode}</p>
+                        <p>{address.county}</p>
+                        <p>{address.country}</p>
+                    </div>
+                    <MainBtn text="EDIT ADDRESS" method={() => setShowForm(!showForm)}/>
                 </div>
             ) : (
                 showForm ? (
-                    <AddressForm setShowForm={setShowForm} setLoading={setLoading} setAddress={setAddress}/>
+                    <AddressForm setShowForm={setShowForm} setLoading={setLoading} setAddress={setAddress} existingAddress={address}/>
                 ) : (
                     <div>
                         <p className='text-slate-400 mb-10'>You have not added an address yet</p>

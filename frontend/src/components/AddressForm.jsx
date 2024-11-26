@@ -6,7 +6,7 @@ import { useAuth } from '@clerk/clerk-react'
 import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
 
-const AddressForm = ({setLoading, setAddress}) => {
+const AddressForm = ({setLoading, setAddress, existingAddress}) => {
     const [addressData, setAddressData] = useState({
         line1: '',
         line2: '',
@@ -45,11 +45,20 @@ const AddressForm = ({setLoading, setAddress}) => {
             setLoading(true)
 
             const token = await getToken()
-            const {data} = await axiosInstance.post("/account/add-address", addressData, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
+            let response
 
-            if(data && data.address){
+            if(existingAddress){
+                response = await axiosInstance.put("/account/add-address", addressData, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+            }else{
+                response = await axiosInstance.post("/account/add-address", addressData, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+            }
+            
+
+            if(response.data && response.data.address){
                 alert('Address added successfully')
                 setAddress(data.address)
             }
