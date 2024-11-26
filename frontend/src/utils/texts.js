@@ -1,5 +1,6 @@
 import userIcon from '../assets/accountCard/user-icon.svg'
 import orderIcon from '../assets/accountCard/orders-icon.svg'
+import passwordIcon from '../assets/accountCard/password.svg'
 
 
 const aboutText = [
@@ -60,9 +61,9 @@ const accountNavCardData = [
         iconPath: orderIcon,
     },
     {
-        route: "/account/details",
-        text: "ACCOUNT",
-        iconPath: userIcon,
+        route: "/account/reset-password",
+        text: "PASSWORD",
+        iconPath: passwordIcon,
     },
 ]
 export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData};

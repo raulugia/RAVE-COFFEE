@@ -39,7 +39,7 @@ const AccountDetails = () => {
     <div className='px-[8%]'>
         {
             userDetails && (
-                <div className='font-fira mt-8 flex justify-between items=start'>
+                <div className='font-fira mt-8 flex gap-10 md:gap-5 flex-col md:flex-row md:justify-around items=start'>
                     <div>
                         <h1 className='font-permanent-marker text-3xl mb-5'>YOUR DETAILS</h1>
                         <div className='flex flex-col gap-3'>
