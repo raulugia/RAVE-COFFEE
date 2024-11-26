@@ -48,7 +48,7 @@ const AddressForm = ({setLoading, setAddress, existingAddress}) => {
             let response
 
             if(existingAddress){
-                response = await axiosInstance.put("/account/add-address", addressData, {
+                response = await axiosInstance.put("/account/update-address", addressData, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             }else{
@@ -60,9 +60,10 @@ const AddressForm = ({setLoading, setAddress, existingAddress}) => {
 
             if(response.data && response.data.address){
                 alert('Address added successfully')
-                setAddress(data.address)
+                setAddress(response.data.address)
             }
         }catch(error){
+            console.log(error)
             alert('An error occurred while saving the address. Please try again.')
         }finally{
             setLoading(false)

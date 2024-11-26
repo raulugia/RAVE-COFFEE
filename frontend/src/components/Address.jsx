@@ -8,7 +8,7 @@ const Address = ({address, setAddress, setLoading}) => {
   return (
     <div>
         {
-            address ? (
+            address && !showForm ? (
                 <div>
                     <div className='mb-10'>
                         <p>{address.line1}</p>
@@ -18,7 +18,7 @@ const Address = ({address, setAddress, setLoading}) => {
                         <p>{address.county}</p>
                         <p>{address.country}</p>
                     </div>
-                    <MainBtn text="EDIT ADDRESS" method={() => setShowForm(!showForm)}/>
+                    <MainBtn text="ADD NEW ADDRESS" method={() => setShowForm(!showForm)}/>
                 </div>
             ) : (
                 showForm ? (
