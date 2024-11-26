@@ -111,45 +111,127 @@ app.post("/account/add-address", requireAuth(), async(req, res) => {
     if(!line1 || !city || !postcode || !county || !country){
         return res.status(400).json({ error: "All fields are required." });
     }
+    try{
+        const user = await prisma.user.findUnique({
+            where: {
+                clerkId: req.auth.userId,
+            },
+        });
 
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        //Check if an address with the same details already exists
+        const existingAddress = await prisma.address.findFirst({
+            where: {
+                line1,
+                line2,
+                city,
+                postcode,
+                county,
+                country,
+            },
+        });
+
+        let address;
+
+        if (existingAddress) {
+            address = existingAddress;
+        } else {
+            address = await prisma.address.create({
+                data: {
+                    line1,
+                    line2,
+                    city,
+                    postcode,
+                    county,
+                    country,
+                },
+            });
+        }
+
+        await prisma.user.update({
+            where: {
+                id: user.id,
+            },
+            data: {
+                addressId: address.id,
+            },
+        });
+
+        return res.status(201).json({message: "Address added successfully", address});
+    }catch(error){
+        console.log(error)
+        res.status(500).json({ error: "Internal server error." })
+    }
+})
+
+// Update or Add Address
+app.put("/account/update-address", requireAuth(), async (req, res) => {
+    const { line1, line2, city, postcode, county, country } = req.body;
+
+    // Validate the required fields
+    if (!line1 || !city || !postcode || !county || !country) {
+        return res.status(400).json({ error: "All fields are required." });
+    }
+
+    // Find the authenticated user
     const user = await prisma.user.findUnique({
         where: {
             clerkId: req.auth.userId,
         },
     });
 
-    const address = await prisma.address.upsert({
-        where: { userId: user.id },
-        update: {
-            line1,
-            line2,
-            city,
-            postcode,
-            county,
-            country,
-        },
-        create: {
-            line1,
-            line2,
-            city,
-            postcode,
-            county,
-            country,
-            userId: user.id,
-        },
-    })
+    if (!user) {
+        return res.status(404).json({ error: "User not found." });
+    }
 
-    await prisma.user.update({
-        where: {
-            id: user.id,
-        },
-        data: {
-            addressId: address.id,
-        },
-    });
+    try {
+        const existingAddress = await prisma.address.findFirst({
+            where: {
+                line1,
+                line2,
+                city,
+                postcode,
+                county,
+                country,
+            },
+        });
 
-    return res.status(201).json({message: "Address added successfully", address});
-})
+        let address;
+
+        if (existingAddress) {
+            address = existingAddress;
+        } else {
+            address = await prisma.address.create({
+                data: {
+                    line1,
+                    line2,
+                    city,
+                    postcode,
+                    county,
+                    country,
+                },
+            });
+        }
+
+        await prisma.user.update({
+            where: {
+                id: user.id,
+            },
+            data: {
+                addressId: address.id,
+            },
+        });
+
+        return res.status(200).json({ message: "Address updated successfully", address });
+    } catch (error) {
+        console.error("Error updating address:", error);
+        return res.status(500).json({ error: "An error occurred while updating the address." });
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
