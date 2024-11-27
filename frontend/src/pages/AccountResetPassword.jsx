@@ -2,40 +2,123 @@ import { useEffect, useState } from 'react'
 import Input from '../components/Input'
 import MainBtn from '../components/MainBtn'
 import { useSignIn } from '@clerk/clerk-react'
-import { validateEmail } from '../utils/helpers'
+import { validateEmail, validatePassword } from '../utils/helpers'
+import PasswordFeedback from '../components/PasswordFeedback'
 
 const AccountResetPassword = () => {
     const [emailSent, setEmailSent] = useState(false)
-    const [email, setEmail] = useState("")
-    const [code, setCode] = useState("")
+    const [userData, setUserData] = useState({
+        email: '',
+        newPassword: '',
+        code: ''
+    })
     const [loading, setLoading] = useState(false)
-    const { signIn } = useSignIn()
-    const [errors, setErrors] = useState([])
+    const { signIn, setActive } = useSignIn()
+    const [errors, setErrors] = useState({
+        email: [],
+        newPassword: [],
+        code: [],
+        clerk: [],
+    })
 
+    //send a code to user's email so they can reset their password
     const sendEmail = async(e) => {
         e.preventDefault()
 
-        if(!validateEmail(email)) {
+        if(!validateEmail(userData.email)) {
             alert('Please enter a valid email')
             return
         }
 
-        setErrors([])
+        setErrors(prevErrors => ({...prevErrors, email: []}))
 
         try{
             setLoading(true)
-            await signIn.create({strategy: 'reset_password_email_code', identifier: email})
+            await signIn.create({strategy: 'reset_password_email_code', identifier: userData.email})
             setEmailSent(true)
         }catch(error){
+            console.log(error)
             if(error && error.errors){
-                setErrors(prevErrors => [...prevErrors, error.errors[0].longMessage])
+                setErrors(prevErrors => ({...prevErrors, clerk: [error.errors[0].longMessage]}))
             }else{
-                setErrors(prevErrors => [...prevErrors, 'An error occurred while sending reset code'])
+                setErrors(prevErrors => ({...prevErrors, clerk: ['An error occurred while sending reset code']}))
             }
         }finally{
             setLoading(false)
         }
     }
+
+    const handleEmail = e => {
+        const email = e.target.value
+
+        if(!validateEmail(email)) {
+            setErrors(prevErrors => ({...prevErrors, email: ['Please enter a valid email']}))
+        }else{
+            setErrors(prevErrors => ({...prevErrors, email: []}))
+        }
+    }
+
+    const handlePasswordChange = (e) => {
+        const password = e.target.value
+        setUserData(prevUserData => ({...prevUserData, newPassword: password}))
+
+        const {isValid, errors } = validatePassword(password)
+
+        if(!isValid){
+            setErrors(prevErrors => ({...prevErrors, password: errors}))
+        }else{
+            setErrors(prevErrors => ({...prevErrors, password: []}))
+        }
+    }
+
+    const isDataValid = (data, errors) => {
+        const validData = Object.values(data).every(data => data.trim().length > 0)
+        const validErrors = Object.values(errors).every(array => array.length === 0)
+    
+        return validData && validErrors
+    }
+
+    //reset password once code has been sent
+    const resetPassword = async(e) => {
+        e.preventDefault()
+
+        if(!isDataValid(userData, errors)){
+            alert('Please ensure all the fields are valid')
+            return
+        }
+
+        try{
+            setLoading(true)
+
+            const result = await signIn.attemptFirstFactor({
+                strategy: 'reset_password_email_code', 
+                code, 
+                password: userData.newPassword
+            })
+
+            if (result.status === 'complete') {
+                setActive({ session: result.createdSessionId })
+            }
+        }catch(error){
+            if(error && error.errors){
+                setErrors(prevErrors => ({...prevErrors, clerk: [error.errors[0].longMessage]}))
+            }else{
+                setErrors(prevErrors => ({...prevErrors, clerk: ['An error occurred while resetting password']}))
+            }
+        }finally{
+            setLoading(false)
+        }
+    }
+
+    const handleCode = e => {
+        const code = e.target.value
+
+        if(code.trim().length === 0){
+            setErrors(prevErrors => ({...prevErrors, code: ["Code cannot be empty"]}))
+        }else{
+            setErrors(prevErrors => ({...prevErrors, code: []}))
+        }
+    } 
 
   return (
     <div className='flex flex-col items-center'>
@@ -46,19 +129,24 @@ const AccountResetPassword = () => {
         <div>
             {
                 emailSent ? (
-                    <div className='flex flex-col gap-10 items-center mt-10 font-fira max-w-[400px]'>
+                    <div className='flex flex-col gap-10 items-center my-10 font-fira max-w-[400px]'>
                         <p className='font-semibold text-center'>Please enter the code se sent to your email and the new password</p>
-                        <form className='w-full flex flex-col gap-5'>
-                            <Input type="text" placeholder="Code" onChange={e => setEmail(e.target.value)} errors={errors}/>
-                            <MainBtn text="RESET PASSWORD" onClick={sendEmail}/>
+                        <form className='w-full flex flex-col gap-3'>
+                            <Input type="text" placeholder="Code" onChange={e => setUserData(prevUserData => ({...prevUserData, code: e.target.value}))} onBlur={handleCode} errors={errors.code}/>
+                            <Input type="text" placeholder="New Password" onChange={handlePasswordChange} />
+                            <PasswordFeedback password={userData.newPassword} errors={errors} isPassword={userData.newPassword.trim().length > 0}/>
+                            <MainBtn text="RESET PASSWORD" method={resetPassword}/>
                         </form>
                     </div>
                 ) : (
                     <div className='flex flex-col gap-10 items-center mt-10 font-fira max-w-[400px]'>
                         <p className='font-semibold text-center'>Please enter your email and we'll send you a reset code</p>
                         <form className='w-full flex flex-col gap-5'>
-                            <Input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} errors={errors}/>
-                            <MainBtn text="SEND RESET CODE" onClick={sendEmail}/>
+                            <Input type="email" placeholder="Email" 
+                                onChange={e => setUserData(prevUserData => ({...prevUserData, email: e.target.value}))} errors={errors.email}
+                                onBlur={handleEmail}
+                            />
+                            <MainBtn text="SEND RESET CODE" method={sendEmail}/>
                         </form>
                     </div>
                 )
