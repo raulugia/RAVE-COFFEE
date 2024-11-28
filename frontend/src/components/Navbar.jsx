@@ -6,7 +6,7 @@ import userIcon from '../assets/user.svg'
 
 const Navbar = () => {
   return (
-    <>
+    <div>
         <nav className='flex justify-between items-center w-full bg-mustard text-xl px-8 py-7 font-permanent-marker fixed'>
             <div>
                 <img src={raveLogo} alt="rave logo" />
@@ -25,10 +25,10 @@ const Navbar = () => {
                 <BasketBtn />
             </div>
         </nav>
-        <div className='pt-[99px]'>
+        <div className='pt-[99px] min-h-screen'>
             <Outlet />
         </div>
-    </>
+    </div>
   )
 }
 

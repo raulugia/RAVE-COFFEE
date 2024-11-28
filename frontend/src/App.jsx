@@ -16,6 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import AccountNav from './components/AccountNav'
 import AccountChangePassword from './pages/AccountChangePassword'
 import ResetPassword from './pages/ResetPassword'
+import Checkout from './pages/Checkout'
 
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
               <Route path="details" element={<AccountDetails />}/>
               <Route path="change-password" element={<AccountChangePassword />}/>
             </Route>
+          </Route>
+
+          <Route path="/checkout" element={<ProtectedRoute />}>
+            <Route index element={<Checkout />} />
           </Route>
         </Route>
       </Routes>
