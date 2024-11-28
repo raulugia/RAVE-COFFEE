@@ -15,6 +15,7 @@ import AccountDetails from './pages/AccountDetails'
 import ProtectedRoute from './components/ProtectedRoute'
 import AccountNav from './components/AccountNav'
 import AccountResetPassword from './pages/AccountResetPassword'
+import ResetPassword from './pages/ResetPassword'
 
 
 function App() {
@@ -31,12 +32,12 @@ function App() {
           
           <Route path="/register" element={<Register />}/>
           <Route path="/login" element={<SignIn />}/>
+          <Route path="reset-password" element={<ResetPassword />}/>
 
           <Route path="/account" element={<ProtectedRoute />}>
             <Route element={<AccountNav />}>
               <Route index element={<Account />}/>
               <Route path="details" element={<AccountDetails />}/>
-              <Route path="reset-password" element={<AccountResetPassword />}/>
             </Route>
           </Route>
         </Route>

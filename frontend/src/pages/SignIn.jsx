@@ -45,6 +45,10 @@ const SignIn = () => {
       if (error.errors && error.errors.length > 0) {
         const errorMessage = error.errors[0].longMessage || error.errors[0].message;
         setError(errorMessage.replace(".", ""))
+
+        if(errorMessage === "You're already signed in"){
+          navigate('/account')
+        }
       } else {
           setError('An error occurred while signing in')
       }
@@ -76,6 +80,7 @@ const SignIn = () => {
                     <Input type="password" name="password" placeholder='Password'
                         onChange={handleInputChange} required
                     />
+                    <Link className='text-sm text-right hover:underline' to="/reset-password">Forgot your password?</Link>
                 </div>
                 <div className='h-[25px]'>
                   {
@@ -85,7 +90,7 @@ const SignIn = () => {
                   }
                 </div>
                 
-                <div className='mt-20'>
+                <div className='mt-16'>
                     <MainBtn text="SIGN IN" method={handleSubmit} disabled={isDisabled} />
                     <div className="flex gap-2 justify-center mt-5">
                         <p>Don't have an account?</p>
