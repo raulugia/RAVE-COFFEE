@@ -14,7 +14,7 @@ import Account from './pages/Account'
 import AccountDetails from './pages/AccountDetails'
 import ProtectedRoute from './components/ProtectedRoute'
 import AccountNav from './components/AccountNav'
-import AccountResetPassword from './pages/AccountResetPassword'
+import AccountChangePassword from './pages/AccountChangePassword'
 import ResetPassword from './pages/ResetPassword'
 
 
@@ -38,6 +38,7 @@ function App() {
             <Route element={<AccountNav />}>
               <Route index element={<Account />}/>
               <Route path="details" element={<AccountDetails />}/>
+              <Route path="change-password" element={<AccountChangePassword />}/>
             </Route>
           </Route>
         </Route>

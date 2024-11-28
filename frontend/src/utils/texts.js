@@ -61,7 +61,7 @@ const accountNavCardData = [
         iconPath: orderIcon,
     },
     {
-        route: "/account/reset-password",
+        route: "/account/change-password",
         text: "PASSWORD",
         iconPath: passwordIcon,
     },
