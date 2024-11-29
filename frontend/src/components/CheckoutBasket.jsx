@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 import { useBasket } from '../context/BasketContext'
 import BasketItemCard from '../components/BasketItemCard'
 
@@ -6,9 +6,8 @@ const CheckoutBasket = () => {
     const {basket, totalPrice, itemsQuantity} = useBasket()
     const shippingPrice = 25 - totalPrice < 0 ? 0 : 7.99
 
-    console.log(typeof totalPrice)
   return (
-    <div className='w-[40%]'>
+    <div className='w-[40%] mx-10'>
         <div className='flex flex-col gap-3 max-h-[75%] overflow-y-scroll'>
             {
                 basket.map((item, index) => (
