@@ -2,11 +2,18 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
+import {PaymentElement,  useStripe, useElements} from '@stripe/react-stripe-js';
+import { useBasket } from '../context/BasketContext';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutDetailsCard = () => {
     const [userData, setUserData] = useState()
     const [loading, setLoading] = useState(false)
     const { getToken} = useAuth()
+    const stripe = useStripe()
+    const elements = useElements()
+    const { basket, totalPrice} = useBasket()
+    const navigate = useNavigate()
 
     useEffect(() => {
         (
@@ -31,11 +38,51 @@ const CheckoutDetailsCard = () => {
         )()
     }, [])
 
+    const handlePayment = async(e) => {
+        e.preventDefault()
+        setLoading(true)
+        try{
+            const { paymentIntent, error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: `${window.location.origin}/payment-success`,
+                },
+                redirect: 'if_required',
+            });
+
+            if (error) {
+                alert(error.message);
+            }
+
+            if(paymentIntent && paymentIntent.status === 'succeeded') {
+                const token = await getToken();
+                const response = await axiosInstance.post("/create-order",
+                    {
+                        paymentIntentId: paymentIntent.id,
+                        total: totalPrice,
+                        items: basket,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                navigate("/checkout/success")
+            }
+        }catch(error){
+            console.log(error.message)
+        }finally{
+            setLoading(false)
+        }
+    }
+
   return (
     <div className='max-w-[55%]'>
         {
             userData && (
-                <div className='font-fira mx-10'>
+                <div className='font-fira mx-10 mb-10'>
                     <div>
                         <h4 className='font-semibold mb-1'>Account</h4>
                         <p>{userData.email}</p>
@@ -52,6 +99,17 @@ const CheckoutDetailsCard = () => {
                     <div>
                         <h4 className='font-semibold mb-1'>Shipping Method</h4>
                         <p>1st Class Tracked (Next working day despatch) · £2.95</p>
+                    </div>
+                    <div className='mt-20 max-w-[75%]'>
+                        <div className='mb-5'>
+                            <h2 className='font-semibold text-2xl'>Payment</h2>
+                        </div>
+                        <div className='bg-slate-200 px-10 pt-5 pb-8 rounded-md'>
+                            <PaymentElement />
+                            <button type="submit" className='w-full bg-black text-xl font-semibold text-white py-3 rounded-md font-fira mt-8'>
+                                Complete Order
+                            </button>
+                        </div>
                     </div>
                 </div>
             )

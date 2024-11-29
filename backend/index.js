@@ -237,14 +237,15 @@ app.post("/create-payment-intent", requireAuth(), async(req, res) => {
     const { amount } = req.body
 
     try{
+        const amountInPence = Math.round(amount * 100);
         const paymentIntent = await stripe.paymentIntents.create({
-            amount,
+            amount: amountInPence,
             currency: 'gbp',
             automatic_payment_methods: {
               enabled: true,
             },
           });
-
+          console.log(paymentIntent.client_secret)
         return res.status(200).json({ clientSecret: paymentIntent.client_secret });
     }catch(error){
         console.error("Error creating Payment Intent:", error.message);

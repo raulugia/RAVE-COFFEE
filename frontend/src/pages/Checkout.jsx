@@ -16,17 +16,47 @@ const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 const Checkout = () => {
     const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
+    const { totalPrice} = useBasket()
+    const [secret, setSecret] = useState()
+
+    useEffect(() => {
+        const createPaymentIntent = async() => {
+            if(!totalPrice){
+                return
+            }
+            
+            const amount = totalPrice >= 25 ? totalPrice : totalPrice + 7.99
+            console.log(amount)
+            try{
+                const token = await getToken()
+    
+                const { data } = await axiosInstance.post("/create-payment-intent", {amount}, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+    
+                if(data && data.clientSecret){
+                    setSecret(data.clientSecret)
+                    console.log(data)
+                }
+            }catch(error){
+                console.log(error)
+            }
+        }
+
+        createPaymentIntent()
+    }, [totalPrice])
 
   return (
-    <Elements stripe={stripePromise}>
-      <div className='mt-10 flex justify-between min-h-[calc(100vh-140px)]'>
-          <CheckoutDetailsCard />
-          <CheckoutBasket />
-          {
-            loading && <Loading />
-          }
-      </div>
-    </Elements>
+    !secret ? (
+        <Loading />
+    ) : (
+        <Elements stripe={stripePromise} options={{clientSecret: secret, business: "RAVE"}}>
+        <div className='mt-10 flex justify-between min-h-[calc(100vh-140px)]'>
+            <CheckoutDetailsCard />
+            <CheckoutBasket />
+        </div>
+        </Elements>
+    )
   )
 }
 
