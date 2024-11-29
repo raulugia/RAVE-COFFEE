@@ -3,6 +3,7 @@ const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 const { clerkClient} = require('@clerk/clerk-sdk-node');
 const { requireAuth } = require('@clerk/express')
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -231,6 +232,25 @@ app.put("/account/update-address", requireAuth(), async (req, res) => {
         return res.status(500).json({ error: "An error occurred while updating the address." });
     }
 });
+
+app.post("/create-payment-intent", requireAuth(), async(req, res) => {
+    const { amount } = req.body
+
+    try{
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount,
+            currency: 'gbp',
+            automatic_payment_methods: {
+              enabled: true,
+            },
+          });
+
+        return res.status(200).json({ clientSecret: paymentIntent.client_secret });
+    }catch(error){
+        console.error("Error creating Payment Intent:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+})
 
 
 app.listen(PORT, () => {
