@@ -14,7 +14,7 @@ const CheckoutDetailsCard = () => {
     const elements = useElements()
     const { basket, totalPrice} = useBasket()
     const navigate = useNavigate()
-    console.log(basket)
+
     useEffect(() => {
         (
             async() => {
@@ -74,7 +74,7 @@ const CheckoutDetailsCard = () => {
                 navigate("/checkout/success")
             }
         }catch(error){
-            console.log(error.message)
+            alert("There was an error with your order. Please try again")
         }finally{
             setLoading(false)
         }

@@ -39,43 +39,61 @@ model Address {
   updatedAt  DateTime @updatedAt
 }
 
-
 model Coffee {
-  id          Int          @id @default(autoincrement())
-  name        String
-  description String
-  price       Float
-  roast       Int
-  taste       String
-  orders      Order[]
-  reviews     Review[]
-  pictureUrl  String
-  smallpictureUrl  String
+  id             Int           @id @default(autoincrement())
+  name           String
+  description    String
+  price          Float
+  roast          Int
+  taste          String
+  orderCoffees   OrderCoffee[]
+  reviews        Review[]
+  pictureUrl     String
+  smallpictureUrl String
 }
 
 model Equipment {
-  id          Int          @id @default(autoincrement())
-  name        String
-  description String
-  price       Float
-  type        String
-  orders      Order[]
-  reviews     Review[]
-  pictureUrl  String
-  smallpictureUrl  String
+  id             Int            @id @default(autoincrement())
+  name           String
+  description    String
+  price          Float
+  type           String
+  orderEquipments OrderEquipment[]
+  reviews        Review[]
+  pictureUrl     String
+  smallpictureUrl String
 }
 
 model Order {
-  id          Int          @id @default(autoincrement())
-  customer    User         @relation(fields: [customerId], references: [id])
-  customerId  Int
-  total       Float
-  deliveryTotal Float
-  coffees    Coffee[]
-  equipments Equipment[]
-  stripeId   String
-  createdAt  DateTime @default(now())
+  id             Int             @id @default(autoincrement())
+  customer       User            @relation(fields: [customerId], references: [id])
+  customerId     Int
+  total          Float
+  deliveryTotal  Float
+  orderCoffees   OrderCoffee[]
+  orderEquipments OrderEquipment[]
+  stripeId       String
+  createdAt      DateTime        @default(now())
 }
+
+model OrderCoffee {
+  id        Int     @id @default(autoincrement())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+  coffee    Coffee  @relation(fields: [coffeeId], references: [id])
+  coffeeId  Int
+  quantity  Int
+}
+
+model OrderEquipment {
+  id          Int      @id @default(autoincrement())
+  order       Order    @relation(fields: [orderId], references: [id])
+  orderId     Int
+  equipment   Equipment @relation(fields: [equipmentId], references: [id])
+  equipmentId Int
+  quantity    Int
+}
+
 
 model Review {
   id          Int          @id @default(autoincrement())

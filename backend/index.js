@@ -267,8 +267,14 @@ app.post("/create-order", requireAuth(), async(req, res) => {
             return res.status(404).json({ error: "User not found." });
         }
 
-        const coffees = basket.filter(item => item.type === "coffee").map(item => item.id)
-        const equipments = basket.filter(item => item.type === "equipment").map(item => item.id)
+        const coffees = basket.filter(item => item.type === "coffee").map(item => ({
+            coffeeId: item.id,
+            quantity: item.quantity,
+        }))
+        const equipments = basket.filter(item => item.type === "equipment").map(item => ({
+            equipmentId: item.id,
+            quantity: item.quantity,
+        }))
 
         const order = await prisma.order.create({
             data: {
@@ -276,13 +282,23 @@ app.post("/create-order", requireAuth(), async(req, res) => {
                 total,
                 deliveryTotal,
                 stripeId: paymentIntentId,
-                coffees: {
-                    connect: coffees.map(id => ({ id })),
+                orderCoffees: {
+                    create: coffees.map((item) => ({
+                        coffeeId: item.coffeeId,
+                        quantity: item.quantity,
+                    })),
                   },
-                  equipments: {
-                    connect: equipments.map(id => ({ id })),
+                  orderEquipments: {
+                    create: equipments.map((item) => ({
+                        equipmentId: item.equipmentId,
+                        quantity: item.quantity,
+                    })),
                   },
-            }
+                },
+            include: {
+                orderCoffees: true,
+                orderEquipments: true,
+            },
         })
 
         return res.status(201).json({ message: "Order created successfully", order });
@@ -316,6 +332,38 @@ app.get("/orders", requireAuth(), async(req, res) => {
         return res.status(200).json(orders);
     }catch(error){
         console.log(error)
+    }
+})
+
+app.get("/recent-orders", requireAuth(), async(req, res) => {
+    try{
+        const user = await prisma.user.findUnique({
+            where: {
+                clerkId: req.auth.userId,
+            }
+        })
+    
+        if(!user){
+            return res.status(404).json({error: "User not found"})
+        }
+    
+        const orders = await prisma.order.findMany({
+            where: {
+                customerId: user.id,
+            },
+            orderBy: {
+                createdAt: "desc"
+            },
+            take: 3,
+            include: {
+                coffees: true,
+                equipments: true
+            }
+        })
+    
+        return res.json(orders)
+    }catch(error){
+        res.status(500).json({ error: error.message });
     }
 })
 
