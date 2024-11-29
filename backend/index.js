@@ -356,11 +356,15 @@ app.get("/recent-orders", requireAuth(), async(req, res) => {
             },
             take: 3,
             include: {
-                coffees: true,
-                equipments: true
+                orderCoffees: {
+                    include: {
+                        coffee: true
+                    }
+                },
+                orderEquipments: true
             }
         })
-    
+        console.log(orders)
         return res.json(orders)
     }catch(error){
         res.status(500).json({ error: error.message });
