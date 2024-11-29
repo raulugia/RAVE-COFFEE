@@ -17,6 +17,7 @@ import AccountNav from './components/AccountNav'
 import AccountChangePassword from './pages/AccountChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import Checkout from './pages/Checkout'
+import PaymentSuccessful from './pages/PaymentSuccessful'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
 
           <Route path="/checkout" element={<ProtectedRoute />}>
             <Route index element={<Checkout />} />
+            <Route path="success" element={<PaymentSuccessful />} />
           </Route>
         </Route>
       </Routes>

@@ -40,7 +40,6 @@ model Address {
 }
 
 
-
 model Coffee {
   id          Int          @id @default(autoincrement())
   name        String
@@ -71,9 +70,10 @@ model Order {
   customer    User         @relation(fields: [customerId], references: [id])
   customerId  Int
   total       Float
-  delivered  Boolean      @default(false)
+  deliveryTotal Float
   coffees    Coffee[]
   equipments Equipment[]
+  stripeId   String
   createdAt  DateTime @default(now())
 }
 

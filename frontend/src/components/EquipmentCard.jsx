@@ -8,7 +8,7 @@ const EquipmentCard = ({id, name, price, smallpictureUrl}) => {
     const { dispatch } = useBasket()
 
     const addToBasket = () => {
-        dispatch({ type: "ADD", payload: { id, name, price, smallpictureUrl, quantity: 1 }  });
+        dispatch({ type: "ADD", payload: { id, name, price, smallpictureUrl, quantity: 1, type: "equipment" }  });
     }
     
   return (

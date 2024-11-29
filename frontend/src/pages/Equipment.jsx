@@ -60,7 +60,6 @@ export const Equipment = () => {
                                 }
                             </div>
                         </div>
-                        // <EquipmentCard key={index + equipment.name} {...equipment} />
                     ))
                 }
             </div>

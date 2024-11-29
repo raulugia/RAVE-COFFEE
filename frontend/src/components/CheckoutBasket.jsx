@@ -23,11 +23,11 @@ const CheckoutBasket = () => {
                 <div>
                     <div className='flex justify-between'>
                         <p>Subtotal:</p>
-                        <p>{totalPrice}</p>
+                        <p>£{totalPrice.toFixed(2)}</p>
                     </div>
                     <div className='flex justify-between'>
                         <p>Shipping:</p>
-                        <p>{shippingPrice === 0 ? "FREE": shippingPrice}</p>
+                        <p>£{shippingPrice === 0 ? "FREE": shippingPrice}</p>
                     </div>
                 </div>
 
@@ -36,7 +36,7 @@ const CheckoutBasket = () => {
 
             <div className='flex justify-between'>
                 <p className='text-lg font-semibold'>Total:</p>
-                <p className='font-fira text-2xl text-center'>£{totalPrice + shippingPrice}</p>
+                <p className='font-fira text-2xl text-center'>£{(totalPrice + shippingPrice).toFixed(2)}</p>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ const CheckoutDetailsCard = () => {
     const elements = useElements()
     const { basket, totalPrice} = useBasket()
     const navigate = useNavigate()
-
+    console.log(basket)
     useEffect(() => {
         (
             async() => {
@@ -60,7 +60,8 @@ const CheckoutDetailsCard = () => {
                     {
                         paymentIntentId: paymentIntent.id,
                         total: totalPrice,
-                        items: basket,
+                        basket,
+                        deliveryTotal: 7.99,
                     },
                     {
                         headers: {
@@ -68,7 +69,8 @@ const CheckoutDetailsCard = () => {
                         },
                     }
                 );
-
+                console.log(response);
+                alert("Order placed successfully.")
                 navigate("/checkout/success")
             }
         }catch(error){
@@ -98,7 +100,7 @@ const CheckoutDetailsCard = () => {
                     <div className='h-[1px] w-full bg-black my-5'></div>
                     <div>
                         <h4 className='font-semibold mb-1'>Shipping Method</h4>
-                        <p>1st Class Tracked (Next working day despatch) · £2.95</p>
+                        <p>1st Class Tracked (Next working day despatch) · £7.99</p>
                     </div>
                     <div className='mt-20 max-w-[75%]'>
                         <div className='mb-5'>
@@ -106,7 +108,7 @@ const CheckoutDetailsCard = () => {
                         </div>
                         <div className='bg-slate-200 px-10 pt-5 pb-8 rounded-md'>
                             <PaymentElement />
-                            <button type="submit" className='w-full bg-black text-xl font-semibold text-white py-3 rounded-md font-fira mt-8'>
+                            <button type="submit" onClick={handlePayment} className='w-full bg-black text-xl font-semibold text-white py-3 rounded-md font-fira mt-8'>
                                 Complete Order
                             </button>
                         </div>
