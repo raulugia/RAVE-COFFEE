@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OrderCard = ({id, createdAt, orderCoffees, orderEquipments,total}) => {
+const OrderCard = ({id, createdAt, orderCoffees, orderEquipments,total, deliveryTotal}) => {
   return (
     <div className="border border-black min-w-[450px] rounded-md overflow-hidden shadow-md">
         <div className='flex font-permanent-marker py-1 text-lg bg-mustard justify-between border-b border-black px-2'>
@@ -16,7 +16,7 @@ const OrderCard = ({id, createdAt, orderCoffees, orderEquipments,total}) => {
                     </div>
                     <div className='flex justify-between w-[30%]'>
                         <p>x {item.quantity}</p>
-                        <p>£{item.coffee.price}</p>
+                        <p>£{item.coffee.price.toFixed(2)}</p>
                     </div>
                 </div>
             )) 
@@ -30,13 +30,19 @@ const OrderCard = ({id, createdAt, orderCoffees, orderEquipments,total}) => {
                     </div>
                     <div className='flex justify-between w-[30%]'>
                         <p>x {item.quantity}</p>
-                        <p>£{item.coffee.price}</p>
+                        <p>£{item.coffee.price.toFixed(2)}</p>
                     </div>
                 </div>
             )) 
                 
         }
-        <p className='text-right font-semibold mt-3 px-2'>Total: £{total}</p>
+        <div className='flex justify-between font-fira px-2'>
+            <p>Delivery</p>
+            <p>£{deliveryTotal}</p>
+        </div>
+        <div>
+            <p className='text-right font-semibold px-2'>Total: £{total.toFixed(2)}</p>
+        </div>
         </div>
     </div>
   )

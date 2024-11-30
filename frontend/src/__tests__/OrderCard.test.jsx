@@ -8,17 +8,20 @@ describe("OrderCard component", () => {
         createdAt: "01/01/2024",
         orderCoffees: [
             {
-                coffee: { id: 1, name: "Cappuccino", price: 2.50 },
+                coffee: { id: 1, name: "Cappuccino", price: 10.50 },
                 quantity: 2
             },
         ], 
         orderEquipments: [],
-        total: 22.20
+        total: 21.00
     }
     
     test("component renders order details correctly", () => {
         render(<OrderCard {...orderData} />)
 
         expect(screen.getByText("Cappuccino")).toBeInTheDocument()
+        expect(screen.getByText("x 2")).toBeInTheDocument()
+        expect(screen.getByText("£10.50")).toBeInTheDocument()
+        expect(screen.getByText(/£21.00/i)).toBeInTheDocument()
     })
 })
