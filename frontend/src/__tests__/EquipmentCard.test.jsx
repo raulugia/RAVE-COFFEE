@@ -40,7 +40,7 @@ describe('EquipmentCard component', () => {
         )
 
         fireEvent.click(screen.getByRole("button", { name: "QUICK ADD +"}))
-        expect(mockedDispatch).toHaveBeenCalledWith({type: "ADD", payload: { id: itemData.id, name: itemData.name, price: itemData.price, smallpictureUrl: itemData.smallpictureUrl, quantity: 1 }  })
+        expect(mockedDispatch).toHaveBeenCalledWith({type: "ADD", payload: { id: itemData.id, name: itemData.name, price: itemData.price, smallpictureUrl: itemData.smallpictureUrl, quantity: 1, type: "equipment", }  })
         
     })
 })

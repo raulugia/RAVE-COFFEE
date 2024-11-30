@@ -44,6 +44,6 @@ describe("CoffeeCard component", () => {
 
         fireEvent.click(screen.getByRole("button", {name: "QUICK ADD +"}))
 
-        expect(mockDispatch).toHaveBeenCalledWith({ type: "ADD", payload: { id: itemData.id, name: itemData.name, price: itemData.price, smallpictureUrl: itemData.smallpictureUrl, quantity: 1 }  })
+        expect(mockDispatch).toHaveBeenCalledWith({ type: "ADD", payload: { id: itemData.id, name: itemData.name, price: itemData.price, smallpictureUrl: itemData.smallpictureUrl, quantity: 1, type: "coffee" }  })
     })
 })
