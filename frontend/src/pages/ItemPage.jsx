@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
-import SideModal from '../components/SideModal'
-
 import CoffeeDetailsCard from '../components/CoffeeDetailsCard'
+import QuantityEdit from '../components/QuantityEdit'
+import MainBtn from '../components/MainBtn'
+import { useBasket } from '../context/BasketContext'
+import ItemQuantityCard from '../components/ItemQuantityCard'
 
 const ItemPage = () => {
     const { id } = useParams()
@@ -36,6 +38,14 @@ const ItemPage = () => {
         }
     }, [id])
 
+    const updateQuantity = (action) => {
+        if(action === "ADD") {
+            setQuantity(prevQuantity => prevQuantity + 1)
+        } else if(action === "REMOVE ONE" && quantity > 1) {
+            setQuantity(prevQuantity => prevQuantity - 1)
+        }
+    }
+
     if(loading) return <Loading />
 
   return (
@@ -59,6 +69,13 @@ const ItemPage = () => {
                                     <CoffeeDetailsCard taste={item.taste} roast={item.roast}/>
                                 )
                             }
+
+                            <div className="max-w-[400px] my-10 font-fira">
+                                {item.description}
+                            </div>
+
+                            <ItemQuantityCard />
+
                         </div>
                     </div>
                 </div>
