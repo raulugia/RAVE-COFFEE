@@ -18,6 +18,7 @@ import AccountChangePassword from './pages/AccountChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import Checkout from './pages/Checkout'
 import PaymentSuccessful from './pages/PaymentSuccessful'
+import ItemPage from './pages/ItemPage'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route element={ <Navbar /> }>
           <Route path="/" element={<Home />}/>
           <Route path="/coffee" element={<Coffee />}/>
+          <Route path="/coffee/:id" element={<ItemPage type="coffee" />}/>
           <Route path="/equipment" element={<Equipment />}/>
           <Route path="/Wholesale" element={<Wholesale />}/>
           <Route path="/about" element={<About />}/>
