@@ -371,6 +371,40 @@ app.get("/recent-orders", requireAuth(), async(req, res) => {
     }
 })
 
+app.get("/item/:id", async(req, res) => {
+    const { id } = req.params
+    const { type } = req.query
+
+    if((!id) || !type){
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    try{
+        let item
+
+        if(type === "coffee"){
+            item = await prisma.coffee.findFirst({
+                 where: {
+                     id: parseInt(id)
+                 }
+             })
+        }else{
+            item = await prisma.equipment.findFirst({
+                where: {
+                    id: parseInt(id)
+                }
+            })
+        }
+
+        if(!item){
+            return res.status(404).json({ error: "Item not found." });
+        }
+        return res.json(item)
+    }catch(error){
+        return res.status(500).json({ error: "Internal server error"})
+    }
+})
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

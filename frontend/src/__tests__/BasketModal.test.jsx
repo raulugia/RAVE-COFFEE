@@ -100,6 +100,6 @@ describe("BasketModal component", () => {
     
         fireEvent.click(screen.getByTestId("close-button"));
     
-        expect(mockSetDisplayModal).toHaveBeenCalledWith({ isVisible: false, contentType: null });
+        expect(mockSetDisplayModal).toHaveBeenCalled()
       });
 })

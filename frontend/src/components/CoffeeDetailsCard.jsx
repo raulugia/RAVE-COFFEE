@@ -4,7 +4,7 @@ import box from "../assets/product-icon-box.svg"
 
 const CoffeeDetailsCard = ({taste, roast}) => {
   return (
-    <div className='font-fira text-lg bg-box w-full py-8 px-6 w-[400px]'>
+    <div className='font-fira text-lg bg-box w-full py-8 px-6 md:w-[400px]'>
         <div className='flex gap-1 mb-2'>
             <p>Tastes like: </p>
             <p className='font-semibold'>{taste}</p>

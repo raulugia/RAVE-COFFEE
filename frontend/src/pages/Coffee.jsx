@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import MainBanner from '../components/MainBanner'
 import CoffeeCard from '../components/CoffeeCard'
-import SideModal from '../components/SideModal'
 import coffeeBanner from '../assets/coffee_banner.jpg'
 import axiosInstance from '../utils/axiosInstance'
-import { useBasket } from '../context/BasketContext'
 
 const Coffee = () => {
     const [coffeeTypes, setCoffeeTypes] = useState([])
-    const { displayModal } = useBasket()
     
     //fetch all coffees and update state
     useEffect(() => {

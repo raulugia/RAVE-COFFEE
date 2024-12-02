@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-import MainCard from '../components/MainCard'
 import MainBanner from '../components/MainBanner'
 import EquipmentCard from '../components/EquipmentCard'
-import SideModal from '../components/SideModal'
 import equipmentBanner from '../assets/Equipment-Banner.jpg'
 import axiosInstance from '../utils/axiosInstance'
 import { useBasket } from '../context/BasketContext'

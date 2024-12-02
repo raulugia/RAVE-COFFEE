@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import MainBtn from '../components/MainBtn'
 import { useBasket } from '../context/BasketContext'
 
@@ -20,7 +20,7 @@ const ItemQuantityCard = ({type, id, smallpictureUrl, name, price }) => {
     }
 
   return (
-    <div className='flex gap-8'>
+    <div className='flex gap-8 mx-auto lg:mx-0'>
         <div className='flex items-center gap-5'>
             <button 
                 onClick={() => handleQuantity("REMOVE")}
@@ -36,7 +36,7 @@ const ItemQuantityCard = ({type, id, smallpictureUrl, name, price }) => {
                 +
             </button>
         </div>
-        <MainBtn text="ADD TO CART" method={handleSubmit} />
+        <MainBtn text="ADD TO BASKET" method={handleSubmit} />
     </div>
   )
 }
