@@ -13,7 +13,7 @@ const BasketModal = () => {
 
     const closeModal = () => {
         document.body.style.overflow = 'auto'
-        setDisplayModal({isVisible: false, contentType: null })
+        setDisplayModal(false)
     }
 
   return (

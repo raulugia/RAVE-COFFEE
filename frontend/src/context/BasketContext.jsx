@@ -35,7 +35,7 @@ export const ContextProvider = ({ children }) => {
     });
     const [totalPrice, setTotalPrice] = useState(0);
     const [itemsQuantity, setItemsQuantity] = useState(0);
-    const [displayModal, setDisplayModal] = useState({isVisible: false, contentType: null  });
+    const [displayModal, setDisplayModal] = useState(false);
 
     const getTotalPrice = () => {
         return basket.reduce((total, item) => total + item.price * item.quantity, 0);

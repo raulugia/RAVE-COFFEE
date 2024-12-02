@@ -65,7 +65,7 @@ export const Equipment = () => {
             </div>
         </div>
         {
-            displayModal.isVisible && (
+            displayModal&& (
                 <SideModal />
             )
         }

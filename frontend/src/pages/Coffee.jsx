@@ -40,7 +40,7 @@ const Coffee = () => {
             </div>
         </div>
         {
-            displayModal.isVisible && (
+            displayModal && (
                 <SideModal />
             )
         }

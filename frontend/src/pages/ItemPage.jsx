@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
+import SideModal from '../components/SideModal'
 
-const ItemPage = ({type}) => {
+const ItemPage = () => {
     const { id } = useParams()
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(false)
+
+    const { pathname } = useLocation()
+    const type = pathname.includes("/coffee") ? "coffee" : "equipment"
 
     useEffect(() => {
         if(id){
@@ -14,7 +18,9 @@ const ItemPage = ({type}) => {
                 async() => {
                     try{
                         setLoading(true)
-                        const { data } = await axiosInstance.get(`/${type}/${id}`)
+                        const { data } = await axiosInstance.get(`/item/${id}`, {
+                            params: { type },
+                        })
 
                         setItem(data)
                     }catch(error){

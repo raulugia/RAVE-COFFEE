@@ -28,8 +28,9 @@ function App() {
         <Route element={ <Navbar /> }>
           <Route path="/" element={<Home />}/>
           <Route path="/coffee" element={<Coffee />}/>
-          <Route path="/coffee/:id" element={<ItemPage type="coffee" />}/>
+          <Route path="/coffee/:id" element={<ItemPage />}/>
           <Route path="/equipment" element={<Equipment />}/>
+          <Route path="/equipment/:id" element={<ItemPage />}/>
           <Route path="/Wholesale" element={<Wholesale />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/contact-us" element={<ContactUs />}/>
