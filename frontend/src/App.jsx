@@ -19,9 +19,12 @@ import ResetPassword from './pages/ResetPassword'
 import Checkout from './pages/Checkout'
 import PaymentSuccessful from './pages/PaymentSuccessful'
 import ItemPage from './pages/ItemPage'
+import { useBasket } from './context/BasketContext'
+import SideModal from './components/SideModal'
 
 
 function App() {
+  const { displayModal } = useBasket()
   return (
     <>
       <Routes>
@@ -53,6 +56,12 @@ function App() {
           </Route>
         </Route>
       </Routes>
+
+      {
+        displayModal && (
+            <SideModal />
+        )
+      }
     </>
   )
 }

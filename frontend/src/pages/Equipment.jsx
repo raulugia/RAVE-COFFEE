@@ -64,11 +64,6 @@ export const Equipment = () => {
                 }
             </div>
         </div>
-        {
-            displayModal&& (
-                <SideModal />
-            )
-        }
     </div>
   )
 }

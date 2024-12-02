@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import MainBtn from '../components/MainBtn'
+import { useBasket } from '../context/BasketContext'
 
 
-const ItemQuantityCard = () => {
+const ItemQuantityCard = ({type, id, smallpictureUrl, name, price }) => {
     const [quantity, setQuantity] = useState(1)
+    const { dispatch } = useBasket()
 
     const handleQuantity = (action) => {
         if(action === "ADD") {
@@ -11,6 +13,10 @@ const ItemQuantityCard = () => {
         } else if(action === "REMOVE" && quantity > 1) {
             setQuantity(prevQuantity => prevQuantity - 1)
         }
+    }
+
+    const handleSubmit = () => {
+        dispatch({ type: "ADD", payload: { id, name, price, smallpictureUrl, quantity, type }  });
     }
 
   return (
@@ -30,7 +36,7 @@ const ItemQuantityCard = () => {
                 +
             </button>
         </div>
-        <MainBtn text="ADD TO CART" onClick={() => addToCart(item)} />
+        <MainBtn text="ADD TO CART" method={handleSubmit} />
     </div>
   )
 }

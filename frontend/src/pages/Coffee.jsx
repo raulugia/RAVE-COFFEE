@@ -39,11 +39,6 @@ const Coffee = () => {
                 }
             </div>
         </div>
-        {
-            displayModal && (
-                <SideModal />
-            )
-        }
     </div>
   )
 }

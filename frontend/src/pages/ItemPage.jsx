@@ -74,7 +74,7 @@ const ItemPage = () => {
                                 {item.description}
                             </div>
 
-                            <ItemQuantityCard />
+                            <ItemQuantityCard {...item}/>
 
                         </div>
                     </div>
