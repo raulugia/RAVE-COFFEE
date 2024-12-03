@@ -8,9 +8,9 @@ const PaymentSuccessful = ({totalPrice, id}) => {
 
     useEffect(() => {
         if(!id){
-            return
+            navigate("/account/orders")
         }
-        
+
         const timer = setInterval(() => {
             setCountdown((prevCountdown) => prevCountdown - 1000)
         }, 1000)
@@ -33,7 +33,7 @@ const PaymentSuccessful = ({totalPrice, id}) => {
                 <img src={tick} alt="tick" />
             </div>
             <div>
-                <h1 className='font-permanent-marker text-3xl mb-2'>Payment succeeded!</h1>
+                <h1 className='font-permanent-marker text-3xl mb-2'>Payment Succeeded!</h1>
                 <p className='font-fira text-lg'>Amount paid: <span>£{totalPrice.toFixed(2)}</span></p>
                 <p className='font-fira mt-5'>You will be redirected in {countdown / 1000}</p>
             </div>
