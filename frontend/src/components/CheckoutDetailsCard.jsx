@@ -82,10 +82,10 @@ const CheckoutDetailsCard = () => {
     }
 
   return (
-    <div className='max-w-[55%]'>
+    <div className='md:max-w-[55%]'>
         {
             userData && (
-                <div className='font-fira mx-10 mb-10'>
+                <div className='font-fira mx-5 md:mx-10 mb-10'>
                     <div>
                         <h4 className='font-semibold mb-1'>Account</h4>
                         <p>{userData.email}</p>
@@ -103,7 +103,8 @@ const CheckoutDetailsCard = () => {
                         <h4 className='font-semibold mb-1'>Shipping Method</h4>
                         <p>1st Class Tracked (Next working day despatch) · £7.99</p>
                     </div>
-                    <div className='mt-20 max-w-[75%]'>
+
+                    <div className='mt-10 md:mt-20 md:max-w-[75%]'>
                         <div className='mb-5'>
                             <h2 className='font-semibold text-2xl'>Payment</h2>
                         </div>
@@ -114,6 +115,7 @@ const CheckoutDetailsCard = () => {
                             </button>
                         </div>
                     </div>
+
                 </div>
             )
         }

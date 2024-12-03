@@ -53,7 +53,7 @@ const Checkout = () => {
         <Loading />
     ) : (
         <Elements stripe={stripePromise} options={{clientSecret: secret, business: "RAVE"}}>
-        <div className='mt-10 flex justify-between min-h-[calc(100vh-140px)]'>
+        <div className='mt-10 flex flex-col md:flex-row md:justify-between min-h-[calc(100vh-140px)]'>
             <CheckoutDetailsCard />
             <CheckoutBasket />
         </div>
