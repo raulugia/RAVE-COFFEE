@@ -66,4 +66,7 @@ const accountNavCardData = [
         iconPath: passwordIcon,
     },
 ]
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData};
+
+const subscription_main_text = "Our coffee subscription is more than just brilliant coffee. It’s an apprenticeship – teaching you about coffee with every cup. With techniques, knowledge, tips and fun. Because we believe the more you know about coffee the more you enjoy it. You don’t need all the pomp and fancy words to be a coffee connoisseur, there’s an arabica whizz-kid in each and every one of us."
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text};

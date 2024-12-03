@@ -27,6 +27,7 @@ export default {
         'coffee-beans-pattern': "url('/src/assets/coffee-bean-background.svg')",
         'frame': "url('/src/assets/card-frame.png')",
         'box': "url('/src/assets/product-icon-box.svg')",
+        'polaroid': "url('/src/assets/polaroid.png')",
       }
     },
   },

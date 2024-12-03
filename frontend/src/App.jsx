@@ -20,6 +20,7 @@ import Checkout from './pages/Checkout'
 import ItemPage from './pages/ItemPage'
 import { useBasket } from './context/BasketContext'
 import SideModal from './components/SideModal'
+import Subscriptions from './pages/Subscriptions'
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Wholesale" element={<Wholesale />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/contact-us" element={<ContactUs />}/>
+          <Route path="/subscriptions" element={<Subscriptions />}/>
           
           <Route path="/register" element={<Register />}/>
           <Route path="/login" element={<SignIn />}/>
