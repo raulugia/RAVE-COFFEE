@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import MainBtn from './MainBtn'
 import { useBasket } from '../context/BasketContext'
@@ -6,6 +6,7 @@ import CoffeeBean from './CoffeeBean'
 
 const CoffeeCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
     const { dispatch } = useBasket()
+    const [loaded, setLoaded] = useState(false)
 
     const addToBasket = () => {
         dispatch({ type: "ADD", payload: { id, name, price, smallpictureUrl, quantity: 1, type: "coffee" }  });
@@ -14,8 +15,9 @@ const CoffeeCard = ({name, id, price, roast, taste, smallpictureUrl}) => {
   return (
     <div className='mb-14 max-w-[400px] flex flex-col justify-between'>
         <Link to={`/coffee/${id}`}>
-            <div className='max-w-[400px] mb-5'>
-                <img src={smallpictureUrl} alt={name} className='w-full'/>
+            <div className='w-[400px] h-[400px] mb-5'>
+                <img src={smallpictureUrl} alt={name} className='w-full' onLoad={() => setLoaded(true)}/>
+                {!loaded && <div className='w-full h-full bg-gray-200 flex items-center justify-center font-permanent-marker text-2xl'>Loading...</div>}
             </div>
             <div>   
                 <h4 className='font-permanent-marker text-lg mb-6'>{name}</h4>
