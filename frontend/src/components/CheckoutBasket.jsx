@@ -7,7 +7,8 @@ const CheckoutBasket = () => {
     const shippingPrice = 25 - totalPrice < 0 ? 0 : 7.99
 
   return (
-    <div className='w-[40%] mx-10'>
+    <div className='md:w-[40%] md:mx-10'>
+        <h1 className='px-5 md:mx-0 font-semibold text-2xl mb-5'>Order Summary</h1>
         <div className='flex flex-col gap-3 max-h-[75%] overflow-y-scroll'>
             {
                 basket.map((item, index) => (

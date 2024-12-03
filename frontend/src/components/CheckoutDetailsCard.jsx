@@ -104,7 +104,7 @@ const CheckoutDetailsCard = () => {
                         <p>1st Class Tracked (Next working day despatch) · £7.99</p>
                     </div>
 
-                    <div className='mt-10 md:mt-20 md:max-w-[75%]'>
+                    <div className='mt-10 md:mt-20  lg:max-w-[75%]'>
                         <div className='mb-5'>
                             <h2 className='font-semibold text-2xl'>Payment</h2>
                         </div>

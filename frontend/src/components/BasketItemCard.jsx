@@ -14,13 +14,13 @@ const BasketItemCard = ({id, smallpictureUrl, name, price, quantity}) => {
     <div className='flex items-center gap-5 px-5 font-fira'>
         <img src={smallpictureUrl} alt={name} className='w-[110px]'/>
         <div className='w-full'>
-            <div className='flex justify-between mb-3'>
+            <div className='flex justify-between items-center mb-3'>
                 <p>{name}</p>
                 <RiDeleteBin7Line onClick={removeAll} className='hover:cursor-pointer'/>
             </div>
-            <div className='flex justify-between'>
+            <div className='flex lg:flex-row flex-col justify-between'>
                 <QuantityEdit id={id} quantity={quantity}/>
-                <p>£{price}</p>
+                <p className='mt-2 lg:mt-0'>£{price}</p>
             </div>
         </div>
     </div>
