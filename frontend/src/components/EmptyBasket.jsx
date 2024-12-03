@@ -7,7 +7,7 @@ const EmptyBasket = () => {
     const navigate = useNavigate()
 
   return (
-    <div className='px-[8%] flex flex-col items-center justify-center min-h-[calc(100vh-140px)]'>
+    <div className='px-[8%] flex flex-col items-center text-center justify-center min-h-[calc(100vh-140px)]'>
         <img src={cartIcon} alt="cart icon"  className='w-[300px]'/>
         <h1 className='font-permanent-marker text-4xl mt-10 mb-5'>Your Basket Is Currently Empty!</h1>
         <p className='mb-10 font-fira'>Before you proceed to checkout you must add items to your basket</p>

@@ -5,6 +5,7 @@ import Loading from '../components/Loading'
 import {PaymentElement,  useStripe, useElements} from '@stripe/react-stripe-js';
 import { useBasket } from '../context/BasketContext';
 import { useNavigate } from 'react-router-dom';
+import PaymentSuccessful from './PaymentSuccessful';
 
 const CheckoutDetailsCard = () => {
     const [userData, setUserData] = useState()
@@ -14,6 +15,8 @@ const CheckoutDetailsCard = () => {
     const elements = useElements()
     const { basket, totalPrice, dispatch} = useBasket()
     const navigate = useNavigate()
+    const [isSuccessful, setIsSuccessful] = useState(false)
+    const [orderId, setOrderId] = useState("")
 
     useEffect(() => {
         (
@@ -56,7 +59,7 @@ const CheckoutDetailsCard = () => {
 
             if(paymentIntent && paymentIntent.status === 'succeeded') {
                 const token = await getToken();
-                const response = await axiosInstance.post("/create-order",
+                const { data } = await axiosInstance.post("/create-order",
                     {
                         paymentIntentId: paymentIntent.id,
                         total: totalPrice,
@@ -69,9 +72,9 @@ const CheckoutDetailsCard = () => {
                         },
                     }
                 );
+                setOrderId(data.order.id)
+                setIsSuccessful(true)
                 dispatch({type: "EMPTY"})
-                alert("Order placed successfully.")
-                navigate("/checkout/success")
             }
         }catch(error){
             alert("There was an error with your order. Please try again")
@@ -118,6 +121,9 @@ const CheckoutDetailsCard = () => {
         }
         {
             loading && <Loading />
+        }
+        {
+            !isSuccessful && <PaymentSuccessful totalPrice={totalPrice}/>
         }
     </div>
   )

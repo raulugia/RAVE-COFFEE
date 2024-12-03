@@ -17,7 +17,6 @@ import AccountNav from './components/AccountNav'
 import AccountChangePassword from './pages/AccountChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import Checkout from './pages/Checkout'
-import PaymentSuccessful from './pages/PaymentSuccessful'
 import ItemPage from './pages/ItemPage'
 import { useBasket } from './context/BasketContext'
 import SideModal from './components/SideModal'
@@ -52,7 +51,6 @@ function App() {
 
           <Route path="/checkout" element={<ProtectedRoute />}>
             <Route index element={<Checkout />} />
-            <Route path="success" element={<PaymentSuccessful />} />
           </Route>
         </Route>
       </Routes>
