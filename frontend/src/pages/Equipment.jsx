@@ -45,7 +45,7 @@ export const Equipment = () => {
             <div className='flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10'>
                 {
                     allEquipments.map((equipment, index) => (
-                        <div>
+                        <div key={index}>
                             <div className='mb-5 md:mb-10'>
                                 <h3 className='font-permanent-marker text-3xl mb-2'>{equipment.type}</h3>
                                 <div className='w-full h-[4px] bg-mustard'></div>

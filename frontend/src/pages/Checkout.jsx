@@ -7,7 +7,7 @@ import Loading from '../components/Loading'
 import CheckoutDetailsCard from '../components/CheckoutDetailsCard'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import {PaymentElement} from '@stripe/react-stripe-js';
+import EmptyBasket from '../components/EmptyBasket'
 
 
 const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
@@ -16,12 +16,12 @@ const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 const Checkout = () => {
     const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
-    const { totalPrice} = useBasket()
+    const { totalPrice, basket} = useBasket()
     const [secret, setSecret] = useState()
 
     useEffect(() => {
         const createPaymentIntent = async() => {
-            if(!totalPrice){
+            if(!totalPrice || basket.length === 0){
                 return
             }
             
@@ -44,10 +44,12 @@ const Checkout = () => {
         }
 
         createPaymentIntent()
-    }, [totalPrice])
+    }, [totalPrice, basket])
 
+    if(basket.length === 0) return <EmptyBasket />
+    
   return (
-    !secret ? (
+    !secret && basket.length > 0 ? (
         <Loading />
     ) : (
         <Elements stripe={stripePromise} options={{clientSecret: secret, business: "RAVE"}}>

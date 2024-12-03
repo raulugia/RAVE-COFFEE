@@ -15,16 +15,17 @@ const basketReducer = (basket, action) => {
             }else {
                 return [...basket, {...action.payload, price: action.payload.price.toFixed(2)}];
             }
-            break;
         case "REMOVE ALL":
             return basket.filter(item => item.id !== action.payload.id);
-            break;
         case "REMOVE ONE":
             return basket.map(item => item.id === action.payload.id ? {...item, quantity: item.quantity - 1} : item);
-            break;
         case "UPDATE QUANTITY":
             return basket.map(item => item.id === action.payload.id ? {...item, quantity: action.payload.quantity} : item);
-            break
+        case "EMPTY":
+            localStorage.setItem("basket", "");
+            return [];
+        default:
+            return basket;
     }
 }
 

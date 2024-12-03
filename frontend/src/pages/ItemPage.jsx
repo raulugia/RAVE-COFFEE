@@ -59,7 +59,7 @@ const ItemPage = () => {
 
                     <div className='md:w-1/2 md:px-16 mt-5 lg:mt-0 flex justify-center px-5'>
                         <div className='flex flex-col items-start'>
-                            <div className='mb-10'>
+                            <div className={`${type === "coffee" ? "mb-10" : ""}`}>
                                 <h1 className='font-permanent-marker text-3xl md:text-4xl mb-5'>{item.name}</h1>
                                 <p className='font-fira font-semibold text-lg'>£{item.price.toFixed(2)}</p>
                             </div>
@@ -70,7 +70,7 @@ const ItemPage = () => {
                                 )
                             }
 
-                            <div className="max-w-[400px] my-10 font-fira">
+                            <div className="max-w-[400px] max-h-[400px] overflow-auto my-10 font-fira">
                                 {item.description}
                             </div>
 

@@ -16,6 +16,11 @@ const BasketModal = () => {
         setDisplayModal(false)
     }
 
+    const handleCheckout = () => {
+        setDisplayModal(false)
+        navigate("/checkout")
+    }
+
   return (
     <div className='h-full overflow-y-auto flex flex-col'>
         {/* HEADER */}
@@ -63,7 +68,7 @@ const BasketModal = () => {
                         <p>Subtotal <span>({itemsQuantity} item{itemsQuantity > 1 ? "s" : ""})</span></p>
                         <p>£{totalPrice}</p>
                     </div>
-                    <MainBtn text="CHECKOUT" method={() => navigate("/")}/>
+                    <MainBtn text="CHECKOUT" method={handleCheckout}/>
                 </div>
             )
         }

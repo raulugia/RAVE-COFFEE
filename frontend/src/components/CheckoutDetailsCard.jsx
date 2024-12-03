@@ -12,7 +12,7 @@ const CheckoutDetailsCard = () => {
     const { getToken} = useAuth()
     const stripe = useStripe()
     const elements = useElements()
-    const { basket, totalPrice} = useBasket()
+    const { basket, totalPrice, dispatch} = useBasket()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const CheckoutDetailsCard = () => {
                         },
                     }
                 );
-                console.log(response);
+                dispatch({type: "EMPTY"})
                 alert("Order placed successfully.")
                 navigate("/checkout/success")
             }
