@@ -4,7 +4,6 @@ import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
 import {PaymentElement,  useStripe, useElements} from '@stripe/react-stripe-js';
 import { useBasket } from '../context/BasketContext';
-import { useNavigate } from 'react-router-dom';
 import PaymentSuccessful from './PaymentSuccessful';
 
 const CheckoutDetailsCard = () => {
@@ -14,7 +13,6 @@ const CheckoutDetailsCard = () => {
     const stripe = useStripe()
     const elements = useElements()
     const { basket, totalPrice, dispatch} = useBasket()
-    const navigate = useNavigate()
     const [isSuccessful, setIsSuccessful] = useState(false)
     const [orderId, setOrderId] = useState("")
 
@@ -123,7 +121,7 @@ const CheckoutDetailsCard = () => {
             loading && <Loading />
         }
         {
-            !isSuccessful && <PaymentSuccessful totalPrice={totalPrice}/>
+            isSuccessful && orderId && <PaymentSuccessful totalPrice={totalPrice} id={orderId}/>
         }
     </div>
   )
