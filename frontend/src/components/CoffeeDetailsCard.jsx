@@ -1,6 +1,5 @@
 import React from 'react'
 import CoffeeBean from '../components/CoffeeBean'
-import box from "../assets/product-icon-box.svg"
 
 const CoffeeDetailsCard = ({taste, roast}) => {
   return (
