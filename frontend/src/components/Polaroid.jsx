@@ -6,7 +6,7 @@ import coffee from "../assets/polaroid_coffee.jpg"
 
 const Polaroid = () => {
   return (
-    <div className='flex'>
+    <div className='xl:flex hidden'>
         <div className='bg-polaroid bg-no-repeat bg-cover w-[300px] h-[300px] flex items-end -rotate-6 shadow-md mt-10 z-20'>
             <img src={set} alt="" className='absolute top-[19px] left-[21px] w-[260px] h-[235px]'/>
             <h3 className='font-permanent-marker text-lg text-center leading-[20px] mb-1'>New exclusive coffees every month!</h3>

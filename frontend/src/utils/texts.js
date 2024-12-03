@@ -1,6 +1,9 @@
 import userIcon from '../assets/accountCard/user-icon.svg'
 import orderIcon from '../assets/accountCard/orders-icon.svg'
 import passwordIcon from '../assets/accountCard/password.svg'
+import beans from '../assets/beans.svg'
+import bike from '../assets/bike.svg'
+import man from '../assets/man.svg'
 
 
 const aboutText = [
@@ -69,4 +72,25 @@ const accountNavCardData = [
 
 const subscription_main_text = "Our coffee subscription is more than just brilliant coffee. It’s an apprenticeship – teaching you about coffee with every cup. With techniques, knowledge, tips and fun. Because we believe the more you know about coffee the more you enjoy it. You don’t need all the pomp and fancy words to be a coffee connoisseur, there’s an arabica whizz-kid in each and every one of us."
 
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text};
+const subscription_cards_text = [
+    {
+        header: "Sustainable and ethical coffee",
+        text: "You'll receive an exciting and delicious coffee each month as well as your monthly coffee tuition. We’re proud to offer an ethical coffee subscription: we use ethically sourced beans and pay fair prices for them.",
+        imgSrc: beans,
+        imgAlt: "coffee beans"
+    },
+    {
+        header: "Coffee delivered to your door",
+        text: "Delivered to home or office, your freshly roasted coffee subscription box will arrive via Royal Mail Tracked service and will fit conveniently through the letterbox.",
+        imgSrc: bike,
+        imgAlt: "coffee bean riding a bike"
+    },
+    {
+        header: "You're in control",
+        text: "Pause, skip or cancel with no commitment. You have full control over your coffee subscription service through our online portal, that's why it's the best coffee subscription UK wide.",
+        imgSrc: man,
+        imgAlt: "man"
+    },
+]
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text};
