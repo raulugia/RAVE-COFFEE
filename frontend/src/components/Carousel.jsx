@@ -52,7 +52,9 @@ const Carousel = ({header, type}) => {
                     ))
                 ) : (
                     items.map((item, index) => (
-                        <EquipmentCard key={index + item.name} {...item} />
+                        <SplideSlide key={index + item.name} className="flex self-stretch">
+                            <EquipmentCard key={index + item.name} {...item} carousel={true}/>
+                        </SplideSlide>
                     ))
                 )
             }

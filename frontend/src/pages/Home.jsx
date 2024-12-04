@@ -7,7 +7,6 @@ const Home = () => {
       Home
       <Carousel header='Featured Coffee' type='coffee' />
       <Carousel header='Featured Equipment' type='equipment' />
-      <Carousel header='Featured Coffee' type='coffee' />
     </div>
   )
 }

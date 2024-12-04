@@ -4,7 +4,7 @@ import MainBtn from './MainBtn'
 import { useBasket } from '../context/BasketContext'
 
 
-const EquipmentCard = ({id, name, price, smallpictureUrl}) => {
+const EquipmentCard = ({id, name, price, smallpictureUrl, carousel= false}) => {
     const { dispatch } = useBasket()
     const [loaded, setLoaded] = useState(false)
 
@@ -13,7 +13,7 @@ const EquipmentCard = ({id, name, price, smallpictureUrl}) => {
     }
     
   return (
-    <div className='mb-14 max-w-[400px] flex flex-col justify-between'>
+    <div className={`mb-14 flex flex-col justify-between ${carousel ? "max-w-[360px]" : "max-w-[400px]" }`}>
         <Link to={`/equipment/${id}`}>
             <div className='w-[400px] h-[400px] mb-5'>
                 <img src={smallpictureUrl} alt={name} className='w-full' onLoad={() => setLoaded(true)}/>
