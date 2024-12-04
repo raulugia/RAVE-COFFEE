@@ -127,4 +127,42 @@ const subscription_questions = [
     }
 ]
 
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions};
+const footerLinks_col1 = [
+    {
+        header: "About",
+        links: [
+            { text: "1% For The Planet", to: "#" },
+            { text: "About", to: "#" },
+            { text: "Brew Guides", to: "#" },
+            { text: "Blog", to: "#" },
+            { text: "Careers", to: "#" },
+            { text: "Coffee Club Archives", to: "#" },
+            { text: "Growing Regions", to: "#" },
+            { text: "Knowledge Base", to: "#" },
+        ]
+    },
+    {
+        header: "Wholesale",
+        links: [
+            { text: "Wholesale Coffee", to: "/wholesale" },
+            { text: "Sign Up", to: "/register" },
+            { text: "Login", to: "/login" },
+        ] 
+    }
+]
+
+const footerLinks_col2 = [
+    {
+        header: "Help",
+        links: [
+            { text: "FAQ", to: "#" },
+            { text: "Contact", to: "#" },
+            { text: "Roasting My Order", to: "#" },
+            { text: "Delivery & Returns", to: "#" },
+            { text: "Terms & Conditions", to: "#" },
+            { text: "Rewards & Referrals", to: "#" },
+        ]
+    },
+]
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions, footerLinks_col1, footerLinks_col2};

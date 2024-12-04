@@ -3,11 +3,12 @@ import { Link, Outlet } from 'react-router-dom'
 import BasketBtn from './BasketBtn'
 import raveLogo from '../assets/logo.svg'
 import userIcon from '../assets/user.svg'
+import Footer from './Footer'
 
 const Navbar = () => {
   return (
     <div>
-        <nav className='flex justify-between items-center w-full bg-mustard text-xl px-8 py-7 font-permanent-marker fixed'>
+        <nav className='flex justify-between items-center z-50 w-full bg-mustard text-xl px-8 py-7 font-permanent-marker fixed'>
             <div>
                 <img src={raveLogo} alt="rave logo" />
             </div>
@@ -27,6 +28,7 @@ const Navbar = () => {
         </nav>
         <div className='pt-[99px] min-h-screen'>
             <Outlet />
+            <Footer />
         </div>
     </div>
   )
