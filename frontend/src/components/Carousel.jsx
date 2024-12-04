@@ -26,10 +26,18 @@ const Carousel = ({header, type}) => {
         )()
     }, [])
 
+    const handleScroll= direction => {
+        if(direction === "right"){
+            carouselRef.current.scrollLeft += 300
+        }else{
+            carouselRef.current.scrollLeft -= 300
+        }
+    }
+
   return (
     <div>
         <h1>{header}</h1>
-        <div ref={carouselRef} className='overflow-x-auto flex gap-5 items-center'>
+        <div ref={carouselRef} className='overflow-x-auto flex gap-5 items-center relative'>
             {
                 type === "coffee" ? (
                     items.map((item, index) => (
@@ -41,6 +49,10 @@ const Carousel = ({header, type}) => {
                     ))
                 )
             }
+            <div className='absolute w-full top-[50%] flex justify-between items-center'>
+                <button onClick={() => handleScroll("left")}>{"<"}</button>
+                <button onClick={() => handleScroll("right")}>{">"}</button>
+            </div>
         </div>
     </div>
   )
