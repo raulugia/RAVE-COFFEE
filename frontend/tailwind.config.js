@@ -18,10 +18,20 @@ export default {
         "slide-left": {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
-        }
+        },
+        "slide-down": {
+          "0%": { marginTop: "0px", opacity: "0" },
+          "100%": { marginTop: "15px", opacity: "1" },
+        },
+        "slide-up": {
+          "0%": { marginTop: "15px", opacity: "1" },
+          "100%": { marginTop: "0px", opacity: "0" },
+        },
       },
       animation: {
-        "slide-left": "slide-left 0.3s ease-out", // Define the animation
+        "slide-left": "slide-left 0.3s ease-out",
+        "slide-down": "slide-down 0.3s ease-out forwards",
+        "slide-up": "slide-down 0.3s ease-out forwards",
       },
       backgroundImage: {
         'coffee-beans-pattern': "url('/src/assets/coffee-bean-background.svg')",

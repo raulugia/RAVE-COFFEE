@@ -1,6 +1,9 @@
 import userIcon from '../assets/accountCard/user-icon.svg'
 import orderIcon from '../assets/accountCard/orders-icon.svg'
 import passwordIcon from '../assets/accountCard/password.svg'
+import wholesaleIphone from '../assets/wholesale_iphone.jpg'
+import wholesaleBox from '../assets/wholesale_box.png'
+import wholesaleFallingBeans from '../assets/wholesale_fallingbeans.png'
 import beans from '../assets/beans.svg'
 import bike from '../assets/bike.svg'
 import man from '../assets/man.svg'
@@ -38,17 +41,17 @@ const wholesale_cards_text = [
     {
         header: "ORDER WHOLESALE COFFEE",
         text: "Click below to access wholesale coffee supplies and pricing online. Create an account, log in and you can shop online instantly, no need for pre-approval.",
-        imgSource: "wholesaleIphone"
+        imgSource: wholesaleIphone
     },
     {
         header: "ROASTED FRESH",
         text: "We freshly roast and despatch your wholesale coffee the next working day after your online order. Coffee for Filter or Espresso machines, roasted and ground to order.",
-        imgSource: "wholesaleBox"
+        imgSource: wholesaleBox
     },
     {
         header: "FREE UK DELIVERY",
         text: "We despatch bulk coffee beans via UK courier on a Tracked 24 service to make sure your parcel arrives in good time. Rave are the best wholesale coffee suppliers UK wide.",
-        imgSource: "wholesaleShipping"
+        imgSource: wholesaleFallingBeans
     },
 ]
 
@@ -93,4 +96,35 @@ const subscription_cards_text = [
     },
 ]
 
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text};
+const subscription_questions = [
+    {
+        question: "Am I locked into my monthly coffee Subscription?",
+        answer: "No, of course not. You can cancel at anytime directly from your customer portal."
+    },
+    {
+        question: "Can I buy the coffee subscription as a gift?",
+        answer: "Yes you can. On the personaliser just select 'Gift', you can select the duration and when you would like it delivered."
+    },
+    {
+        question: "I want my gift subscription to arrive on a specific day, how can I do this?",
+        answer: "You are also able to select the date that you want to subscription to start on. We will do our best to despatch the coffee to arrive on this date."
+    },
+    {
+        question: "I want the first delivery gift wrapped, is that something you can do for me?",
+        answer: "Yes just select gift wrap and leave a personnel message and we'll take care of it for you."
+    },
+    {
+        question: "What is a Coffee Subscription?",
+        answer: "Coffee subscriptions are a service that sends clients repeated delivery of high-quality coffee beans or grounds. Coffee subscription services can be tailored to each customer's specific specifications, such as roast level, flavour profiles, and delivery frequency. With direct deliveries from coffee roasters, customers can enjoy a consistent supply of fresh and tasty coffee, eliminating the need to run out or make numerous visits to the supermarket. Furthermore, many coffee subscription services provide unusual coffee blends and types that may not be accessible in local stores, allowing customers to experiment with new specialty coffee from around the world. Overall, a coffee subscription is a wonderful method for coffee enthusiasts to ensure they always have access to their favourite beverage while also discovering new and amazing coffee experiences."
+    },
+    {
+        question: "How Do I Choose the Best Coffee Subscription Service?",
+        answer: "When it comes to choosing the best coffee subscription service in the UK, there are a few things to consider. Firstly, it's important to think about the quality and origin of the coffee. Do you want coffee that is ethically sourced and sustainable? Or are you more interested in a particular flavour profile or roast level? Another factor to consider is the frequency and flexibility of deliveries. Do you want a monthly delivery or would you prefer to receive coffee more frequently? Can you skip or pause deliveries if you need to? Does the subscription service offer a grind size that is ideal for your brew method? It's important to choose a service that fits with your specific needs and lifestyle."
+    },
+    {
+        question: "Can I customise my coffee subscription?",
+        answer: "At Rave Coffee, we understand that selecting the perfect coffee can be perplexing. With everyone having their own distinct taste preferences and brewing methods, it can be difficult to choose the right option. But rest assured, we've got you covered! We offer a range of customised options to ensure that you always get the perfect cup of coffee. When you sign up for a subscription with us, you can select your preferred roast degree, which ranges from light to dark, as well as your chosen flavour profile, which can be fruity, nutty, or chocolatey. We also provide a variety of single-origin coffees and blends, giving you plenty of options to explore different regions and flavours. But if you're still uncertain about which option to choose, don't worry! Our coffee experts are always available to provide recommendations based on your taste preferences and brewing method. You could also take our Coffee Quiz to discover your perfect brew. And if you change your mind, updating your personalization options is easy via your online account. We believe that every cup of coffee should be tailored to your specific taste preferences, which is why we work hard to make our customizable subscription service a reality. Join our community of coffee lovers today and discover the perfect cup of coffee for you!"
+    }
+]
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions};
