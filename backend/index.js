@@ -405,6 +405,26 @@ app.get("/item/:id", async(req, res) => {
     }
 })
 
+app.get("/carousel", async(req, res) => {
+    const { type } = req.query
+
+    if(!type){
+        return res.status(400).json({ error: "Type field is required" });
+    }
+
+    try{
+        if(type === "coffee"){
+            const coffees = await prisma.coffee.findMany({
+                take: 6
+            })
+            console.log(coffees)
+
+            return res.json(coffees)
+        }
+    }catch(error){
+        return res.status(500).json({ error: "Internal server error" });
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

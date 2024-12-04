@@ -2,11 +2,22 @@ import React, { useEffect, useRef, useState} from 'react'
 import CoffeeCard from './CoffeeCard'
 import EquipmentCard from './EquipmentCard'
 import axiosInstance from '../utils/axiosInstance'
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
+import '@splidejs/react-splide/css/core';
 
 const Carousel = ({header, type}) => {
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(false)
     const carouselRef = useRef(null)
+
+    const splideOptions = {
+        type: "loop",
+        perMove: 1,
+        rewind: true,
+        pagination: false,
+        fixedWidth: '400px',
+    };
 
     useEffect(() => {
         (
@@ -28,20 +39,23 @@ const Carousel = ({header, type}) => {
 
     const handleScroll= direction => {
         if(direction === "right"){
-            carouselRef.current.scrollLeft += 300
+            carouselRef.current.scrollLeft += 400
         }else{
-            carouselRef.current.scrollLeft -= 300
+            carouselRef.current.scrollLeft -= 400
         }
     }
 
   return (
-    <div>
-        <h1>{header}</h1>
-        <div ref={carouselRef} className='overflow-x-auto flex gap-5 items-center relative'>
+    <div className='mx-[8%]'>
+        <h1 className='font-permanent-marker text-4xl mb-10'>{header}</h1>
+        <div ref={carouselRef} className=''>
+            <Splide options={splideOptions} >
             {
                 type === "coffee" ? (
                     items.map((item, index) => (
-                        <CoffeeCard key={index + item.name} {...item} />
+                        <SplideSlide key={index + item.name} className="flex self-stretch">
+                            <CoffeeCard  {...item} carousel={true}/>
+                        </SplideSlide>
                     ))
                 ) : (
                     items.map((item, index) => (
@@ -49,10 +63,7 @@ const Carousel = ({header, type}) => {
                     ))
                 )
             }
-            <div className='absolute w-full top-[50%] flex justify-between items-center'>
-                <button onClick={() => handleScroll("left")}>{"<"}</button>
-                <button onClick={() => handleScroll("right")}>{">"}</button>
-            </div>
+            </Splide>
         </div>
     </div>
   )
