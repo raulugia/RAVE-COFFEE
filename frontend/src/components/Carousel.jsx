@@ -30,20 +30,13 @@ const Carousel = ({header, type}) => {
                     setItems(data)
                 }catch(error){
                     console.log(error)
+                    console.log(error)
                 }finally{
                     setLoading(false)
                 }
             }
         )()
     }, [])
-
-    const handleScroll= direction => {
-        if(direction === "right"){
-            carouselRef.current.scrollLeft += 400
-        }else{
-            carouselRef.current.scrollLeft -= 400
-        }
-    }
 
   return (
     <div className='mx-[8%]'>

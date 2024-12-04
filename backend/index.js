@@ -420,6 +420,12 @@ app.get("/carousel", async(req, res) => {
             console.log(coffees)
 
             return res.json(coffees)
+        }else if(type === "equipment"){
+            const equipments = await prisma.equipment.findMany({
+                take: 6
+            })
+            
+            return res.json(equipments)
         }
     }catch(error){
         return res.status(500).json({ error: "Internal server error" });
