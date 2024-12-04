@@ -132,7 +132,7 @@ const footerLinks_col1 = [
         header: "About",
         links: [
             { text: "1% For The Planet", to: "#" },
-            { text: "About", to: "#" },
+            { text: "About", to: "/about" },
             { text: "Brew Guides", to: "#" },
             { text: "Blog", to: "#" },
             { text: "Careers", to: "#" },

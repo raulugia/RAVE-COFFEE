@@ -38,7 +38,7 @@ const Footer = () => {
                             <div className='flex flex-col gap-3'>
                                 {
                                     item.links.map((link, index) => (
-                                        <Link key={index+link.text} to={link.to} onClick={() => window.location.reload()} className='font-fira hover:text-mustard'>{link.text}</Link>
+                                        <Link key={index+link.text} to={link.to} className='font-fira hover:text-mustard'>{link.text}</Link>
                                     ))
                                 }
                             </div>
