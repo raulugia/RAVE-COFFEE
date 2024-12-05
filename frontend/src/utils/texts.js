@@ -165,4 +165,13 @@ const footerLinks_col2 = [
     },
 ]
 
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions, footerLinks_col1, footerLinks_col2};
+const home_card_text = {
+    header: "Speciality Coffee Roasters UK",
+    text: [
+        "We are a group of coffee nerds obsessed with all things, well, coffee! We love it all, from sourcing the very best beans to roasting, profiling, and, of course, brewing coffee to perfection.  We’re also pretty fanatical about getting your order roasted and posted the very same day so you can enjoy the freshest roasted coffee available to humanity!",
+        "We're always searching the world for the most exciting coffees that we think you’ll love. With an ever-changing and evolving lineup of coffee, there really is something for every coffee lover. Whether you’re an espresso enthusiast or a filter fanatic, we have it all;" ,
+        "Specialty coffee Blends, Single-origin, Organic coffee or Rare micro lots. Also, If it’s pods, decaf, or syrup that floats your boat, that’s fine with us, too. We serve great coffee, not moral judgment.  If you like a team that doesn’t take itself too seriously, you’re in the right coffee roastery. Join the Rave!"
+    ]
+}
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions, footerLinks_col1, footerLinks_col2, home_card_text};
