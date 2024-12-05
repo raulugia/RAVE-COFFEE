@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import arrow from "../assets/icon-arrow.svg"
 
 const SmallNavLink = ({to, text}) => {
+    
   return (
-    <div>
-        <Link to={to}>{text}</Link>
-        <div className='h-[1px] bg-black '></div>
+    <div className=''>
+        <Link to={to} className='flex justify-between items-center px-5'>
+            <p>{text}</p>
+            <img src={arrow} alt="arrow" />
+        </Link>
+        <div className='h-[1px] bg-black my-3'></div>
     </div>
   )
 }
