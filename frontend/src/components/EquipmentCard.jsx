@@ -24,7 +24,7 @@ const EquipmentCard = ({id, name, price, smallpictureUrl, carousel= false}) => {
             </div>
         </Link>
 
-        <div className='flex justify-between items-center font-fira'>
+        <div className='flex justify-between items-center font-fira pr-1'>
             <p>From £{price.toFixed(2)}</p>
             <MainBtn text="QUICK ADD +" method={addToBasket}/>
         </div> 
