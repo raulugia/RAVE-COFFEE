@@ -7,8 +7,8 @@ import { footerLinks_col2, footerLinks_col1 } from "../utils/texts"
 
 const Footer = () => {
   return (
-    <div className='bg-black flex justify-between gap-16 px-[8%] py-10 text-white'>
-        <div className='w-[40%]'>
+    <div className='bg-black flex lg:flex-row flex-col lg:justify-between gap-16 px-[8%] py-10 text-white'>
+        <div className='lg:w-[40%]'>
             <img src={logo} alt="" className='mb-14' />
             <div>
                 <h1 className='font-permanent-marker text-3xl mb-5'>Keep In Touch</h1>
@@ -29,8 +29,8 @@ const Footer = () => {
             </div>
         </div>
 
-        <div className='flex justify-around w-[60%]'>
-            <div className='flex flex-col gap-20'>
+        <div className='flex md:flex-row flex-col md:justify-between lg:justify-around lg:w-[60%] gap-10 lg:gap-0'>
+            <div className='flex flex-col gap-10 lg:gap-20'>
                 {
                     footerLinks_col1.map((item, index) => (
                         <div key={index}>
@@ -46,7 +46,7 @@ const Footer = () => {
                     ))
                 }
             </div>
-            <div className='flex flex-col gap-20'>
+            <div className='flex flex-col'>
                 {
                     footerLinks_col2.map((item, index) => (
                         <div key={index}>
