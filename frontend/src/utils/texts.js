@@ -174,4 +174,23 @@ const home_card_text = {
     ]
 }
 
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions, footerLinks_col1, footerLinks_col2, home_card_text};
+const navbarLinks = [
+    {
+        text: "COFFEE",
+        to: "/coffee",
+    },
+    {
+        text: "EQUIPMENT",
+        to: "/equipment",
+    },
+    {
+        text: "SUBSCRIPTIONS",
+        to: "/subscriptions",
+    },
+    {
+        text: "WHOLESALE",
+        to: "/wholesale",
+    },
+]
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions, footerLinks_col1, footerLinks_col2, home_card_text, navbarLinks};
