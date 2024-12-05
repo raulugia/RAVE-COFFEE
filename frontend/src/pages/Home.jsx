@@ -6,22 +6,25 @@ import MainBtn from '../components/MainBtn'
 import creds from "../assets/Creds_Banner.svg"
 import { home_card_text } from "../utils/texts"
 import homeSubscription from "../assets/home_subscription.jpeg"
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+  const navigate = useNavigate()
+
   return (
     <div className='min-h-screen'>
 
-      <div className='flex w-full mb-10'>
-        <div className='w-1/2 relative'>
+      <div className='flex lg:flex-row flex-col w-full mb-10'>
+        <div className='lg:w-1/2 relative'>
           <img src={coffeeBanner} alt="" className='object-cover h-full w-full'/>
           <div className='absolute bottom-[15%] w-full flex justify-center'>
-            <MainBtn text="SHOP COFFEE" />
+            <MainBtn text="SHOP COFFEE" method={() => navigate("/coffee")}/>
           </div>
         </div>
-        <div className='w-1/2 relative'>
+        <div className='lg:w-1/2 relative'>
           <img src={equipmentBanner} alt="" className='object-cover h-full w-full'/>
           <div className='absolute bottom-[15%] w-full flex justify-center'>
-            <MainBtn text="SHOP COFFEE" />
+            <MainBtn text="SHOP EQUIPMENT" method={() => navigate("/equipment")}/>
           </div>
         </div>
       </div>
