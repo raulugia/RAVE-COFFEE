@@ -16,7 +16,7 @@ const Carousel = ({header, type}) => {
         perMove: 1,
         rewind: true,
         pagination: false,
-        fixedWidth: '400px',
+        fixedWidth: '420px',
     };
 
     useEffect(() => {

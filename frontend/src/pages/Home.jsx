@@ -3,7 +3,7 @@ import Carousel from '../components/Carousel'
 
 const Home = () => {
   return (
-    <div>
+    <div className='min-h-screen'>
       Home
       <Carousel header='Featured Coffee' type='coffee' />
       <Carousel header='Featured Equipment' type='equipment' />

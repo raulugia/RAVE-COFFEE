@@ -15,7 +15,7 @@ const EquipmentCard = ({id, name, price, smallpictureUrl, carousel= false}) => {
   return (
     <div className={`mb-14 flex flex-col justify-between ${carousel ? "max-w-[360px]" : "max-w-[400px]" }`}>
         <Link to={`/equipment/${id}`}>
-            <div className='w-[400px] h-[400px] mb-5'>
+            <div className={`${carousel ? "w-[360px] h-[360px]" : "w-[400px] h-[400px]"} mb-5`}>
                 <img src={smallpictureUrl} alt={name} className='w-full' onLoad={() => setLoaded(true)}/>
                 {!loaded && <div className='w-full h-full bg-gray-200 flex items-center justify-center font-permanent-marker text-2xl'>Loading...</div>}
             </div>
