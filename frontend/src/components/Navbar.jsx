@@ -32,9 +32,7 @@ const Navbar = () => {
   return (
     <div className='relative'>
         <nav className='flex justify-between items-center z-50 w-full bg-mustard text-xl px-8 py-7 font-permanent-marker fixed'>
-            <div>
-                <img src={raveLogo} alt="rave logo" />
-            </div>
+        <Link to="/"><img src={raveLogo} alt="rave logo" /></Link>
 
             {
                 !isSmallScreen && (
@@ -61,7 +59,7 @@ const Navbar = () => {
                 isSmallScreen && displayModal && (
                     <div className='absolute z-[200] py-5 w-full top-0 h-screen flex flex-col text-lg bg-mustard font-permanent-marker animate-slide-right'>
                         <div className='flex justify-between items-center px-5'>
-                            <img src={raveLogo} alt="rave logo" />
+                            <Link to="/"><img src={raveLogo} alt="rave logo" /></Link>
                             <IoCloseOutline size={35} data-testid="close-button" className='hover:cursor-pointer' onClick={() => setDisplayModal(false)}/>
                         </div>
                         <div className='h-[1px] bg-black mt-5 mb-3'></div>

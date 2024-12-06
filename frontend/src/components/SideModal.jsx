@@ -10,8 +10,8 @@ const SideModal = () => {
     }, [])
 
   return (
-    <div className='fixed w-full h-full bg-black/50 top-0 flex justify-end'>
-        <div className='w-1/3 bg-white animate-slide-left'>
+    <div className='fixed w-full h-full bg-black/50 top-0 flex justify-end z-[201]'>
+        <div className='md:w-1/3 w-full bg-white animate-slide-left'>
         {
             displayModal&& (
                 <BasketModal />
