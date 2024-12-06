@@ -23,6 +23,10 @@ export default {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(0)" },
         },
+        "slide-left-nav": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
         "slide-down": {
           "0%": { marginTop: "0px", opacity: "0" },
           "100%": { marginTop: "15px", opacity: "1" },

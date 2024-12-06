@@ -68,7 +68,7 @@ const Navbar = () => {
                         <div className='flex flex-col'>
                             {
                                 navbarLinks.map((item, index) => (
-                                    <SmallNavLink key={index} to={item.to} text={item.text} />
+                                    <SmallNavLink key={index} {...item} displayModal={displayModal} setDisplayModal={setDisplayModal} />
                                 ))
                             }
                         </div>
