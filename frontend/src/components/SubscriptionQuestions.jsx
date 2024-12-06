@@ -1,15 +1,26 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import underline from "../assets/underline.png"
 import { subscription_questions } from '../utils/texts'
 
 const SubscriptionQuestions = () => {
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState({
+    current: null,
+    prev: null
+  })
 
   const handleClick = (index) => {
-    if(selected === index){
-      setSelected(null)
-    }else{
-      setSelected(index)
+    console.log("index", index)
+    console.log("prev",selected)
+    if(selected.current === index){
+      setSelected({
+        current: null,
+        prev: index
+      })
+    }else if(selected.current !== index){
+      setSelected(prevSelected => ({
+        current: index,
+        prev: prevSelected.current
+      }))
     }
   }
   
@@ -26,9 +37,9 @@ const SubscriptionQuestions = () => {
             <div key={item.question} className='flex flex-col font-fira'>
               <div className='flex justify-between hover:cursor-pointer' onClick={() => handleClick(index)}>
                 <h3 className='font-semibold'>{item.question}</h3>
-                <button>{`${selected === index ? "-" : "+"}`}</button>
+                <button>{`${selected.current === index ? "-" : "+"}`}</button>
               </div>
-                <p className={`${selected === index ? "animate-slide-down" : "hidden"} `}>{item.answer}</p>
+                <p className={selected.current === index ? "animate-slide-down" : selected.prev === index ? "animate-slide-up" : "hidden"}>{item.answer}</p>
                 <div className='w-full h-[1px] bg-gray-200 my-4'></div>
             </div>
           ))

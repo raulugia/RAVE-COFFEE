@@ -32,15 +32,19 @@ export default {
           "100%": { marginTop: "15px", opacity: "1" },
         },
         "slide-up": {
-          "0%": { marginTop: "15px", opacity: "1" },
-          "100%": { marginTop: "0px", opacity: "0" },
+          "0%": { height: "auto", opacity: "1" },
+          "100%": { height: "0px", opacity: "0" },
+        },
+        "slide-up-div": {
+          "0%": { height: "auto"},
+          "100%": { height: "300px" },
         },
       },
       animation: {
         "slide-left": "slide-left 0.3s ease-out",
         "slide-right": "slide-right 0.3s ease-out",
         "slide-down": "slide-down 0.3s ease-out forwards",
-        "slide-up": "slide-down 0.3s ease-out forwards",
+        "slide-up": "slide-up 0.1s ease-out forwards",
       },
       backgroundImage: {
         'coffee-beans-pattern': "url('/src/assets/coffee-bean-background.svg')",
