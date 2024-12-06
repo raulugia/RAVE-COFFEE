@@ -25,7 +25,7 @@ const SubscriptionQuestions = () => {
   }
   
   return (
-    <div className='my-20 mx-[8%]'>
+    <div className=' my-10 md:my-20 mx-[8%]'>
       <div className='flex flex-col items-center'>
         <h1 className='text-5xl text-center font-permanent-marker mb-2'>Common Questions</h1>
         <img src={underline} alt="underline" className='w-[400px] h-[18px]'/>
