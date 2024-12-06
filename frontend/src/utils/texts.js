@@ -193,4 +193,11 @@ const navbarLinks = [
     },
 ]
 
-export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions, footerLinks_col1, footerLinks_col2, home_card_text, navbarLinks};
+const gift_text = [
+    "Each month they'll get a new coffee",
+    "Order now & choose the delivery date",
+    "Free coffee knowledge in every box",
+    "Personal message",
+]
+
+export {aboutText, wholesaleText, wholesale_commercial_text, wholesale_cards_text, accountNavCardData, subscription_main_text, subscription_cards_text, subscription_questions, footerLinks_col1, footerLinks_col2, home_card_text, navbarLinks, gift_text};
