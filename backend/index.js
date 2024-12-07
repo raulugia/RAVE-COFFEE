@@ -500,6 +500,56 @@ app.get("/carousel", async(req, res) => {
     }
 })
 
+app.post("/add-review", requireAuth(), async(req, res) => {
+    const { itemId, type, rating, review } = req.body
+
+    if(!itemId || !type || !rating || !review){
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    if(rating < 1 || rating > 5){
+        return res.status(400).json({ error: "Rating must be between 1 and 5" });
+    }
+    
+    try{
+        const user = await prisma.user.findUnique({
+            where: {
+                clerkId: req.auth.userId,
+            },
+        })
+
+        if(!user){
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        let newReview
+        if(type === "coffee"){
+            newReview = await prisma.review.create({
+                data: {
+                    userId: user.id,
+                    coffeeId: parseInt(itemId),
+                    rating,
+                    review,
+                }
+            })
+        }else{
+            newReview = await prisma.review.create({
+                data: {
+                    userId: user.id,
+                    equipmentId: parseInt(itemId),
+                    rating,
+                    review,
+                }
+            })
+        }
+
+        return res.json({message: "Review added successfully", review: newReview})
+    }catch(error){
+        console.error("Error adding review:", error);
+        return res.status(500).json({ error: "An error occurred while adding the review." });
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
