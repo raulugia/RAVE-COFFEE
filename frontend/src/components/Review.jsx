@@ -17,19 +17,20 @@ const Review = ({itemId, type}) => {
             async() => {
                 try{
                     const token = await getToken()
-                    const { data } = await axiosInstance.get(`/orders/hasPurchased/${itemId, type}`, {
-                        headers: { Authorization: `Bearer ${token}` }
+                    const { data } = await axiosInstance.get(`/orders/hasPurchased/${itemId}`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                        params: { type }, 
                     })
 
                     if(data.hasPurchased) {
                         setHasPurchased(true)
                     }
                 }catch(error){
-                    console.error(error)
+                    console.error("error",error)
                 }
             }
         )()
-    })
+    },[itemId, type]);
 
     const handleSubmit = async(e) => {
         e.preventDefault()

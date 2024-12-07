@@ -371,10 +371,12 @@ app.get("/recent-orders", requireAuth(), async(req, res) => {
     }
 })
 
-app.get("/orders/hasPurchased/:id", requireAuth(), async(req, res) => {
-    const { id, type } = req.body
+app.get("/orders/hasPurchased/:itemId", requireAuth(), async(req, res) => {
+    console.log("CHEKCING IF PURCHASED")
+    const { itemId } = req.params;
+    const { type } = req.query
 
-    if(!id){
+    if(!itemId || !type){
         return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -392,7 +394,7 @@ app.get("/orders/hasPurchased/:id", requireAuth(), async(req, res) => {
                     customerId: user.id,
                     orderCoffees: {
                         some: {
-                            coffeeId: parseInt(id)
+                            coffeeId: parseInt(itemId)
                         }
                     }
                 }
@@ -403,7 +405,7 @@ app.get("/orders/hasPurchased/:id", requireAuth(), async(req, res) => {
                     customerId: user.id,
                     orderEquipments: {
                         some: {
-                            equipmentId: parseInt(id)
+                            equipmentId: parseInt(itemId)
                         }
                     }
                 }
@@ -411,10 +413,10 @@ app.get("/orders/hasPurchased/:id", requireAuth(), async(req, res) => {
         }
 
         if(!order){
-            return res.status(404).json({ error: "Order not found." });
+            return res.json({ hasPurchased: false });
         }
 
-        return res.status(200).json({ hasPurchased: true });
+        return res.json({ hasPurchased: true });
     }catch(error){
         console.log(error)
         return res.status(500).json({ error: "Internal server error"})
