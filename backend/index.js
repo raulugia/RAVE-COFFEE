@@ -371,6 +371,56 @@ app.get("/recent-orders", requireAuth(), async(req, res) => {
     }
 })
 
+app.get("/orders/hasPurchased/:id", requireAuth(), async(req, res) => {
+    const { id, type } = req.body
+
+    if(!id){
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    try{
+        const user = await prisma.user.findUnique({
+            where: {
+                clerkId: req.auth.userId,
+            }
+        })
+
+        let order;
+        if(type === "coffee"){
+            order = await prisma.order.findFirst({
+                where: {
+                    customerId: user.id,
+                    orderCoffees: {
+                        some: {
+                            coffeeId: parseInt(id)
+                        }
+                    }
+                }
+            })
+        } else {
+            order = await prisma.order.findFirst({
+                where: {
+                    customerId: user.id,
+                    orderEquipments: {
+                        some: {
+                            equipmentId: parseInt(id)
+                        }
+                    }
+                }
+            })
+        }
+
+        if(!order){
+            return res.status(404).json({ error: "Order not found." });
+        }
+
+        return res.status(200).json({ hasPurchased: true });
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({ error: "Internal server error"})
+    }
+})
+
 app.get("/item/:id", async(req, res) => {
     const { id } = req.params
     const { type } = req.query
@@ -424,7 +474,7 @@ app.get("/carousel", async(req, res) => {
             const equipments = await prisma.equipment.findMany({
                 take: 6
             })
-            
+
             return res.json(equipments)
         }
     }catch(error){

@@ -3,13 +3,13 @@ import { useParams, useLocation } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
 import CoffeeDetailsCard from '../components/CoffeeDetailsCard'
-import QuantityEdit from '../components/QuantityEdit'
-import MainBtn from '../components/MainBtn'
-import { useBasket } from '../context/BasketContext'
 import ItemQuantityCard from '../components/ItemQuantityCard'
+import Review from '../components/Review'
+import { useUser } from '@clerk/clerk-react'
 
 const ItemPage = () => {
     const { id } = useParams()
+    const { isSignedIn, user, isLoaded } = useUser()
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(false)
 
@@ -38,26 +38,18 @@ const ItemPage = () => {
         }
     }, [id])
 
-    const updateQuantity = (action) => {
-        if(action === "ADD") {
-            setQuantity(prevQuantity => prevQuantity + 1)
-        } else if(action === "REMOVE ONE" && quantity > 1) {
-            setQuantity(prevQuantity => prevQuantity - 1)
-        }
-    }
-
     if(loading) return <Loading />
 
   return (
-    <div>
+    <div className='my-10'>
         {
             item && (
-                <div className='flex flex-col items-center lg:items-start lg:flex-row mt-10 mb-10 md:mb-0 md:px-5'>
+                <div className='flex flex-col items-center lg:items-start lg:flex-row md:mb-0 md:px-5'>
                     <div className='md:w-1/2 md:min-w-1/2'>
                         <img src={item.pictureUrl} alt={item.name} />
                     </div>
 
-                    <div className='md:w-1/2 md:px-16 mt-5 lg:mt-0 flex justify-center px-5'>
+                    <div className='md:w-1/2 md:px-16 mt-5 lg:mt-0 flex flex-col justify-center px-5'>
                         <div className='flex flex-col items-start'>
                             <div className={`${type === "coffee" ? "mb-10" : ""}`}>
                                 <h1 className='font-permanent-marker text-3xl md:text-4xl mb-5'>{item.name}</h1>
@@ -75,7 +67,12 @@ const ItemPage = () => {
                             </div>
 
                             <ItemQuantityCard {...item}/>
-
+                            
+                            {
+                                !user && !isSignedIn && (
+                                    <Review itemId={item.id} type={type} />
+                                )
+                            }
                         </div>
                     </div>
                 </div>
