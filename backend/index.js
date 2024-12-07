@@ -438,6 +438,9 @@ app.get("/item/:id", async(req, res) => {
             item = await prisma.coffee.findFirst({
                  where: {
                      id: parseInt(id)
+                 },
+                 include: {
+                     reviews: true
                  }
              })
         }else{
@@ -451,6 +454,19 @@ app.get("/item/:id", async(req, res) => {
         if(!item){
             return res.status(404).json({ error: "Item not found." });
         }
+
+        if(item.reviews.length > 1){
+            const ratingAvrg = item.reviews.reduce((acc, review, index) => {
+                if(index === item.reviews.length - 1){
+                    return acc / item.reviews.length
+                }
+                return acc + review.rating
+            }, 0)
+
+            item.averageRating = ratingAvrg.toFixed(1)
+        }
+
+        console.log(item)
         return res.json(item)
     }catch(error){
         return res.status(500).json({ error: "Internal server error"})

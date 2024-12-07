@@ -6,6 +6,7 @@ import CoffeeDetailsCard from '../components/CoffeeDetailsCard'
 import ItemQuantityCard from '../components/ItemQuantityCard'
 import Review from '../components/Review'
 import { useUser } from '@clerk/clerk-react'
+import StarRating from '../components/StarRating'
 
 const ItemPage = () => {
     const { id } = useParams()
@@ -54,6 +55,9 @@ const ItemPage = () => {
                             <div className='flex flex-col items-start'>
                                 <div className={`${type === "coffee" ? "mb-10" : ""}`}>
                                     <h1 className='font-permanent-marker text-3xl md:text-4xl mb-5'>{item.name}</h1>
+                                    {
+                                        item.averageRating && <StarRating rating={item.averageRating}/>
+                                    }
                                     <p className='font-fira font-semibold text-lg'>£{item.price.toFixed(2)}</p>
                                 </div>
 
