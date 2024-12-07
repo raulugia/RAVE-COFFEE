@@ -44,32 +44,34 @@ const ItemPage = () => {
     <div className='my-10'>
         {
             item && (
-                <div className='flex flex-col items-center lg:items-start lg:flex-row md:mb-0 md:px-5'>
+                <div className='flex flex-col items-center lg:items-stretch lg:flex-row md:mb-0 md:px-5'>
                     <div className='md:w-1/2 md:min-w-1/2'>
                         <img src={item.pictureUrl} alt={item.name} />
                     </div>
 
-                    <div className='md:w-1/2 md:px-16 mt-5 lg:mt-0 flex flex-col justify-center px-5'>
-                        <div className='flex flex-col items-start'>
-                            <div className={`${type === "coffee" ? "mb-10" : ""}`}>
-                                <h1 className='font-permanent-marker text-3xl md:text-4xl mb-5'>{item.name}</h1>
-                                <p className='font-fira font-semibold text-lg'>£{item.price.toFixed(2)}</p>
+                    <div className='md:w-1/2 md:px-16 mt-5 lg:mt-0 flex flex-col px-5'>
+                        <div className='flex flex-col items-start justify-between h-full'>
+                            <div className='flex flex-col items-start'>
+                                <div className={`${type === "coffee" ? "mb-10" : ""}`}>
+                                    <h1 className='font-permanent-marker text-3xl md:text-4xl mb-5'>{item.name}</h1>
+                                    <p className='font-fira font-semibold text-lg'>£{item.price.toFixed(2)}</p>
+                                </div>
+
+                                {
+                                    type === "coffee" && (
+                                        <CoffeeDetailsCard taste={item.taste} roast={item.roast}/>
+                                    )
+                                }
+
+                                <div className="max-w-[400px] max-h-[400px] overflow-auto my-10 font-fira">
+                                    {item.description}
+                                </div>
+
+                                <ItemQuantityCard {...item}/>
                             </div>
 
                             {
-                                type === "coffee" && (
-                                    <CoffeeDetailsCard taste={item.taste} roast={item.roast}/>
-                                )
-                            }
-
-                            <div className="max-w-[400px] max-h-[400px] overflow-auto my-10 font-fira">
-                                {item.description}
-                            </div>
-
-                            <ItemQuantityCard {...item}/>
-                            
-                            {
-                                !user && !isSignedIn && (
+                                user && isSignedIn && (
                                     <Review itemId={item.id} type={type} />
                                 )
                             }

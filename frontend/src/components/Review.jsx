@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
 import MainBtn from './MainBtn'
+import StarRating from './StarRating'
 
 const Review = ({itemId, type}) => {
     const { getToken } = useAuth()
@@ -23,6 +24,7 @@ const Review = ({itemId, type}) => {
                     })
 
                     if(data.hasPurchased) {
+                        console.log("yes")
                         setHasPurchased(true)
                     }
                 }catch(error){
@@ -53,11 +55,12 @@ const Review = ({itemId, type}) => {
   return (
     <form>
         {
-            !hasPurchased && (
+            hasPurchased && (
                 <div>
-                    <h3 className='font-permanent-marker text-2xl'>Review This Item</h3>
-                    <p className='font-fira'>Tell us what you think about this product</p>
-                    <textarea className='border w-full h-[130px]' placeholder='Write a review...' />
+                    <h3 className='font-permanent-marker text-2xl mb-2'>Review This Item</h3>
+                    <p className='font-fira mb-3'>Tell us what you think about this product</p>
+                    <StarRating rating={3.8}/>
+                    <textarea className='border w-full h-[100px] mb-5 px-2 py-1' placeholder='Write a review...' />
                     <MainBtn text="SUBMIT" method={handleSubmit}/>
                 </div>
             )
