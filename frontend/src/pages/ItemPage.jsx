@@ -13,7 +13,7 @@ const ItemPage = () => {
     const { isSignedIn, user, isLoaded } = useUser()
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(false)
-
+    const [displayReview, setDisplayReview] = useState(false)
     const location = useLocation()
     const type = location.pathname.includes("/coffee") ? "coffee" : "equipment"
 
@@ -23,6 +23,16 @@ const ItemPage = () => {
                 async() => {
                     try{
                         setLoading(true)
+                        let response;
+                        if(user){
+                            response = await axiosInstance.get(`/item/${id}`, {
+                                params: { type },
+                            })
+                        }else {
+                            response = await axiosInstance.get(`/item/${id}`, {
+                                params: { type },
+                            })
+                        }
                         const { data } = await axiosInstance.get(`/item/${id}`, {
                             params: { type },
                         })
@@ -37,7 +47,7 @@ const ItemPage = () => {
                 }
             )()
         }
-    }, [id])
+    }, [id, user])
 
     if(loading) return <Loading />
 

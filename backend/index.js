@@ -371,57 +371,83 @@ app.get("/recent-orders", requireAuth(), async(req, res) => {
     }
 })
 
-app.get("/orders/hasPurchased/:itemId", requireAuth(), async(req, res) => {
-    console.log("CHEKCING IF PURCHASED")
+app.get("/orders/hasPurchased/:itemId", requireAuth(), async (req, res) => {
     const { itemId } = req.params;
-    const { type } = req.query
+    const { type } = req.query;
 
-    if(!itemId || !type){
+    if (!itemId || !type) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
-    try{
+    try {
         const user = await prisma.user.findUnique({
             where: {
                 clerkId: req.auth.userId,
-            }
-        })
+            },
+        });
 
-        let order;
-        if(type === "coffee"){
-            order = await prisma.order.findFirst({
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        let orders, reviews;
+        if (type === "coffee") {
+            orders = await prisma.order.findMany({
                 where: {
                     customerId: user.id,
                     orderCoffees: {
                         some: {
-                            coffeeId: parseInt(itemId)
-                        }
-                    }
-                }
+                            coffeeId: parseInt(itemId),
+                        },
+                    },
+                },
             })
-        } else {
-            order = await prisma.order.findFirst({
+
+            if(orders.length > 0) {
+                reviews = await prisma.review.findMany({
+                    where: {
+                        userId: user.id,
+                        coffeeId: parseInt(itemId),
+                    },
+                })
+            }
+
+        } else if (type === "equipment") {
+            orders = await prisma.order.findMany({
                 where: {
                     customerId: user.id,
                     orderEquipments: {
                         some: {
-                            equipmentId: parseInt(itemId)
-                        }
-                    }
-                }
+                            equipmentId: parseInt(itemId),
+                        },
+                    },
+                },
             })
+            
+            if(orders.length > 0) {
+                reviews = await prisma.review.findMany({
+                    where: {
+                        userId: user.id,
+                        equipmentId: parseInt(itemId),
+                    },
+                })
+            }
+        } else {
+            return res.status(400).json({ error: "Invalid type." });
         }
 
-        if(!order){
-            return res.json({ hasPurchased: false });
+        if (!orders || orders.length === 0) {
+            return res.json({ hasPurchased: false, hasReviewed: false });
         }
 
-        return res.json({ hasPurchased: true });
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({ error: "Internal server error"})
+        const hasReviewed = orders.length === reviews.length
+
+        return res.json({ hasPurchased: true, hasReviewed })
+    } catch (error) {
+        console.error("Error:", error)
+        return res.status(500).json({ error: "Internal server error" });
     }
-})
+});
 
 app.get("/item/:id", async(req, res) => {
     const { id } = req.params
@@ -466,7 +492,6 @@ app.get("/item/:id", async(req, res) => {
             item.averageRating = ratingAvrg.toFixed(1)
         }
 
-        console.log(item)
         return res.json(item)
     }catch(error){
         return res.status(500).json({ error: "Internal server error"})
