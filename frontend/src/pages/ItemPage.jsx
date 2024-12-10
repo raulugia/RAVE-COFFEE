@@ -98,7 +98,7 @@ const ItemPage = () => {
 
                             {
                                 user && displayReview && (
-                                    <Review itemId={item.id} type={type} />
+                                    <Review itemId={item.id} type={type} setDisplayReview={setDisplayReview}/>
                                 )
                             }
                         </div>
