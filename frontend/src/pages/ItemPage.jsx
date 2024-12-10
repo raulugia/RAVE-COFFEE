@@ -15,12 +15,14 @@ const ItemPage = () => {
     const { user, isLoaded } = useUser()
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(false)
+
+    const [displayReviewOption, setDisplayReviewOption] = useState(false)
     const [displayReview, setDisplayReview] = useState(false)
+
     const location = useLocation()
     const type = location.pathname.includes("/coffee") ? "coffee" : "equipment"
 
     const { getToken } = useAuth()
-    const [hasPurchased, setHasPurchased] = useState(false)
 
     useEffect(() => {
         setLoading(true)
@@ -45,7 +47,7 @@ const ItemPage = () => {
                         setItem(response.data.item)
 
                         if(response.data.pendingReview) {
-                            setDisplayReview(true)
+                            setDisplayReviewOption(true)
                         }
                     }catch(error){
                         console.error(error)
@@ -69,7 +71,7 @@ const ItemPage = () => {
                         <img src={item.pictureUrl} alt={item.name} />
                     </div>
 
-                    <div className='md:w-1/2 md:px-16 mt-5 lg:mt-0 flex flex-col px-5'>
+                    <div className='md:w-1/2 md:px-16 mt-5 lg:mt-0 flex flex-col items-center px-5'>
                         <div className='flex flex-col items-start justify-between h-full'>
                             <div className='flex flex-col items-start'>
                                 <div className={`${type === "coffee" ? "mb-10" : ""}`}>
@@ -78,7 +80,7 @@ const ItemPage = () => {
                                         item.averageRating && <StarRating rating={item.averageRating}/>
                                     }
                                     {
-                                        <p className='underline text-sm hover:cursor-pointer' onClick={() => setDisplayReview(true)}>Review Item</p>
+                                        user && displayReviewOption && <p className='underline mb-2 text-sm hover:cursor-pointer' onClick={() => setDisplayReview(true)}>Review Item</p>
                                     }
                                     <p className='font-fira font-semibold text-lg'>£{item.price.toFixed(2)}</p>
                                 </div>
@@ -98,7 +100,7 @@ const ItemPage = () => {
 
                             {
                                 user && displayReview && (
-                                    <Review itemId={item.id} type={type} setDisplayReview={setDisplayReview}/>
+                                    <Review itemId={item.id} type={type} setDisplayReview={setDisplayReview} setDisplayReviewOption={setDisplayReviewOption}/>
                                 )
                             }
                         </div>
