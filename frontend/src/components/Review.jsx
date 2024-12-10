@@ -72,7 +72,6 @@ const Review = ({itemId, type, setDisplayReview, setDisplayReviewOption }) => {
                     setError(prevError => ({ ...prevError, submission: "Failed to submit review" }))
                 }finally{
                     setDisplayReviewOption(false)
-                    setDisplayReview(false)
                     setSubmitted(true)
                 }
             }
