@@ -405,13 +405,9 @@ app.get("/item/:id", async(req, res) => {
         }
 
         if(item.reviews.length > 1){
-            const ratingAvrg = item.reviews.reduce((acc, review, index) => {
-                if(index === item.reviews.length - 1){
-                    return acc / item.reviews.length
-                }
-                return acc + review.rating
-            }, 0)
-
+            const totalRatings = item.reviews.reduce((acc, review) => acc + review.rating, 0)
+            const ratingAvrg = totalRatings / item.reviews.length
+            
             item.averageRating = ratingAvrg.toFixed(1)
         }
 
@@ -463,13 +459,9 @@ app.get("/item/:id/authenticated", requireAuth(), async (req, res) => {
         }
 
         if(item.reviews.length > 1){
-            const ratingAvrg = item.reviews.reduce((acc, review, index) => {
-                if(index === item.reviews.length - 1){
-                    return acc / item.reviews.length
-                }
-                return acc + review.rating
-            }, 0)
-
+            const totalRatings = item.reviews.reduce((acc, review) => acc + review.rating, 0)
+            const ratingAvrg = totalRatings / item.reviews.length
+            
             item.averageRating = ratingAvrg.toFixed(1)
         }
 

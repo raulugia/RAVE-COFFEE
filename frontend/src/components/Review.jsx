@@ -61,7 +61,7 @@ const Review = ({itemId, type, setDisplayReview, setDisplayReviewOption }) => {
         (
             async() => {
                 try{
-                    
+                    setLoading(true)
                     const token = await getToken()
                     const { data } = await axiosInstance.post("/add-review", {itemId, type, ...review}, {
                         headers: { Authorization: `Bearer ${token}` }
@@ -73,6 +73,7 @@ const Review = ({itemId, type, setDisplayReview, setDisplayReviewOption }) => {
                 }finally{
                     setDisplayReviewOption(false)
                     setSubmitted(true)
+                    setLoading(false)
                 }
             }
         )()
