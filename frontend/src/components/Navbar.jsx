@@ -74,7 +74,9 @@ const Navbar = () => {
                 )
             }
         <div className='pt-[99px] min-h-screen'>
-            <Outlet />
+            <div className='min-h-[calc(100vh-140px)]'>
+                <Outlet />
+            </div>
             <Footer />
         </div>
     </div>

@@ -371,83 +371,6 @@ app.get("/recent-orders", requireAuth(), async(req, res) => {
     }
 })
 
-app.get("/orders/hasPurchased/:itemId", requireAuth(), async (req, res) => {
-    const { itemId } = req.params;
-    const { type } = req.query;
-
-    if (!itemId || !type) {
-        return res.status(400).json({ error: "All fields are required" });
-    }
-
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                clerkId: req.auth.userId,
-            },
-        });
-
-        if (!user) {
-            return res.status(404).json({ error: "User not found." });
-        }
-
-        let orders, reviews;
-        if (type === "coffee") {
-            orders = await prisma.order.findMany({
-                where: {
-                    customerId: user.id,
-                    orderCoffees: {
-                        some: {
-                            coffeeId: parseInt(itemId),
-                        },
-                    },
-                },
-            })
-
-            if(orders.length > 0) {
-                reviews = await prisma.review.findMany({
-                    where: {
-                        userId: user.id,
-                        coffeeId: parseInt(itemId),
-                    },
-                })
-            }
-
-        } else if (type === "equipment") {
-            orders = await prisma.order.findMany({
-                where: {
-                    customerId: user.id,
-                    orderEquipments: {
-                        some: {
-                            equipmentId: parseInt(itemId),
-                        },
-                    },
-                },
-            })
-            
-            if(orders.length > 0) {
-                reviews = await prisma.review.findMany({
-                    where: {
-                        userId: user.id,
-                        equipmentId: parseInt(itemId),
-                    },
-                })
-            }
-        } else {
-            return res.status(400).json({ error: "Invalid type." });
-        }
-
-        if (!orders || orders.length === 0) {
-            return res.json({ hasPurchased: false, hasReviewed: false });
-        }
-
-        const hasReviewed = orders.length === reviews.length
-
-        return res.json({ hasPurchased: true, hasReviewed })
-    } catch (error) {
-        console.error("Error:", error)
-        return res.status(500).json({ error: "Internal server error" });
-    }
-});
 
 app.get("/item/:id", async(req, res) => {
     const { id } = req.params
@@ -492,11 +415,86 @@ app.get("/item/:id", async(req, res) => {
             item.averageRating = ratingAvrg.toFixed(1)
         }
 
-        return res.json(item)
+        return res.json({item})
     }catch(error){
         return res.status(500).json({ error: "Internal server error"})
     }
 })
+
+app.get("/item/:id/authenticated", requireAuth(), async (req, res) => {
+    const { id } = req.params;
+    const { type } = req.query;
+
+    if (!id || !type) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                clerkId: req.auth.userId,
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        let item
+        if(type === "coffee"){
+            item = await prisma.coffee.findFirst({
+                 where: {
+                     id: parseInt(id)
+                 },
+                 include: {
+                     reviews: true
+                 }
+             })
+        }else{
+            item = await prisma.equipment.findFirst({
+                where: {
+                    id: parseInt(id)
+                }
+            })
+        }
+
+        if(!item){
+            return res.status(404).json({ error: "Item not found." });
+        }
+
+        if(item.reviews.length > 1){
+            const ratingAvrg = item.reviews.reduce((acc, review, index) => {
+                if(index === item.reviews.length - 1){
+                    return acc / item.reviews.length
+                }
+                return acc + review.rating
+            }, 0)
+
+            item.averageRating = ratingAvrg.toFixed(1)
+        }
+
+        const hasPurchasedAndNotReviewed = await prisma.orderCoffee.findFirst({
+            where: {
+              coffeeId: parseInt(id),
+              order: {
+                customerId: user.id,
+              },
+              coffee: {
+                reviews: {
+                  none: {
+                    userId: user.id,
+                  },
+                },
+              },
+            },
+          });
+
+        return res.json({ pendingReview: hasPurchasedAndNotReviewed ? true : false, item, })
+    } catch (error) {
+        console.error("Error:", error)
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 app.get("/carousel", async(req, res) => {
     const { type } = req.query

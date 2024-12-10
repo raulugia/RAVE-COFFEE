@@ -8,36 +8,45 @@ import Review from '../components/Review'
 import { useUser } from '@clerk/clerk-react'
 import StarRating from '../components/StarRating'
 
+import { useAuth } from '@clerk/clerk-react'
+
 const ItemPage = () => {
     const { id } = useParams()
-    const { isSignedIn, user, isLoaded } = useUser()
+    const { user, isLoaded } = useUser()
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(false)
     const [displayReview, setDisplayReview] = useState(false)
     const location = useLocation()
     const type = location.pathname.includes("/coffee") ? "coffee" : "equipment"
 
+    const { getToken } = useAuth()
+    const [hasPurchased, setHasPurchased] = useState(false)
+
     useEffect(() => {
-        if(id){
+        setLoading(true)
+        if(id && isLoaded) {
             (
                 async() => {
                     try{
-                        setLoading(true)
                         let response;
                         if(user){
-                            response = await axiosInstance.get(`/item/${id}`, {
+                            const token = await getToken()
+                            response = await axiosInstance.get(`/item/${id}/authenticated`, {
+                                headers: { Authorization: `Bearer ${token}` },
                                 params: { type },
                             })
+                            console.log(response)
                         }else {
                             response = await axiosInstance.get(`/item/${id}`, {
                                 params: { type },
                             })
+                            console.log(response)
                         }
-                        const { data } = await axiosInstance.get(`/item/${id}`, {
-                            params: { type },
-                        })
-                        console.log(data)
-                        setItem(data)
+                        setItem(response.data.item)
+
+                        if(response.data.pendingReview) {
+                            setDisplayReview(true)
+                        }
                     }catch(error){
                         console.error(error)
                         alert("There was an error getting the item information. Please try again")
@@ -47,7 +56,7 @@ const ItemPage = () => {
                 }
             )()
         }
-    }, [id, user])
+    }, [id, isLoaded])
 
     if(loading) return <Loading />
 
@@ -68,6 +77,9 @@ const ItemPage = () => {
                                     {
                                         item.averageRating && <StarRating rating={item.averageRating}/>
                                     }
+                                    {
+                                        <p className='underline text-sm hover:cursor-pointer' onClick={() => setDisplayReview(true)}>Review Item</p>
+                                    }
                                     <p className='font-fira font-semibold text-lg'>£{item.price.toFixed(2)}</p>
                                 </div>
 
@@ -85,7 +97,7 @@ const ItemPage = () => {
                             </div>
 
                             {
-                                user && isSignedIn && (
+                                user && displayReview && (
                                     <Review itemId={item.id} type={type} />
                                 )
                             }
