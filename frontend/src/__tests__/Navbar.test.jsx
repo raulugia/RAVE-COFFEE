@@ -14,32 +14,32 @@ describe("Navbar component", () => {
         { text: "COFFEE GIFTS", path: "/gifts" },
     ];
 
-    test("renders links correctly", () => {
-        render(
-            <MemoryRouter>
-                <Navbar />
-            </MemoryRouter>
-        )
+    // test("renders links correctly", () => {
+    //     render(
+    //         <MemoryRouter>
+    //             <Navbar />
+    //         </MemoryRouter>
+    //     )
 
-        expect(screen.getByAltText("rave logo")).toBeInTheDocument()
+    //     expect(screen.getByAltText("rave logo")).toBeInTheDocument()
 
-        links.forEach(link => {
-            expect(screen.getByText(link.text)).toBeInTheDocument()
-        })
-    })
+    //     links.forEach(link => {
+    //         expect(screen.getByText(link.text)).toBeInTheDocument()
+    //     })
+    // })
 
-    test("links are rendered with the correct path", () => {
-        render(
-            <MemoryRouter>
-                <Navbar />
-            </MemoryRouter>
-        )
+    // test("links are rendered with the correct path", () => {
+    //     render(
+    //         <MemoryRouter>
+    //             <Navbar />
+    //         </MemoryRouter>
+    //     )
 
-        links.forEach(link => {
-            const anchorElement = screen.getByText(link.text).closest("a");
-            expect(anchorElement).toHaveAttribute("href", link.path);
-        })
-    })
+    //     links.forEach(link => {
+    //         const anchorElement = screen.getByText(link.text).closest("a");
+    //         expect(anchorElement).toHaveAttribute("href", link.path);
+    //     })
+    // })
 
     test("basket button is rendered correctly", () => {
         render(

@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect, useRef} from 'react'
 import StarRating from './StarRating'
 import Loading from './Loading'
 import axiosInstance from '../utils/axiosInstance'
@@ -12,6 +12,7 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
     const [totalReviews, setTotalReviews] = useState(null)
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
+    const modalRef = useRef(null)
 
     const transformDate = (isoDateString) => {
         const date = new Date(isoDateString);
@@ -24,10 +25,11 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
       };
 
     useEffect(() => {
-        //setLoading(true)
-        
         (
             async() => {
+                setLoading(true)
+                modalRef.current.scrollTo(0,0)
+
                 try{
                     const {data} = await axiosInstance.get(`/item/${itemId}/reviews`, {
                         params: { type, page },
@@ -41,7 +43,7 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
                     console.error(error)
                     alert("There was an error getting the reviews. Please try again")
                 }finally{
-                    //setLoading(false)
+                    setLoading(false)
                 }
             }
         )()
@@ -57,8 +59,8 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
     }
 
   return (
-    <div className='fixed z-[201] left-0 bottom-0 w-full bg-black/60 flex justify-center items-center min-h-full'>
-        <div className='relative w-[95%] md:w-[60%] max-w-[900px] h-[800px] md:h-[940px] '>
+    <div className='fixed z-[201] left-0 bottom-0 w-full bg-black/60 flex justify-center items-center min-h-full' ref={modalRef}>
+        <div className='relative w-[95%] md:w-[60%] max-w-[900px] h-[800px] md:h-[940px]'>
             <div className='absolute -right-1 md:-right-3 -top-[15px] bg-black rounded-full' onClick={closeModal}>
                 <IoCloseOutline size={30} data-testid="close-button" className='hover:cursor-pointer text-white' />
             </div>
@@ -89,6 +91,9 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
             </div>
         </div>
         </div>
+        {
+            loading && <Loading />
+        }
     </div>
   )
 }
