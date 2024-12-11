@@ -34,8 +34,8 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
                     })
                     console.log(data)
                     const formattedReviews = data.reviews.map(review => ({...review, createdAt: transformDate(review.createdAt)}))
-                    //setReviews(formattedReviews)
-                    setReviews(prevRev => [...prevRev, ...formattedReviews])
+
+                    setReviews(formattedReviews)
                     setTotalReviews(data.totalReviews)
                 }catch(error){
                     console.error(error)
@@ -58,50 +58,32 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
 
   return (
     <div className='fixed z-[201] left-0 bottom-0 w-full bg-black/60 flex justify-center items-center min-h-full'>
-        <div className='relative w-[60%] h-[940px] '>
-            <div className='absolute -right-3 -top-[15px] bg-black rounded-full' onClick={closeModal}>
+        <div className='relative w-[95%] md:w-[60%] max-w-[900px] h-[800px] md:h-[940px] '>
+            <div className='absolute -right-1 md:-right-3 -top-[15px] bg-black rounded-full' onClick={closeModal}>
                 <IoCloseOutline size={30} data-testid="close-button" className='hover:cursor-pointer text-white' />
             </div>
-        <div className='w-full bg-white px-5 pt-8 h-full overflow-y-scroll'>
-            <div className='flex justify-between items-center'>
-                <div>
-                    <h2 className='text-2xl font-permanent-marker'>{itemName}</h2>
+        <div className='w-full bg-white px-5 pt-8 h-full overflow-y-scroll flex flex-col justify-between'>
+            <div>
+                <div className='flex justify-between items-center'>
+                    <div>
+                        <h2 className='text-2xl font-permanent-marker'>{itemName}</h2>
+                    </div>
+                    <div className='flex gap-3 items-center'>
+                        <h2 className='font-bold text-2xl'>{averageRating}</h2>
+                        <StarRating rating={averageRating} />
+                    </div>
                 </div>
-                <div className='flex gap-3 items-center'>
-                    <h2 className='font-bold text-2xl'>{averageRating}</h2>
-                    <StarRating rating={averageRating} />
-                </div>
+                <div className='h-[1px] my-8 w-full bg-gray-300'></div>
+                <div className=''>
+                    {
+                        reviews && (
+                            reviews.map((review, index) => (
+                                <ReviewCard key={index} name={review.user.name} surname={review.user.surname} rating={review.rating} review={review.review} createdAt={review.createdAt}/>
+                            ))
+                        )
+                    }
+                </div>  
             </div>
-            <div className='h-[1px] my-8 w-full bg-gray-300'></div>
-            <div className=''>
-                {
-                    reviews && (
-                        reviews.map((review, index) => (
-                            <div key={index} className=''>
-                                <div  className='flex'>
-                                    <div className='flex flex-col w-1/3 border-r border-gray-300'>
-                                        <div className='bg-gray-200 mb-5 w-[70px] h-[70px] rounded-full flex items-center justify-center'>
-                                            <p className='text-lg font-bold'>{review.user.name[0].toUpperCase()}{review.user.surname[0].toUpperCase()}</p>
-                                        </div>
-                                        <p className='ml-2 text-lg font-semibold'>{review.user.name} {review.user.surname}</p>
-                                    </div>
-                                    <div className='w-2/3 ml-8 flex flex-col justify-between font-fira'>
-                                        <div className='mb-8'>
-                                            <StarRating rating={review.rating} />
-                                            <p className='mt-2'>{review.review}</p>
-                                        </div>
-                                        <div className='ml-auto'>
-                                            <p className='text-gray-500 text-sm'>Reviewed on {review.createdAt}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='h-[1px] my-8 w-full bg-gray-300'></div>
-                                <ReviewCard name={review.user.name} surname={review.user.surname} rating={review.rating} review={review.review} createdAt={review.createdAt}/>
-                            </div>
-                        ))
-                    )
-                }
-            </div>  
             <div className="py-5">
                 <Pagination setPage={setPage} page={page} totalItems={totalReviews} itemsPerPage={8}/>
             </div>
