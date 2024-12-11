@@ -7,6 +7,7 @@ import ItemQuantityCard from '../components/ItemQuantityCard'
 import Review from '../components/Review'
 import { useUser } from '@clerk/clerk-react'
 import StarRating from '../components/StarRating'
+import ReviewsModal from '../components/ReviewsModal'
 
 import { useAuth } from '@clerk/clerk-react'
 
@@ -103,6 +104,11 @@ const ItemPage = () => {
                             {
                                 user && displayReview && (
                                     <Review itemId={item.id} type={type} setDisplayReview={setDisplayReview} setDisplayReviewOption={setDisplayReviewOption}/>
+                                )
+                            }
+                            {
+                                displayReviews && (
+                                    <ReviewsModal itemId={item.id} type={type}/>
                                 )
                             }
                         </div>
