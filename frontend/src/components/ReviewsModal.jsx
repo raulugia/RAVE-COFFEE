@@ -4,9 +4,10 @@ import Loading from './Loading'
 import axiosInstance from '../utils/axiosInstance'
 import Pagination from './Pagination'
 import ReviewCard from './ReviewCard'
+import { IoCloseOutline } from "react-icons/io5";
 
 
-const ReviewsModal = ({itemId, type, averageRating, itemName}) => {
+const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}) => {
     const [reviews, setReviews] = useState([])
     const [totalReviews, setTotalReviews] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -46,9 +47,22 @@ const ReviewsModal = ({itemId, type, averageRating, itemName}) => {
         )()
     }, [itemId, type, page])
 
+    useEffect(() => {
+        document.body.style.overflow = 'hidden'
+    }, [])
+
+    const closeModal = () => {
+        document.body.style.overflow = 'auto'
+        setDisplayReviews(false)
+    }
+
   return (
     <div className='fixed z-[201] left-0 bottom-0 w-full bg-black/60 flex justify-center items-center min-h-full'>
-        <div className='w-[60%] bg-white px-5 pt-8'>
+        <div className='relative w-[60%] h-[940px] '>
+            <div className='absolute -right-3 -top-[15px] bg-black rounded-full' onClick={closeModal}>
+                <IoCloseOutline size={30} data-testid="close-button" className='hover:cursor-pointer text-white' />
+            </div>
+        <div className='w-full bg-white px-5 pt-8 h-full overflow-y-scroll'>
             <div className='flex justify-between items-center'>
                 <div>
                     <h2 className='text-2xl font-permanent-marker'>{itemName}</h2>
@@ -82,7 +96,7 @@ const ReviewsModal = ({itemId, type, averageRating, itemName}) => {
                                     </div>
                                 </div>
                                 <div className='h-[1px] my-8 w-full bg-gray-300'></div>
-                                <ReviewCard name={review.user.name} surname={review.user.surname} rating={review.rating} review={review.review}/>
+                                <ReviewCard name={review.user.name} surname={review.user.surname} rating={review.rating} review={review.review} createdAt={review.createdAt}/>
                             </div>
                         ))
                     )
@@ -91,6 +105,7 @@ const ReviewsModal = ({itemId, type, averageRating, itemName}) => {
             <div className="py-5">
                 <Pagination setPage={setPage} page={page} totalItems={totalReviews} itemsPerPage={8}/>
             </div>
+        </div>
         </div>
     </div>
   )

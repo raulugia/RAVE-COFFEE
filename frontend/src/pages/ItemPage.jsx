@@ -108,7 +108,7 @@ const ItemPage = () => {
                             }
                             {
                                 displayReviews && (
-                                    <ReviewsModal itemId={item.id} type={type} averageRating={item.averageRating} itemName={item.name}/>
+                                    <ReviewsModal itemId={item.id} type={type} averageRating={item.averageRating} itemName={item.name} setDisplayReviews={setDisplayReviews}/>
                                 )
                             }
                         </div>
