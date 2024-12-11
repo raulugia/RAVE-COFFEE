@@ -59,7 +59,7 @@ const ReviewsModal = ({itemId, type}) => {
                 }
             </div>  
             
-            <Pagination setPage={setPage} page={page} totalItems={totalReviews} itemsPerPage={8}/>
+            <Pagination setPage={setPage} page={page} totalItems={100} itemsPerPage={8}/>
         </div>
     </div>
   )
