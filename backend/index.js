@@ -575,6 +575,13 @@ app.get("/item/:itemId/reviews", async (req, res) => {
 
     try{
         const offset = (parseInt(page) - 1) * 8
+
+        const totalReviews = await prisma.review.count({
+            where: {
+                [type === "coffee" ? "coffeeId" : "equipmentId"]: parseInt(itemId),
+            },
+        });
+
         const reviews = await prisma.review.findMany({
             where: {
                 [type === "coffee"? "coffeeId" : "equipmentId"]: parseInt(itemId),
@@ -584,17 +591,20 @@ app.get("/item/:itemId/reviews", async (req, res) => {
             },
             take: 8,
             skip: offset,
-            include: {
+            select: {
                 user: {
                     select: {
-                        firstName: true,
-                        lastName: true,
+                        name: true,
+                        surname: true,
                     },
-                }
+                },
+                rating: true,
+                review: true,
+                createdAt: true,
             }
         })
 
-        return res.json(reviews);
+        return res.json({reviews, totalReviews});
     }catch(error){
         console.error("Error fetching reviews:", error);
         return res.status(500).json({ error: "An error occurred while fetching the reviews." });
