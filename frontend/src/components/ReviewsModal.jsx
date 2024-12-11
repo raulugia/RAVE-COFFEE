@@ -28,13 +28,14 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
         (
             async() => {
                 setLoading(true)
-                modalRef.current.scrollTo(0,0)
+                if(modalRef.current){
+                    modalRef.current.scrollTo(0,0)
+                }
 
                 try{
                     const {data} = await axiosInstance.get(`/item/${itemId}/reviews`, {
                         params: { type, page },
                     })
-                    console.log(data)
                     const formattedReviews = data.reviews.map(review => ({...review, createdAt: transformDate(review.createdAt)}))
 
                     setReviews(formattedReviews)
@@ -59,37 +60,37 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
     }
 
   return (
-    <div className='fixed z-[201] left-0 bottom-0 w-full bg-black/60 flex justify-center items-center min-h-full' ref={modalRef}>
-        <div className='relative w-[95%] md:w-[60%] max-w-[900px] h-[800px] md:h-[940px]'>
+    <div className='fixed z-[201] left-0 bottom-0 w-full bg-black/60 flex justify-center items-center min-h-full'>
+        <div className='relative w-[95%] md:w-[60%] max-w-[900px] h-[800px] md:h-[940px]' ref={modalRef}>
             <div className='absolute -right-1 md:-right-3 -top-[15px] bg-black rounded-full' onClick={closeModal}>
                 <IoCloseOutline size={30} data-testid="close-button" className='hover:cursor-pointer text-white' />
             </div>
-        <div className='w-full bg-white px-5 pt-8 h-full overflow-y-scroll flex flex-col justify-between'>
-            <div>
-                <div className='flex justify-between items-center'>
-                    <div>
-                        <h2 className='text-2xl font-permanent-marker'>{itemName}</h2>
+            <div className='w-full bg-white px-5 pt-8 h-full overflow-y-scroll flex flex-col justify-between'>
+                <div>
+                    <div className='flex justify-between items-center'>
+                        <div>
+                            <h2 className='text-2xl font-permanent-marker'>{itemName}</h2>
+                        </div>
+                        <div className='flex gap-3 items-center'>
+                            <h2 className='font-bold text-2xl'>{averageRating}</h2>
+                            <StarRating rating={averageRating} />
+                        </div>
                     </div>
-                    <div className='flex gap-3 items-center'>
-                        <h2 className='font-bold text-2xl'>{averageRating}</h2>
-                        <StarRating rating={averageRating} />
-                    </div>
+                    <div className='h-[1px] my-8 w-full bg-gray-300'></div>
+                    <div className=''>
+                        {
+                            reviews && (
+                                reviews.map((review, index) => (
+                                    <ReviewCard key={index} name={review.user.name} surname={review.user.surname} rating={review.rating} review={review.review} createdAt={review.createdAt}/>
+                                ))
+                            )
+                        }
+                    </div>  
                 </div>
-                <div className='h-[1px] my-8 w-full bg-gray-300'></div>
-                <div className=''>
-                    {
-                        reviews && (
-                            reviews.map((review, index) => (
-                                <ReviewCard key={index} name={review.user.name} surname={review.user.surname} rating={review.rating} review={review.review} createdAt={review.createdAt}/>
-                            ))
-                        )
-                    }
-                </div>  
+                <div className="py-5">
+                    <Pagination setPage={setPage} page={page} totalItems={totalReviews} itemsPerPage={8}/>
+                </div>
             </div>
-            <div className="py-5">
-                <Pagination setPage={setPage} page={page} totalItems={totalReviews} itemsPerPage={8}/>
-            </div>
-        </div>
         </div>
         {
             loading && <Loading />
