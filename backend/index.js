@@ -404,7 +404,7 @@ app.get("/item/:id", async(req, res) => {
             return res.status(404).json({ error: "Item not found." });
         }
 
-        if(item.reviews.length > 1){
+        if(item.reviews){
             const totalRatings = item.reviews.reduce((acc, review) => acc + review.rating, 0)
             const ratingAvrg = totalRatings / item.reviews.length
             
@@ -458,7 +458,7 @@ app.get("/item/:id/authenticated", requireAuth(), async (req, res) => {
             return res.status(404).json({ error: "Item not found." });
         }
 
-        if(item.reviews.length > 1){
+        if(item.reviews){
             const totalRatings = item.reviews.reduce((acc, review) => acc + review.rating, 0)
             const ratingAvrg = totalRatings / item.reviews.length
             

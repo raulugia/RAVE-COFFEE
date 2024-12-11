@@ -19,6 +19,8 @@ const ItemPage = () => {
     const [displayReviewOption, setDisplayReviewOption] = useState(false)
     const [displayReview, setDisplayReview] = useState(false)
 
+    const [displayReviews, setDisplayReviews] = useState(false)
+
     const location = useLocation()
     const type = location.pathname.includes("/coffee") ? "coffee" : "equipment"
 
@@ -77,7 +79,7 @@ const ItemPage = () => {
                                 <div className={`${type === "coffee" ? "mb-10" : ""}`}>
                                     <h1 className='font-permanent-marker text-3xl md:text-4xl mb-5'>{item.name}</h1>
                                     {
-                                        item.averageRating && <StarRating rating={item.averageRating}/>
+                                        item.averageRating && <StarRating rating={item.averageRating} setDisplayReviews={setDisplayReviews}/>
                                     }
                                     {
                                         user && displayReviewOption && <p className='underline mb-2 text-sm hover:cursor-pointer' onClick={() => setDisplayReview(true)}>Review Item</p>

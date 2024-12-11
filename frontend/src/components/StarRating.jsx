@@ -1,4 +1,4 @@
-const StarRating = ({ rating }) => {
+const StarRating = ({ rating, setDisplayReviews }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     if (rating >= index + 1) {
       //Fully filled star
@@ -31,7 +31,7 @@ const StarRating = ({ rating }) => {
   });
 
   return (
-    <div className="flex">
+    <div className="flex" onClick={() => setDisplayReviews(true)}>
       {stars}
     </div>
   );
