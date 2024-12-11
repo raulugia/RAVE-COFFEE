@@ -565,6 +565,42 @@ app.post("/add-review", requireAuth(), async(req, res) => {
     }
 })
 
+app.get("/item/:itemId/reviews", async (req, res) => {
+    const { itemId } = req.params;
+    const { type, page = 1 } = req.query
+
+    if (!itemId || !type) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    try{
+        const offset = (parseInt(page) - 1) * 8
+        const reviews = await prisma.review.findMany({
+            where: {
+                [type === "coffee"? "coffeeId" : "equipmentId"]: parseInt(itemId),
+            },
+            orderBy: {
+                createdAt: "desc"
+            },
+            take: 8,
+            skip: offset,
+            include: {
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                    },
+                }
+            }
+        })
+
+        return res.json(reviews);
+    }catch(error){
+        console.error("Error fetching reviews:", error);
+        return res.status(500).json({ error: "An error occurred while fetching the reviews." });
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })

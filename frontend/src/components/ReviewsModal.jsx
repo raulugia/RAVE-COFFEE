@@ -1,25 +1,28 @@
 import { useState, useEffect} from 'react'
 import StarRating from './StarRating'
 import Loading from './Loading'
+import axiosInstance from '../utils/axiosInstance'
 
 const ReviewsModal = ({itemId, type}) => {
     const [reviews, setReviews] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        setLoading(true)
+        //setLoading(true)
+        
         (
             async() => {
                 try{
                     const {data} = await axiosInstance.get(`/item/${itemId}/reviews`, {
                         params: { type },
                     })
+                    console.log(data)
                     setReviews(data)
                 }catch(error){
                     console.error(error)
                     alert("There was an error getting the reviews. Please try again")
                 }finally{
-                    setLoading(false)
+                    //setLoading(false)
                 }
             }
         )()

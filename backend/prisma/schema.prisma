@@ -105,4 +105,5 @@ model Review {
   equipmentId Int?
   rating      Int
   review      String
+  createdAt   DateTime     @default(now())
 }
