@@ -7,7 +7,7 @@ import { useBasket } from '../context/BasketContext'
 
 export const Equipment = () => {
     const [allEquipments, setAllEquipments] = useState([])
-    const { displayModal } = useBasket()
+    const { setErrorData } = useBasket()
     
     //fetch all coffees and update state
     useEffect(() => {
@@ -31,7 +31,10 @@ export const Equipment = () => {
                     
                     setAllEquipments(arrangedData)
                 }catch(error){
-                    console.log(error)
+                    setErrorData({
+                        header: "Error fetching data",
+                        text: "There was an error getting the data. Please try again",
+                    })
                 }
             }
         )()
