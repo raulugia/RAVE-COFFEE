@@ -45,6 +45,7 @@ const AddressForm = ({setLoading, setAddress, existingAddress}) => {
 
         try{
             setLoading(true)
+            setErrorData(null)
 
             const token = await getToken()
             let response

@@ -27,6 +27,7 @@ const Checkout = () => {
             
             const amount = totalPrice >= 25 ? totalPrice : totalPrice + 7.99
 
+            setErrorData(null)
             try{
                 const token = await getToken()
     

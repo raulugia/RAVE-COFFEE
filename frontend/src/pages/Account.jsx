@@ -3,11 +3,13 @@ import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
 import OrderCard from '../components/OrderCard'
 import {useBasket} from '../context/BasketContext'
+import OrderSkeleton from '../components/skeletons/OrderSkeleton'
 
 const Account = () => {
     const { getToken } = useAuth()
     const [orders, setOrders] = useState()
     const {setErrorData} = useBasket()
+    const [loading, setLoading] = useState(false)
 
     const transformDate = (isoDateString) => {
         const date = new Date(isoDateString);
@@ -23,6 +25,7 @@ const Account = () => {
         (
             async() => {
                 try{
+                    setLoading(true)
                     setErrorData(null)
 
                     const token = await getToken()
@@ -37,6 +40,8 @@ const Account = () => {
                         header: "Error fetching data",
                         text: "There was an error getting your data. Please try again",
                     })
+                }finally{
+                    setLoading(false)
                 }
             }
         )()
@@ -57,6 +62,10 @@ const Account = () => {
                     </div>
                 )
             }
+            <OrderSkeleton />
+            {/* {
+                !loading && <OrderSkeleton />
+            } */}
         </div>
     </div>
   )
