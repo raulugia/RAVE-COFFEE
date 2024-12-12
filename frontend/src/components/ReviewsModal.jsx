@@ -5,6 +5,7 @@ import axiosInstance from '../utils/axiosInstance'
 import Pagination from './Pagination'
 import ReviewCard from './ReviewCard'
 import { IoCloseOutline } from "react-icons/io5";
+import { useBasket } from '../context/BasketContext'
 
 
 const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}) => {
@@ -13,6 +14,7 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
     const modalRef = useRef(null)
+    const {setErrorData} = useBasket()
 
     const transformDate = (isoDateString) => {
         const date = new Date(isoDateString);
@@ -28,6 +30,8 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
         (
             async() => {
                 setLoading(true)
+                setErrorData(null)
+
                 if(modalRef.current){
                     modalRef.current.scrollTo(0,0)
                 }
@@ -41,8 +45,10 @@ const ReviewsModal = ({itemId, type, averageRating, itemName, setDisplayReviews}
                     setReviews(formattedReviews)
                     setTotalReviews(data.totalReviews)
                 }catch(error){
-                    console.error(error)
-                    alert("There was an error getting the reviews. Please try again")
+                    setErrorData({
+                        header: "Error fetching data",
+                        text: "There was an error getting the reviews. Please try again",
+                    })
                 }finally{
                     setLoading(false)
                 }

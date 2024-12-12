@@ -14,6 +14,8 @@ export const Equipment = () => {
         (
             async() => {
                 try{
+                    setErrorData(null)
+                    
                     let allEquipmentCategories = []
                     let arrangedData = []
                     const { data } = await axiosInstance.get('/equipment')

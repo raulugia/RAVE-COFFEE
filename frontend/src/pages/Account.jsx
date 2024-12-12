@@ -23,6 +23,8 @@ const Account = () => {
         (
             async() => {
                 try{
+                    setErrorData(null)
+
                     const token = await getToken()
                     const {data} = await axiosInstance.get("/recent-orders", {
                         headers: { Authorization: `Bearer ${token}` }
