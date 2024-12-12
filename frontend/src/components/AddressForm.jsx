@@ -3,6 +3,7 @@ import Input from './Input'
 import MainBtn from './MainBtn'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
+import { useBasket } from '../context/BasketContext'
 import {validateLine, validateCity, validatePostcode, validateCounty, isDataValid} from '../utils/helpers'
 
 
@@ -24,6 +25,7 @@ const AddressForm = ({setLoading, setAddress, existingAddress}) => {
     })
     const { getToken } = useAuth()
     const [isDisabled, setDisabled] = useState(false)
+    const { setErrorData} = useBasket()
 
     const handleInputChange = e => {
         const value = e.target.value
@@ -63,8 +65,11 @@ const AddressForm = ({setLoading, setAddress, existingAddress}) => {
                 setAddress(response.data.address)
             }
         }catch(error){
-            console.log(error)
-            alert('An error occurred while saving the address. Please try again.')
+            setErrorData({
+                header: "Error saving address",
+                text: "An error occurred while saving the address. Please try again",
+                canClose: true
+            })
         }finally{
             setLoading(false)
             setDisabled(false)

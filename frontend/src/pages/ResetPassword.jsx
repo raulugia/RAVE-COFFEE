@@ -40,7 +40,6 @@ const AccountResetPassword = () => {
             await signIn.create({strategy: 'reset_password_email_code', identifier: userData.email})
             setEmailSent(true)
         }catch(error){
-            console.log(error)
             if(error && error.errors){
                 setErrors(prevErrors => ({...prevErrors, clerk: [error.errors[0].longMessage]}))
             }else{

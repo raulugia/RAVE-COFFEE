@@ -27,7 +27,7 @@ const Account = () => {
                     const {data} = await axiosInstance.get("/recent-orders", {
                         headers: { Authorization: `Bearer ${token}` }
                     })
-                    console.log(data)
+
                     const formattedData = data.map(item => ({...item, createdAt: transformDate(item.createdAt)}))
                     setOrders(formattedData)
                 }catch(error){

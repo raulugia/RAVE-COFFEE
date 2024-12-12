@@ -36,7 +36,6 @@ const Checkout = () => {
     
                 if(data && data.clientSecret){
                     setSecret(data.clientSecret)
-                    console.log(data)
                 }
             }catch(error){
                 console.log(error)

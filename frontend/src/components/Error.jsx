@@ -1,6 +1,9 @@
 import error from "../assets/error.svg"
+import { useBasket } from "../context/BasketContext"
 
-const Error = ({header, text, onClick}) => {
+const Error = ({header, text, canClose = false}) => {
+    const {setErrorData} = useBasket()
+
   return (
     <div>
         <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/70 z-[201]'>
@@ -9,8 +12,8 @@ const Error = ({header, text, onClick}) => {
                 <h3 className='text-xl text-center text-[#FF343C] font-semibold'>{header}</h3>
                 <p className='text-center'>{text}</p>
                 {
-                    onClick && (
-                        <button onClick={onClick} className='mt-4 bg-[#FF343C] text-white text-xl px-8 py-2 rounded-full hover:cursor-pointer hover:bg-[#FF343C]/90'>CLOSE</button>
+                    canClose && (
+                        <button onClick={() => setErrorData(null)} className='mt-4 bg-[#FF343C] text-white text-xl px-8 py-2 rounded-full hover:cursor-pointer hover:bg-[#FF343C]/90'>CLOSE</button>
                     )
                 }
             </div>

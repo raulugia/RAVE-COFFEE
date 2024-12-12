@@ -9,8 +9,6 @@ const SubscriptionQuestions = () => {
   })
 
   const handleClick = (index) => {
-    console.log("index", index)
-    console.log("prev",selected)
     if(selected.current === index){
       setSelected({
         current: null,
