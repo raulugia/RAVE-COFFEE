@@ -16,7 +16,7 @@ const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 const Checkout = () => {
     const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
-    const { totalPrice, basket} = useBasket()
+    const { totalPrice, basket, setErrorData} = useBasket()
     const [secret, setSecret] = useState()
 
     useEffect(() => {
@@ -38,7 +38,10 @@ const Checkout = () => {
                     setSecret(data.clientSecret)
                 }
             }catch(error){
-                console.log(error)
+                setErrorData({
+                    header: "Internal Server Error",
+                    text: "An error occurred while getting the data. Please try again.",
+                })
             }
         }
 
