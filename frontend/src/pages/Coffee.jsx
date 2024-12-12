@@ -3,19 +3,24 @@ import MainBanner from '../components/MainBanner'
 import CoffeeCard from '../components/CoffeeCard'
 import coffeeBanner from '../assets/coffee_banner.jpg'
 import axiosInstance from '../utils/axiosInstance'
+import { useBasket } from '../context/BasketContext'
 
 const Coffee = () => {
     const [coffeeTypes, setCoffeeTypes] = useState([])
-    
+    const {setErrorData} = useBasket()
     //fetch all coffees and update state
     useEffect(() => {
+        setErrorData(null)
         (
             async() => {
                 try{
                     const { data } = await axiosInstance.get('/coffee')
                     setCoffeeTypes(data)
                 }catch(error){
-                    console.log(error)
+                    setErrorData({
+                        header: "Error fetching data",
+                        text: "There was an error getting the data. Please try again",
+                    })
                 }
             }
         )()

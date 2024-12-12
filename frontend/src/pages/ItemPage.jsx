@@ -34,6 +34,7 @@ const ItemPage = () => {
     useEffect(() => {
         setLoading(true)
         setErrorData(null)
+        
         if(id && isLoaded) {
             (
                 async() => {

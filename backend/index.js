@@ -606,7 +606,6 @@ app.get("/item/:itemId/reviews", async (req, res) => {
 
         return res.json({reviews, totalReviews});
     }catch(error){
-        console.error("Error fetching reviews:", error);
         return res.status(500).json({ error: "An error occurred while fetching the reviews." });
     }
 })
