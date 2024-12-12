@@ -21,10 +21,11 @@ import ItemPage from './pages/ItemPage'
 import { useBasket } from './context/BasketContext'
 import SideModal from './components/SideModal'
 import Subscriptions from './pages/Subscriptions'
+import Error from './components/Error'
 
 
 function App() {
-  const { displayModal } = useBasket()
+  const { displayModal, errorData } = useBasket()
   return (
     <>
       <Routes>
@@ -61,6 +62,9 @@ function App() {
         displayModal && (
             <SideModal />
         )
+      }
+      {
+        errorData && <Error header={errorData.header} text={errorData.text} onClick={errorData?.onClick}/>
       }
     </>
   )

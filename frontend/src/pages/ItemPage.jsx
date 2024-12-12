@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
@@ -9,7 +9,7 @@ import { useUser } from '@clerk/clerk-react'
 import StarRating from '../components/StarRating'
 import ReviewsModal from '../components/ReviewsModal'
 import Error from '../components/Error'
-
+import { useBasket } from '../context/BasketContext'
 import { useAuth } from '@clerk/clerk-react'
 
 const ItemPage = () => {
@@ -18,6 +18,8 @@ const ItemPage = () => {
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+
+    const {setErrorData} = useBasket()
 
     const [displayReviewOption, setDisplayReviewOption] = useState(false)
     const [displayReview, setDisplayReview] = useState(false)
@@ -31,7 +33,7 @@ const ItemPage = () => {
 
     useEffect(() => {
         setLoading(true)
-        setError(null)
+        setErrorData(null)
         if(id && isLoaded) {
             (
                 async() => {
@@ -54,7 +56,7 @@ const ItemPage = () => {
                             setDisplayReviewOption(true)
                         }
                     }catch(error){
-                        setError({
+                        setErrorData({
                             header: "Error fetching item information",
                             text: "There was an error getting the item information. Please try again",
                         })
@@ -119,9 +121,9 @@ const ItemPage = () => {
                 </div>
             )
         }
-        {
-            error && <Error header={error.header} text={error.text} onClick={() => setError(null)}/>
-        }
+        {/* {
+            error && <Error header={error.header} text={error.text} />
+        } */}
     </div>
   )
 }
