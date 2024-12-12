@@ -13,7 +13,6 @@ const Coffee = () => {
             async() => {
                 try{
                     const { data } = await axiosInstance.get('/coffee')
-                    console.log(data)
                     setCoffeeTypes(data)
                 }catch(error){
                     console.log(error)

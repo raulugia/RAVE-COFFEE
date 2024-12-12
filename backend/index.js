@@ -420,7 +420,7 @@ app.get("/item/:id", async(req, res) => {
 app.get("/item/:id/authenticated", requireAuth(), async (req, res) => {
     const { id } = req.params;
     const { type } = req.query;
-
+    return res.status(500).json({ id: id})
     if (!id || !type) {
         return res.status(400).json({ error: "All fields are required" });
     }

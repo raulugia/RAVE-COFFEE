@@ -4,13 +4,11 @@ import AccountNavCard from './AccountNavCard'
 import Loading from './Loading'
 import {accountNavCardData } from '../utils/texts'
 import { Outlet } from 'react-router-dom'
-import { useClerk, useAuth } from '@clerk/clerk-react'
-import { useNavigate } from "react-router-dom"
+import { useClerk} from '@clerk/clerk-react'
 
-const AccountNav = ({children}) => {
+const AccountNav = () => {
     const { user } = useUser()
     const { signOut } = useClerk()
-    const navigate = useNavigate()
 
     if(!user ){
         return <Loading />

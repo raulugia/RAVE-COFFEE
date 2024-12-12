@@ -8,6 +8,7 @@ import Review from '../components/Review'
 import { useUser } from '@clerk/clerk-react'
 import StarRating from '../components/StarRating'
 import ReviewsModal from '../components/ReviewsModal'
+import Error from '../components/Error'
 
 import { useAuth } from '@clerk/clerk-react'
 
@@ -16,6 +17,7 @@ const ItemPage = () => {
     const { user, isLoaded } = useUser()
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     const [displayReviewOption, setDisplayReviewOption] = useState(false)
     const [displayReview, setDisplayReview] = useState(false)
@@ -29,6 +31,7 @@ const ItemPage = () => {
 
     useEffect(() => {
         setLoading(true)
+        setError(null)
         if(id && isLoaded) {
             (
                 async() => {
@@ -40,12 +43,10 @@ const ItemPage = () => {
                                 headers: { Authorization: `Bearer ${token}` },
                                 params: { type },
                             })
-                            console.log(response)
                         }else {
                             response = await axiosInstance.get(`/item/${id}`, {
                                 params: { type },
                             })
-                            console.log(response)
                         }
                         setItem(response.data.item)
 
@@ -53,8 +54,10 @@ const ItemPage = () => {
                             setDisplayReviewOption(true)
                         }
                     }catch(error){
-                        console.error(error)
-                        alert("There was an error getting the item information. Please try again")
+                        setError({
+                            header: "Error fetching item information",
+                            text: "There was an error getting the item information. Please try again",
+                        })
                     }finally{
                         setLoading(false)
                     }
@@ -115,6 +118,9 @@ const ItemPage = () => {
                     </div>
                 </div>
             )
+        }
+        {
+            error && <Error header={error.header} text={error.text} onClick={() => setError(null)}/>
         }
     </div>
   )
