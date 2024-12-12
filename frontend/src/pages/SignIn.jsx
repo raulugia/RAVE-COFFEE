@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import MainBtn from '../components/MainBtn'
 import { Link, useNavigate } from 'react-router-dom'
-import { validatePassword, validateEmail, validateName } from '../utils/helpers'
-import PasswordFeedback from '../components/PasswordFeedback'
 import Input from '../components/Input'
 import Loading from '../components/Loading'
 import { useSignIn } from "@clerk/clerk-react";

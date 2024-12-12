@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
 import OrderCard from '../components/OrderCard'
+import {useBasket} from '../context/BasketContext'
 
 const Account = () => {
     const { getToken } = useAuth()
     const [orders, setOrders] = useState()
+    const {setErrorData} = useBasket()
 
     const transformDate = (isoDateString) => {
         const date = new Date(isoDateString);
@@ -29,7 +31,10 @@ const Account = () => {
                     const formattedData = data.map(item => ({...item, createdAt: transformDate(item.createdAt)}))
                     setOrders(formattedData)
                 }catch(error){
-                    console.error(error)
+                    setErrorData({
+                        header: "Error fetching data",
+                        text: "There was an error getting your data. Please try again",
+                    })
                 }
             }
         )()
