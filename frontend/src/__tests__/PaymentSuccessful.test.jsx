@@ -35,9 +35,9 @@ describe("PaymentSuccessful component", () => {
     
         expect(await screen.findByText(/You will be redirected in 5/)).toBeInTheDocument();
     
-        act(() => {
-            jest.advanceTimersByTime(1000);
-        });
+ 
+        jest.advanceTimersByTime(1000);
+    
     
         expect(await screen.findByText(/You will be redirected in 4/)).toBeInTheDocument();
     });
@@ -51,7 +51,7 @@ describe("PaymentSuccessful component", () => {
     
         act(() => {
             jest.advanceTimersByTime(5000);
-        });
+        })
     
         expect(mockNavigate).toHaveBeenCalledWith("/account/orders/123")
     })

@@ -41,9 +41,7 @@ const Pagination = ({ totalItems, itemsPerPage, setPage, page }) => {
           <button
             key={index}
             onClick={() => setPage(pageNumber)}
-            className={`font-fira text-lg px-5 py-2 ${
-              page === pageNumber ? 'bg-gray-300' : 'bg-white'
-            }`}
+            className={`font-fira text-lg px-5 py-2 ${page === pageNumber ? 'bg-gray-300' : 'bg-white'}`}
           >
             {pageNumber}
           </button>
