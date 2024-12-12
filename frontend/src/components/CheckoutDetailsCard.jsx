@@ -12,7 +12,7 @@ const CheckoutDetailsCard = () => {
     const { getToken} = useAuth()
     const stripe = useStripe()
     const elements = useElements()
-    const { basket, totalPrice, dispatch} = useBasket()
+    const { basket, totalPrice, dispatch, setErrorData} = useBasket()
     const [isSuccessful, setIsSuccessful] = useState(false)
     const [orderId, setOrderId] = useState("")
 
@@ -21,6 +21,7 @@ const CheckoutDetailsCard = () => {
             async() => {
                 try{
                     setLoading(true)
+                    setErrorData(null)
 
                     const token = await getToken()
                     const { data } = await axiosInstance.get("/account/details", {
@@ -31,7 +32,10 @@ const CheckoutDetailsCard = () => {
 
                     setUserData(data)
                 }catch(error){
-
+                    setErrorData({
+                        header: "Error fetching your data",
+                        text: "There was an error fetching your data. Please try again.",
+                    })
                 }finally{
                     setLoading(false)
                 }
@@ -41,7 +45,10 @@ const CheckoutDetailsCard = () => {
 
     const handlePayment = async(e) => {
         e.preventDefault()
+
         setLoading(true)
+        setErrorData(null)
+
         try{
             const { paymentIntent, error } = await stripe.confirmPayment({
                 elements,
@@ -75,7 +82,10 @@ const CheckoutDetailsCard = () => {
                 dispatch({type: "EMPTY"})
             }
         }catch(error){
-            alert("There was an error with your order. Please try again")
+            setErrorData({
+                header: "Payment error",
+                text: "There was an error with your payment. Please try again.",
+            })
         }finally{
             setLoading(false)
         }
