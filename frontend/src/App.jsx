@@ -22,6 +22,7 @@ import { useBasket } from './context/BasketContext'
 import SideModal from './components/SideModal'
 import Subscriptions from './pages/Subscriptions'
 import Error from './components/Error'
+import Orders from './pages/Orders'
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
               <Route index element={<Account />}/>
               <Route path="details" element={<AccountDetails />}/>
               <Route path="change-password" element={<AccountChangePassword />}/>
+              <Route path="orders" element={<Orders />}/>
             </Route>
           </Route>
 

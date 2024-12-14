@@ -54,7 +54,7 @@ const Account = () => {
             {   
                 loading ? (
                     <OrderSkeleton />
-                ) : !orders ? (
+                ) : orders ? (
                     <div className='flex flex-col items-start gap-8'>
                         {
                             orders.map((order, index) => (
