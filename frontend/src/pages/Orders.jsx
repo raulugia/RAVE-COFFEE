@@ -9,6 +9,7 @@ import Pagination from "../components/Pagination"
 
 const Orders = () => {
     const [orders, setOrders] = useState()
+    const [totalOrders, setTotalOrders] = useState(0)
     const [loading, setLoading] = useState(false)
     const {setErrorData} = useBasket()
     const { getToken } = useAuth()
@@ -24,12 +25,13 @@ const Orders = () => {
                     const token = await getToken()
 
                     const { data } = await axiosInstance.get("/orders", {
-                        headers: { Authorization: `Bearer ${token}` }
+                        headers: { Authorization: `Bearer ${token}` },
+                        params: { page },
                     })
 
-                    const formattedData = data.map(order => ({...order, createdAt: transformDate(order.createdAt)}))
+                    const formattedData = data.orders.map(order => ({...order, createdAt: transformDate(order.createdAt)}))
                     setOrders(formattedData)
-
+                    setTotalOrders(data.totalOrders)
                 }catch(error){
                     setErrorData({
                         header: "Error fetching orders",
@@ -39,8 +41,8 @@ const Orders = () => {
                     setLoading(false)
                 }
             }
-        )
-    })
+        )()
+    }, [])
 
   return (
     <div className="md:px-[8%] px-5">
@@ -50,7 +52,7 @@ const Orders = () => {
                 <OrderSkeleton />
             ) : orders ? (
                 <div>
-                    <div className='flex flex-col items-start gap-8'>
+                    <div className='flex flex-col items-start gap-8 mb-16'>
                         {
                             orders.map((order, index) => (
                                 <OrderCard key={index} {...order}/>
@@ -58,7 +60,7 @@ const Orders = () => {
                         }
                     </div>
                     <Pagination 
-                        totalItems={orders.totalOrders}
+                        totalItems={totalOrders}
                         page={page}
                         setPage={setPage}
                         itemsPerPage={5}
