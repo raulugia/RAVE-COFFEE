@@ -19,7 +19,7 @@ const Account = () => {
         const year = date.getFullYear()
       
         return `${day}/${month}/${year}`;
-      };
+    };
 
     useEffect(() => {
         (
