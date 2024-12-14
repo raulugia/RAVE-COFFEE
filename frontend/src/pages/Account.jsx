@@ -51,8 +51,10 @@ const Account = () => {
     <div>
         <div className='mt-20 px-[8%]'>
             <h1 className='text-3xl font-permanent-marker mb-10'>RECENT ORDERS</h1>
-            {
-                orders && (
+            {   
+                loading ? (
+                    <OrderSkeleton />
+                ) : !orders ? (
                     <div className='flex flex-col items-start gap-8'>
                         {
                             orders.map((order, index) => (
@@ -60,12 +62,12 @@ const Account = () => {
                             ))
                         }
                     </div>
+                ) : (
+                    <div className='border py-10 px-10 rounded-lg font-fira bg-gray-100 w-fit'>
+                        <p>You have not placed any orders yet</p>
+                    </div>
                 )
             }
-            <OrderSkeleton />
-            {/* {
-                !loading && <OrderSkeleton />
-            } */}
         </div>
     </div>
   )

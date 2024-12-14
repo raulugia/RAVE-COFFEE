@@ -39,12 +39,24 @@ export default {
           "0%": { height: "auto"},
           "100%": { height: "300px" },
         },
+        "skeleton-pulse": {
+          "0%": {
+            opacity: 1
+          },
+          "50%":{
+            opacity: 0.5
+          },
+          "100%": {
+            opacity: 1
+          }
+        }
       },
       animation: {
         "slide-left": "slide-left 0.3s ease-out",
         "slide-right": "slide-right 0.3s ease-out",
         "slide-down": "slide-down 0.3s ease-out forwards",
         "slide-up": "slide-up 0.1s ease-out forwards",
+        "skeleton-pulse": "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite"
       },
       backgroundImage: {
         'coffee-beans-pattern': "url('/src/assets/coffee-bean-background.svg')",
