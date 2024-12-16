@@ -7,6 +7,10 @@ const SideModal = () => {
 
     useEffect(() => {
         document.body.style.overflow = 'hidden'
+
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
     }, [])
 
   return (
@@ -17,7 +21,6 @@ const SideModal = () => {
                 <BasketModal />
             )
         }
-            
         </div>
     </div>
   )
