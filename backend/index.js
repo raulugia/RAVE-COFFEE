@@ -296,8 +296,16 @@ app.post("/create-order", requireAuth(), async(req, res) => {
                   },
                 },
             include: {
-                orderCoffees: true,
-                orderEquipments: true,
+                orderCoffees: {
+                    include: {
+                        coffee: true
+                    }
+                },
+                orderEquipments: {
+                    include: {
+                        equipment: true
+                    }
+                },
             },
         })
 

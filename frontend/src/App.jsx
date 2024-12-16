@@ -17,6 +17,7 @@ import AccountNav from './components/AccountNav'
 import AccountChangePassword from './pages/AccountChangePassword'
 import ResetPassword from './pages/ResetPassword'
 import Checkout from './pages/Checkout'
+import PaymentSuccessful from './pages/PaymentSuccessful'
 import ItemPage from './pages/ItemPage'
 import { useBasket } from './context/BasketContext'
 import SideModal from './components/SideModal'
@@ -51,6 +52,7 @@ function App() {
               <Route path="details" element={<AccountDetails />}/>
               <Route path="change-password" element={<AccountChangePassword />}/>
               <Route path="orders" element={<Orders />}/>
+              <Route path="payment-successful" element={<PaymentSuccessful />}/>
             </Route>
           </Route>
 

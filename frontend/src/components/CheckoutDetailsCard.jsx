@@ -4,7 +4,7 @@ import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
 import {PaymentElement,  useStripe, useElements} from '@stripe/react-stripe-js';
 import { useBasket } from '../context/BasketContext';
-import PaymentSuccessful from './PaymentSuccessful';
+import { useNavigate } from "react-router-dom"
 
 const CheckoutDetailsCard = () => {
     const [userData, setUserData] = useState()
@@ -12,9 +12,9 @@ const CheckoutDetailsCard = () => {
     const { getToken} = useAuth()
     const stripe = useStripe()
     const elements = useElements()
-    const { basket, totalPrice, dispatch, setErrorData} = useBasket()
-    const [isSuccessful, setIsSuccessful] = useState(false)
+    const { basket, totalPrice, setErrorData} = useBasket()
     const [orderId, setOrderId] = useState("")
+    const navigate = useNavigate()
 
     useEffect(() => {
         (
@@ -50,18 +50,10 @@ const CheckoutDetailsCard = () => {
         setErrorData(null)
 
         try{
-            const { paymentIntent, error } = await stripe.confirmPayment({
+            const { paymentIntent } = await stripe.confirmPayment({
                 elements,
-                redirect: 'never',
-            });
-
-            if (error) {
-                setErrorData({
-                    header: "Payment error",
-                    text: "There was an error with your payment. Please try again.",
-                    canClose: true,
-                })
-            }
+                redirect: 'if_required',
+            })
 
             if(paymentIntent && paymentIntent.status === 'succeeded') {
                 const token = await getToken();
@@ -77,16 +69,16 @@ const CheckoutDetailsCard = () => {
                             Authorization: `Bearer ${token}`,
                         },
                     }
-                );
-                setOrderId(data.order.id)
-                setIsSuccessful(true)
-                dispatch({type: "EMPTY"})
+                )
+                // setOrderId(data.order.id)
+                navigate("/account/payment-successful", {state: {order: data.order}})
             }
         }catch(error){
             setErrorData({
                 header: "Payment error",
                 text: "There was an error with your payment. Please try again.",
             })
+            console.error(error)
         }finally{
             setLoading(false)
         }
@@ -132,9 +124,6 @@ const CheckoutDetailsCard = () => {
         }
         {
             loading && <Loading />
-        }
-        {
-            isSuccessful && orderId && <PaymentSuccessful totalPrice={totalPrice} id={orderId}/>
         }
     </div>
   )
