@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const OrderCard = ({id, createdAt, orderCoffees, orderEquipments,total, deliveryTotal, type}) => {
   return (
-    <Link to={`/account/orders/${id}`} className="border border-black w-[450px] rounded-md overflow-hidden shadow-md">
+    <Link to={`/account/orders/${id}`} className="border border-black w-full md:w-[450px] rounded-md overflow-hidden shadow-md">
         <div className='flex font-permanent-marker py-1 text-lg bg-mustard justify-between border-b border-black px-2'>
             <h3>Order ID: {id}</h3>
             <p>Date: {createdAt}</p>
