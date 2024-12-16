@@ -4,6 +4,7 @@ const { PrismaClient } = require('@prisma/client');
 const { clerkClient} = require('@clerk/clerk-sdk-node');
 const { requireAuth } = require('@clerk/express')
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { validateEmail, validateName, validatePassword, validateCity, validateLine, validatePostcode, validateCounty } = require('./helpers');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -43,7 +44,31 @@ app.get("/equipment", async(req, res) => {
 
 app.post("/register", async(req, res) => {
     const { first_name, last_name, email, password } = req.body;
-  
+    
+    const firstNameValidation = validateName(first_name, "first_name");
+    const lastNameValidation = validateName(last_name, "last_name");
+    const emailValidation = validateEmail(email);
+    const passwordValidation = validatePassword(password);
+
+    const errors = [];
+
+    if (!firstNameValidation.isValid) {
+        errors.push(...firstNameValidation.errors);
+    }
+    if (!lastNameValidation.isValid) {
+        errors.push(...lastNameValidation.errors);
+    }
+    if (!emailValidation) {
+        errors.push("Invalid email format");
+    }
+    if (!passwordValidation.isValid) {
+        errors.push("Invalid email format");
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    }
+
     try{
         const clerkUser = await clerkClient.users.createUser({
             emailAddress: [email],
