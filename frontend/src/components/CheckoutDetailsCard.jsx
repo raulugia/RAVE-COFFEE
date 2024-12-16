@@ -4,7 +4,7 @@ import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
 import {PaymentElement,  useStripe, useElements} from '@stripe/react-stripe-js';
 import { useBasket } from '../context/BasketContext';
-import { useNavigate } from "react-router-dom"
+import PaymentSuccessful from './PaymentSuccessful';
 
 const CheckoutDetailsCard = () => {
     const [userData, setUserData] = useState()
@@ -13,8 +13,8 @@ const CheckoutDetailsCard = () => {
     const stripe = useStripe()
     const elements = useElements()
     const { basket, totalPrice, setErrorData} = useBasket()
+    const [isSuccessful, setIsSuccessful] = useState(false)
     const [orderId, setOrderId] = useState("")
-    const navigate = useNavigate()
 
     useEffect(() => {
         (
@@ -69,9 +69,9 @@ const CheckoutDetailsCard = () => {
                             Authorization: `Bearer ${token}`,
                         },
                     }
-                )
-                // setOrderId(data.order.id)
-                navigate("/account/payment-successful", {state: {order: data.order}})
+                );
+                setOrderId(data.order.id)
+                setIsSuccessful(true)
             }
         }catch(error){
             setErrorData({
@@ -124,6 +124,9 @@ const CheckoutDetailsCard = () => {
         }
         {
             loading && <Loading />
+        }
+        {
+            isSuccessful && orderId && <PaymentSuccessful totalPrice={totalPrice} id={orderId}/>
         }
     </div>
   )
