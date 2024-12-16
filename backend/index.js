@@ -62,7 +62,7 @@ app.post("/register", async(req, res) => {
         errors.push("Invalid email format");
     }
     if (!passwordValidation.isValid) {
-        errors.push("Invalid email format");
+        errors.push(...passwordValidation.errors);
     }
 
     if (errors.length > 0) {
@@ -200,6 +200,33 @@ app.put("/account/update-address", requireAuth(), async (req, res) => {
     // Validate the required fields
     if (!line1 || !city || !postcode || !county || !country) {
         return res.status(400).json({ error: "All fields are required." });
+    }
+
+    const line1Validation = validateLine(line1)
+    const line2Validation = line2 ? validateLine(line2) : null
+    const cityValidation = validateCity(city)
+    const postcodeValidation = validatePostcode(postcode)
+    const countyValidation = validateCounty(county)
+
+    const errors = [];
+    if(!line1Validation.isValid){
+        errors.push(...line1Validation.errors);
+    }
+    if(line2 && line2Validation){
+        errors.push(...line2Validation.errors);
+    }
+    if(!cityValidation.isValid){
+        errors.push(...cityValidation.errors);
+    }
+    if(!postcodeValidation.isValid){
+        errors.push(...postcodeValidation.errors);
+    }
+    if(!countyValidation.isValid){
+        errors.push(...countyValidation.errors);
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
     }
 
     // Find the authenticated user
