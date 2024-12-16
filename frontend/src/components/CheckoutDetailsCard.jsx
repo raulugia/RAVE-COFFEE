@@ -52,14 +52,15 @@ const CheckoutDetailsCard = () => {
         try{
             const { paymentIntent, error } = await stripe.confirmPayment({
                 elements,
-                confirmParams: {
-                    return_url: `${window.location.origin}/payment-success`,
-                },
-                redirect: 'if_required',
+                redirect: 'never',
             });
 
             if (error) {
-                alert(error.message);
+                setErrorData({
+                    header: "Payment error",
+                    text: "There was an error with your payment. Please try again.",
+                    canClose: true,
+                })
             }
 
             if(paymentIntent && paymentIntent.status === 'succeeded') {

@@ -8,7 +8,7 @@ const StarRating = ({ rating, setDisplayReviews }) => {
         </svg>
       );
     } else if (rating > index && rating < index + 1) {
-      //% filled star
+      //filled star
       return (
         <svg key={index} width="22px" height="22px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -31,7 +31,7 @@ const StarRating = ({ rating, setDisplayReviews }) => {
   });
 
   return (
-    <div className="flex" onClick={() => setDisplayReviews(true)}>
+    <div className="flex hover:cursor-pointer" onClick={() => setDisplayReviews(true)}>
       {stars}
     </div>
   );

@@ -14,7 +14,6 @@ const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
 const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 
 const Checkout = () => {
-    const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
     const { totalPrice, basket, setErrorData} = useBasket()
     const [secret, setSecret] = useState()
@@ -56,10 +55,10 @@ const Checkout = () => {
         <Loading />
     ) : (
         <Elements stripe={stripePromise} options={{clientSecret: secret, business: "RAVE"}}>
-        <div className='mt-10 flex flex-col md:flex-row md:justify-between min-h-[calc(100vh-140px)]'>
-            <CheckoutDetailsCard />
-            <CheckoutBasket />
-        </div>
+            <div className='mt-10 flex flex-col md:flex-row md:justify-between min-h-[calc(100vh-140px)]'>
+                <CheckoutDetailsCard />
+                <CheckoutBasket />
+            </div>
         </Elements>
     )
   )

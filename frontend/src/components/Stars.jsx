@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const Stars = ({ setReview, review }) => {
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -19,7 +19,7 @@ const Stars = ({ setReview, review }) => {
                 height="22px"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
-                className="cursor-pointer"
+                className="hover:cursor-pointer"
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(null)}
                 onClick={() => handleClick(index)}
