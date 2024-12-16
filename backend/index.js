@@ -452,6 +452,12 @@ app.get("/item/:id/authenticated", requireAuth(), async (req, res) => {
     const { id } = req.params;
     const { type } = req.query;
 
+    if(type === "coffee"){
+        coffeeId = parseInt(id);
+    }else{
+        equipmentId = parseInt(id);
+    }
+
     if (!id || !type) {
         return res.status(400).json({ error: "All fields are required" });
     }
@@ -498,11 +504,11 @@ app.get("/item/:id/authenticated", requireAuth(), async (req, res) => {
 
         const hasPurchasedAndNotReviewed = await prisma.orderCoffee.findFirst({
             where: {
-              coffeeId: parseInt(id),
+              [type === "coffee" ? "coffeeId" : "equipmentId"]: parseInt(id),
               order: {
                 customerId: user.id,
               },
-              coffee: {
+              [type === "coffee" ? "coffee" : "equipment"]: {
                 reviews: {
                   none: {
                     userId: user.id,
@@ -514,7 +520,7 @@ app.get("/item/:id/authenticated", requireAuth(), async (req, res) => {
 
         return res.json({ pendingReview: hasPurchasedAndNotReviewed ? true : false, item, })
     } catch (error) {
-        console.error("Error:", error)
+        console.log(error)
         return res.status(500).json({ error: "Internal server error" });
     }
 });
@@ -531,7 +537,6 @@ app.get("/carousel", async(req, res) => {
             const coffees = await prisma.coffee.findMany({
                 take: 6
             })
-            console.log(coffees)
 
             return res.json(coffees)
         }else if(type === "equipment"){
@@ -571,7 +576,7 @@ app.post("/add-review", requireAuth(), async(req, res) => {
         const review = await prisma.review.create({
             data: {
                 userId: user.id,
-                [type === "coffee" ? coffeeId : equipmentId]: parseInt(itemId),
+                [type === "coffee" ? "coffeeId" : "equipmentId"]: parseInt(itemId),
                 rating,
                 review: text,
             }
