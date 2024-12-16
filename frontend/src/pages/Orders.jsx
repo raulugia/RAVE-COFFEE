@@ -22,13 +22,15 @@ const Orders = () => {
                     setLoading(true)
                     setErrorData(null)
 
+                    window.scrollTo(0, 0)
+
                     const token = await getToken()
 
                     const { data } = await axiosInstance.get("/orders", {
                         headers: { Authorization: `Bearer ${token}` },
                         params: { page },
                     })
-
+                    console.log(data)
                     const formattedData = data.orders.map(order => ({...order, createdAt: transformDate(order.createdAt)}))
                     setOrders(formattedData)
                     setTotalOrders(data.totalOrders)
@@ -42,10 +44,10 @@ const Orders = () => {
                 }
             }
         )()
-    }, [])
+    }, [page])
 
   return (
-    <div className="md:px-[8%] px-5">
+    <div className="md:px-[8%] px-5 mb-10">
         <h1 className='font-permanent-marker text-3xl mb-10'>Order History</h1>
         {
             loading? (

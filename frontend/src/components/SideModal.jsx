@@ -3,7 +3,7 @@ import { useBasket } from '../context/BasketContext'
 import BasketModal from './BasketModal'
 
 const SideModal = () => {
-    const { setDisplayModal, displayModal } = useBasket()
+    const { displayModal } = useBasket()
 
     useEffect(() => {
         document.body.style.overflow = 'hidden'

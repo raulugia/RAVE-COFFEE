@@ -49,7 +49,7 @@ const Account = () => {
 
   return (
     <div>
-        <div className='mt-20 px-[8%]'>
+        <div className='my-20 px-[8%]'>
             <h1 className='text-3xl font-permanent-marker mb-10'>RECENT ORDERS</h1>
             {   
                 loading ? (
