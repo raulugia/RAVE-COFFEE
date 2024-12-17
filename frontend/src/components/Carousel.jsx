@@ -30,6 +30,7 @@ const Carousel = ({header, type}) => {
                     const { data } = await axiosInstance.get(`/carousel`, {
                         params: { type }
                     })
+                    console.log(data)
                     setItems(data)
                 }catch(error){
                     console.log(error)
@@ -48,6 +49,12 @@ const Carousel = ({header, type}) => {
         }
     }, [])
 
+    useEffect(() => {
+        if(carouselRef.current){
+            carouselRef.current.refresh()
+        }
+    }, [items])
+
   return (
     <div className='mx-[8%]'>
         <div className='flex flex-col justify-start items-start mb-10'>
@@ -56,8 +63,13 @@ const Carousel = ({header, type}) => {
                 <img src={underline} alt="" className='w-full'/>
             </div>
         </div>
-        <div ref={carouselRef} className=''>
-            <Splide options={splideOptions} >
+        <div className='min-h-[460px]'>
+            <Splide options={splideOptions} 
+                onMounted={(splide) => {
+                    carouselRef.current = splide
+                    carouselRef.refresh()
+                }}
+            >
             {
                 type === "coffee" ? (
                     items.map((item, index) => (

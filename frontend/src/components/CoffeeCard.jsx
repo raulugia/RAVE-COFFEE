@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 import MainBtn from './MainBtn'
 import { useBasket } from '../context/BasketContext'
@@ -7,6 +7,7 @@ import CoffeeBean from './CoffeeBean'
 const CoffeeCard = ({name, id, price, roast, taste, smallpictureUrl, carousel= false}) => {
     const { dispatch } = useBasket()
     const [loaded, setLoaded] = useState(false)
+    const imgRef = useRef(false)
 
     const addToBasket = () => {
         dispatch({ type: "ADD", payload: { id, name, price, smallpictureUrl, quantity: 1, type: "coffee" }  });
