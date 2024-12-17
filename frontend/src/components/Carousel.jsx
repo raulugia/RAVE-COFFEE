@@ -7,6 +7,7 @@ import '@splidejs/react-splide/css';
 import '@splidejs/react-splide/css/core';
 import underline from "../assets/underline.png"
 import { useBasket } from '../context/BasketContext';
+import CarouselItemCards from './skeletons/CarouselItemCards';
 
 const Carousel = ({header, type}) => {
     const [items, setItems] = useState([])
@@ -71,30 +72,36 @@ const Carousel = ({header, type}) => {
                 <img src={underline} alt="" className='w-full'/>
             </div>
         </div>
-        <div className='min-h-[460px]'>
-            <Splide options={splideOptions} 
-                onMounted={(splide) => {
-                    carouselRef.current = splide
-                    carouselRef.refresh()
-                }}
-            >
-            {
-                type === "coffee" ? (
-                    items.map((item, index) => (
-                        <SplideSlide key={index + item.name} className="flex self-stretch">
-                            <CoffeeCard  {...item} carousel={true}/>
-                        </SplideSlide>
-                    ))
-                ) : (
-                    items.map((item, index) => (
-                        <SplideSlide key={index + item.name} className="flex self-stretch">
-                            <EquipmentCard key={index + item.name} {...item} carousel={true}/>
-                        </SplideSlide>
-                    ))
-                )
-            }
-            </Splide>
-        </div>
+        {
+            loading ? (
+                <CarouselItemCards type={type}/>
+            ) : (
+                <div className='min-h-[460px]'>
+                    <Splide options={splideOptions} 
+                        onMounted={(splide) => {
+                            carouselRef.current = splide
+                            carouselRef.refresh()
+                        }}
+                    >
+                    {
+                        type === "coffee" ? (
+                            items.map((item, index) => (
+                                <SplideSlide key={index + item.name} className="flex self-stretch">
+                                    <CoffeeCard  {...item} carousel={true}/>
+                                </SplideSlide>
+                            ))
+                        ) : (
+                            items.map((item, index) => (
+                                <SplideSlide key={index + item.name} className="flex self-stretch">
+                                    <EquipmentCard key={index + item.name} {...item} carousel={true}/>
+                                </SplideSlide>
+                            ))
+                        )
+                    }
+                    </Splide>
+                </div>
+            )
+        }
     </div>
   )
 }
