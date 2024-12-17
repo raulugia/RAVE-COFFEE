@@ -66,7 +66,7 @@ const BasketModal = () => {
                 <div className='px-5 pb-5'>
                     <div className='flex justify-between font-fira font-semibold mb-3'>
                         <p>Subtotal <span>({itemsQuantity} item{itemsQuantity > 1 ? "s" : ""})</span></p>
-                        <p>£{totalPrice}</p>
+                        <p>£{totalPrice.toFixed(2)}</p>
                     </div>
                     <MainBtn text="CHECKOUT" method={handleCheckout}/>
                 </div>

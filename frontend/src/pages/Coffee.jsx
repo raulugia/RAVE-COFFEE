@@ -35,7 +35,7 @@ const Coffee = () => {
         imgAlt="coffee basket"
       />
 
-      <div className="px-5 md:px-[8%] mx-auto mb-10 max-w-[1550px]">
+      <div className="px-5 mx-auto mb-10 max-w-[1550px]">
         <div className="flex flex-col justify-center items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10">
           {coffeeTypes.map((coffee, index) => (
             <CoffeeCard key={index + coffee.name} {...coffee} />

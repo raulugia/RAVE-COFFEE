@@ -46,7 +46,7 @@ export const Equipment = () => {
     <div>
         <MainBanner cardHeader="COFFEE EQUIPMENT" cardText="Top-picks from our coffee gear range" imgSrc={equipmentBanner} imgAlt="equipment banner"/>
 
-        <div className='px-5 md:px-[8%] mx-auto mb-10 max-w-[1550px]'>
+        <div className='px-5 mx-auto mb-10 max-w-[1550px]'>
             <div className='flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10'>
                 {
                     allEquipments.map((equipment, index) => (
