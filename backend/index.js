@@ -17,12 +17,13 @@ if (!CLERK_SECRET_KEY) {
     process.exit(1);
 }
 
-const allowedOrigins = [
-    'http://localhost:5173',
-    'https://rave-coffee.vercel.app'
-];
+// const allowedOrigins = [
+//     'http://localhost:5173',
+//     'https://rave-coffee.vercel.app'
+// ];
 
-app.use(cors({ origin: allowedOrigins }));
+// app.use(cors({ origin: allowedOrigins }));
+app.use(cors({ origin: '*' }));
 app.use(express.json())
 
 //returns all coffees
