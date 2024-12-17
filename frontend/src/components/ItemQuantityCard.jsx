@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import MainBtn from '../components/MainBtn'
 import { useBasket } from '../context/BasketContext'
 
+//change item quantity
 
 const ItemQuantityCard = ({type, id, smallpictureUrl, name, price }) => {
     const [quantity, setQuantity] = useState(1)
