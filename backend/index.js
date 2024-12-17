@@ -92,8 +92,6 @@ app.post("/register", async(req, res) => {
         if (error.code === "P2002") {
             return res.status(409).json({ error: "A user with this email already exists." });
         }
-     
-        console.log(error)
         res.status(500).json({ error: "Internal server error." })
     }
 })
@@ -125,7 +123,6 @@ app.get("/account/details", requireAuth(), async(req, res) => {
 
         return res.status(200).json(user);
     }catch(error){
-        console.log(error)
         res.status(500).json({ error: "Internal server error." })
     }
 })
@@ -160,7 +157,7 @@ app.post("/account/add-address", requireAuth(), async(req, res) => {
     if (errors.length > 0) {
         return res.status(400).json({ errors });
     }
-    
+
     try{
         const user = await prisma.user.findUnique({
             where: {
@@ -212,7 +209,6 @@ app.post("/account/add-address", requireAuth(), async(req, res) => {
 
         return res.status(201).json({message: "Address added successfully", address});
     }catch(error){
-        console.log(error)
         res.status(500).json({ error: "Internal server error." })
     }
 })
@@ -299,7 +295,6 @@ app.put("/account/update-address", requireAuth(), async (req, res) => {
 
         return res.status(200).json({ message: "Address updated successfully", address });
     } catch (error) {
-        console.error("Error updating address:", error);
         return res.status(500).json({ error: "An error occurred while updating the address." });
     }
 });
@@ -319,7 +314,6 @@ app.post("/create-payment-intent", requireAuth(), async(req, res) => {
           console.log(paymentIntent.client_secret)
         return res.status(200).json({ clientSecret: paymentIntent.client_secret });
     }catch(error){
-        console.error("Error creating Payment Intent:", error.message);
         res.status(500).json({ error: error.message });
     }
 })
@@ -382,7 +376,7 @@ app.post("/create-order", requireAuth(), async(req, res) => {
 
         return res.status(201).json({ message: "Order created successfully", order });
     }catch(error){
-        console.log(error)
+        res.status(500).json({ error: "Internal Server Error"})
     }
 })
 
@@ -419,10 +413,10 @@ app.get("/recent-orders", requireAuth(), async(req, res) => {
                 }
             }
         })
-        console.log(orders)
+
         return res.json(orders)
     }catch(error){
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Internal Server Error"})
     }
 })
 
