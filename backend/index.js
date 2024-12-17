@@ -19,7 +19,7 @@ if (!CLERK_SECRET_KEY) {
 
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://rave-coffee.vercel.app/'
+    'https://rave-coffee.vercel.app'
 ];
 
 app.use(cors({ origin: allowedOrigins }));
