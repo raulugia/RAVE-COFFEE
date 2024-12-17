@@ -1,7 +1,7 @@
 import React from 'react'
 import MainCard from '../components/MainCard'
 import telephone from "../assets/Telephone.png"
-import underline from "../assets/Underline.png"
+import underline from "../assets/underline.png"
 
 const ContactUs = () => {
   return (
