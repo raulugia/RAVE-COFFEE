@@ -6,6 +6,7 @@ import PasswordFeedback from '../components/PasswordFeedback'
 import Input from '../components/Input'
 import axiosInstance from '../utils/axiosInstance'
 import Loading from '../components/Loading'
+import { useBasket } from '../context/BasketContext'
 
 const Register = () => {
     const [userData, setUserData] = useState({
@@ -22,6 +23,7 @@ const Register = () => {
     })
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const { setErrorData} = useBasket()
 
     const isDataValid = () => {
         //Ensure all fields are filled
@@ -46,6 +48,8 @@ const Register = () => {
         try{
             setLoading(true)
             setIsDisabled(true)
+            setErrorData(null)
+
             const response = await axiosInstance.post('/register', userData)
 
             if(response.status === 201){
@@ -53,8 +57,11 @@ const Register = () => {
                 navigate('/account/login')
             }
         }catch(error){
-            const errorMessage = error.response?.data?.error || 'An error occurred while registering. Please try again.'
-            alert(errorMessage)
+            setErrorData({
+                header: "Registration failed",
+                text: error.response?.data?.error || "An error occurred while registering. Ensure the data is correct and try again",
+                canClose: true
+            })
         }finally{
             setIsDisabled(false)
             setLoading(false)

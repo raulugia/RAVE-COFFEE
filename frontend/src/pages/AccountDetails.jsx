@@ -3,17 +3,21 @@ import Loading from '../components/Loading'
 import axiosInstance from '../utils/axiosInstance'
 import { useAuth } from '@clerk/clerk-react'
 import Address from '../components/Address'
-//TODO: loading component rendering must change - when we set loading to true after submitting, loading should be rendred on top of the existing component 
+import { useBasket } from "../context/BasketContext"
+
 const AccountDetails = () => {
     const [userDetails, setUserDetails] = useState(null)
     const [address, setAddress] = useState(null)
     const [loading, setLoading] = useState(false)
     const { getToken } = useAuth()
+    const { setErrorData } = useBasket()
 
     useEffect(() => {
         (
             async() => {
                 setLoading(true)
+                setErrorData(null)
+
                 try{
                     const token = await getToken()
                     const {data} = await axiosInstance.get("/account/details", {
@@ -23,7 +27,10 @@ const AccountDetails = () => {
                     setAddress(data.address)
                     setUserDetails(data)
                 }catch(error){
-                    alert('Failed to fetch user details')
+                    setErrorData({
+                        header: "Error fetching your data",
+                        text: "There was an error fetching your data. Please try again.",
+                    })
                 }finally{
                     setLoading(false)
                 }

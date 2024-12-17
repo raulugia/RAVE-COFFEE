@@ -6,6 +6,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import '@splidejs/react-splide/css/core';
 import underline from "../assets/underline.png"
+import { useBasket } from '../context/BasketContext';
 
 const Carousel = ({header, type}) => {
     const [items, setItems] = useState([])
@@ -13,6 +14,7 @@ const Carousel = ({header, type}) => {
     const carouselRef = useRef(null)
     const h1Ref = useRef(null)
     const underlineRef = useRef(null)
+    const { setErrorData } = useBasket()
 
     const splideOptions = {
         type: "loop",
@@ -27,6 +29,8 @@ const Carousel = ({header, type}) => {
             async() => {
                 try{
                     setLoading(true)
+                    setErrorData(null)
+
                     const { data } = await axiosInstance.get(`/carousel`, {
                         params: { type }
                     })
@@ -34,6 +38,10 @@ const Carousel = ({header, type}) => {
                     setItems(data)
                 }catch(error){
                     console.log(error)
+                    setErrorData({
+                        header: "Error fetching data",
+                        text: "An error occurred while fetching data. Please try again",
+                    })
                 }finally{
                     setLoading(false)
                 }
