@@ -149,7 +149,7 @@ const Register = () => {
                     <MainBtn text="CREATE" method={handleSubmit} disabled={isDisabled} />
                     <div className="flex gap-2 justify-center mt-5">
                         <p>Have an account?</p>
-                        <Link to="/account/login">Login</Link>
+                        <Link to="/login">Login</Link>
                     </div>
                 </div>
             </form>

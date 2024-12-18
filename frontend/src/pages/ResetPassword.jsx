@@ -136,8 +136,8 @@ const AccountResetPassword = () => {
                     <div className='flex flex-col gap-10 items-center my-10 font-fira max-w-[400px]'>
                         <p className='font-semibold text-center'>Please enter the code se sent to your email and the new password</p>
                         <form className='w-full flex flex-col gap-3'>
-                            <Input type="text" placeholder="Code" onChange={e => setUserData(prevUserData => ({...prevUserData, code: e.target.value}))} onBlur={handleCode} errors={errors.code}/>
-                            <Input type="password" placeholder="New Password" onChange={handlePasswordChange} />
+                            <Input type="text" placeholder="Code" label="code" onChange={e => setUserData(prevUserData => ({...prevUserData, code: e.target.value}))} onBlur={handleCode} errors={errors.code}/>
+                            <Input type="password" placeholder="New Password" label="new password" onChange={handlePasswordChange} />
                             <PasswordFeedback password={userData.newPassword} errors={errors} isPassword={userData.newPassword.trim().length > 0}/>
                             <MainBtn text="RESET PASSWORD" method={resetPassword}/>
                         </form>
@@ -146,7 +146,7 @@ const AccountResetPassword = () => {
                     <div className='flex flex-col gap-10 items-center mt-10 font-fira max-w-[400px]'>
                         <p className='font-semibold text-center'>Please enter your email and we'll send you a reset code</p>
                         <form className='w-full flex flex-col gap-5'>
-                            <Input type="email" placeholder="Email" 
+                            <Input type="email" placeholder="Email" label="email"
                                 onChange={e => setUserData(prevUserData => ({...prevUserData, email: e.target.value}))} errors={errors.email}
                                 onBlur={handleEmail}
                             />
