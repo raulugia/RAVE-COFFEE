@@ -4,16 +4,19 @@ import CoffeeCard from "../components/CoffeeCard";
 import coffeeBanner from "../assets/coffee_banner.jpg";
 import axiosInstance from "../utils/axiosInstance";
 import { useBasket } from "../context/BasketContext";
+import ItemCardSkeleton from "../components/skeletons/ItemCardSkeleton";
 
 const Coffee = () => {
   const [coffeeTypes, setCoffeeTypes] = useState([]);
   const { setErrorData } = useBasket();
-  //fetch all coffees and update state
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     
     (async () => {
       try {
-        setErrorData(null) 
+        setErrorData(null)
+        setLoading(true)
 
         const { data } = await axiosInstance.get("/coffee");
         setCoffeeTypes(data);
@@ -22,6 +25,8 @@ const Coffee = () => {
           header: "Error fetching data",
           text: "n error getting the data. Please try again",
         });
+      }finally{
+        setLoading(false)
       }
     })();
   }, []);
@@ -36,11 +41,17 @@ const Coffee = () => {
       />
 
       <div className="px-5 mx-auto mb-10 max-w-[1550px]">
-        <div className="flex flex-col justify-center items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10">
-          {coffeeTypes.map((coffee, index) => (
-            <CoffeeCard key={index + coffee.name} {...coffee} />
-          ))}
-        </div>
+        {
+          loading ? (
+            <ItemCardSkeleton type="coffee" />
+          ) : (
+            <div className="flex flex-col justify-center items-center lg:items-stretch lg:flex-row flex-wrap md:gap-10">
+              {coffeeTypes.map((coffee, index) => (
+                <CoffeeCard key={index + coffee.name} {...coffee} />
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
   );
