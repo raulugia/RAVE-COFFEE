@@ -77,8 +77,8 @@ const AccountChangePassword = () => {
 
         <div className='w-full flex flex-col gap-10 items-center mt-10 font-fira max-w-[400px]'>
             <form className='w-full flex flex-col gap-5'>
-                <Input type="password" value={passwords.currentPassword} name="currentPassword" placeholder="Current Password" onChange={handlePasswordChange} />
-                <Input type="password" value={passwords.newPassword} name="newPassword" placeholder="New Password" onChange={handlePasswordChange} />
+                <Input type="password" value={passwords.currentPassword} name="currentPassword" label="current password" placeholder="Current Password" onChange={handlePasswordChange} />
+                <Input type="password" value={passwords.newPassword} name="newPassword" label="new password" placeholder="New Password" onChange={handlePasswordChange} />
                 <PasswordFeedback password={passwords.newPassword} errors={errors} isPassword={passwords.newPassword.trim().length > 0}/>
                 <MainBtn text="CHANGE PASSWORD" method={resetPassword}/>
             </form>

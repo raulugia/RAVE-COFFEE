@@ -117,11 +117,11 @@ const AddressForm = ({setLoading, setAddress, existingAddress}) => {
   return (
     <div className='mb-10'>
         <form className='flex flex-col gap-3 min-w-[400px] mb-10'>
-            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.line1} type="text" name="line1" placeholder="123 Main St" required/>
-            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.line2} type="text" name="line2" placeholder="2nd floor (optional)" />
-            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.city} type="text" name="city" placeholder="London" required/>
-            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.postcode} type="text" name="postcode" placeholder="E10 5AN" required/>
-            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.county} type="text" name="county" placeholder="Greater London" required/>
+            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.line1} type="text" name="line1" label="line 1" placeholder="123 Main St" required/>
+            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.line2} type="text" name="line2" label="line 2" placeholder="2nd floor (optional)" />
+            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.city} type="text" name="city" label="city" placeholder="London" required/>
+            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.postcode} type="text" name="postcode" label="postcode" placeholder="E10 5AN" required/>
+            <Input onChange={handleInputChange} onBlur={validateInput} errors={errors.county} type="text" name="county" label="county" placeholder="Greater London" required/>
             <Input type="text" name="country" placeholder="United Kingdom" value="United Kingdom" disabled={true}/>
         </form>
         <MainBtn text="SAVE ADDRESS" method={handleSubmit} disabled={isDisabled}/>

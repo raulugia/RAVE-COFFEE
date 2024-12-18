@@ -126,19 +126,19 @@ const Register = () => {
 
             <form className='w-full mt-10 font-fira'>
                 <div className='flex flex-col gap-3 mb-5'>
-                    <Input type="text" name="first_name" placeholder='First Name' errors={errors.first_name}
+                    <Input type="text" name="first_name" label="first name" placeholder='First Name' errors={errors.first_name}
                         onChange={handleInputChange}
                         onBlur={handleName_Surname}
                     />
-                    <Input type="text" name="last_name" placeholder='Last Name' errors={errors.last_name}
+                    <Input type="text" name="last_name" label="last name" placeholder='Last Name' errors={errors.last_name}
                         onChange={handleInputChange}
                         onBlur={handleName_Surname}
                     />
-                    <Input type="email" name="email" placeholder='Email address' errors={errors.email}
+                    <Input type="email" name="email" label="email address" placeholder='Email address' errors={errors.email}
                         onChange={handleInputChange}
                         onBlur={handleEmail}
                     />
-                    <Input type="password" name="password" placeholder='Password'
+                    <Input type="password" label="password" name="password" placeholder='Password'
                         onChange={handlePassword}
                     />
                 </div>
