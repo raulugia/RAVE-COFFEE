@@ -80,7 +80,7 @@ const Carousel = ({header, type}) => {
                     <Splide options={splideOptions} 
                         onMounted={(splide) => {
                             carouselRef.current = splide
-                            carouselRef.refresh()
+                            carouselRef.current.refresh()
                         }}
                     >
                     {
