@@ -21,9 +21,10 @@ const Coffee = () => {
         const { data } = await axiosInstance.get("/coffee");
         setCoffeeTypes(data);
       } catch (error) {
+        console.log(error);
         setErrorData({
           header: "Error fetching data",
-          text: "n error getting the data. Please try again",
+          text: "There was an error getting the data. Please try again",
         });
       }finally{
         setLoading(false)

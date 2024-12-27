@@ -30,7 +30,6 @@ app.use(express.json())
 app.get("/coffee", async(req, res) => {
     try{
         const coffees = await prisma.coffee.findMany();
-
         return res.json(coffees);
     }catch(error){
         res.status(500).json({error: "Internal Server Error"})
