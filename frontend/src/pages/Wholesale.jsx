@@ -54,7 +54,7 @@ const Wholesale = () => {
                 </div>
             </div>
 
-            <div className='flex flex-col md:flex-row gap-10 px-5 md:px-20 mb-10 md:mb-20 items-end'>
+            <div className='flex flex-col md:flex-row md:justify-center gap-10 px-5 md:px-20 mb-10 md:mb-20'>
                 {
                     wholesale_cards_text.map((text, index) => (
                         <WholesaleCard imgSrc={text.imgSource} imgAlt="wholesale coffee bean" header={text.header} text={text.text} key={index+text.header}/>
